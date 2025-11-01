@@ -20,23 +20,10 @@ export default defineConfig({
     lib: {
       entry: resolve(__dirname, 'src', 'index.ts'),
       name: 'shared',
-      formats: ['es', 'cjs'],
+      formats: ['iife'],
       fileName: (format) => `shared.${format}.js`,
     },
-    rollupOptions: {
-      treeshake: {
-        moduleSideEffects: false,
-        propertyReadSideEffects: false,
-        tryCatchDeoptimization: false,
-      },
-      output: {
-        inlineDynamicImports: false,
-        preserveModules: true,
-        preserveModulesRoot: 'src',
-        sourcemap: false,
-      },
-    },
     minify: false,
-    emptyOutDir: true,
+    emptyOutDir: false,
   }
 })

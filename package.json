@@ -1,0 +1,85 @@
+{
+  "name": "@avensio/shared",
+  "version": "1.1.3",
+  "private": false,
+  "main": "./dist/shared.es.js",
+  "module": "./dist/shared.es.js",
+  "browser": "./dist/shared.iife.js",
+  "types": "./dist/shared.es.d.ts",
+  "type": "module",
+  "author": "Armin Kunkel",
+  "scripts": {
+    "dev": "vitest --logHeapUsage --coverage",
+    "bench": "vitest bench test/benchmarks/",
+    "lint": "eslint src/",
+    "build": "pnpm dlx vite build",
+    "test": "vitest --coverage test/",
+    "preview": "vite preview"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Avensio/shared.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Avensio/shared/issues"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/shared.es.d.ts",
+      "import": "./dist/shared.es.js",
+      "require": "./dist/shared.cjs.js",
+      "default": "./dist/shared.iife.js"
+    }
+  },
+  "keywords": [
+    "stack",
+    "linkedstack",
+    "list",
+    "linkedlist",
+    "doublylinkedlist",
+    "cycliclinkedlist",
+    "queue",
+    "linkedqueue",
+    "priorityqueue",
+    "dequeue",
+    "heap",
+    "fibonacciheap",
+    "quicksort",
+    "heapsort",
+    "graph",
+    "datastructures",
+    "algorithms",
+    "depthfirstsearch",
+    "breadthfirstsearch",
+    "topologicsorting",
+    "topologicalsorting",
+    "connectedcomponents",
+    "minimalspanningtree",
+    "cycles"
+  ],
+  "files": [
+    "dist"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^24.9.1",
+    "@typescript-eslint/eslint-plugin": "^8.46.2",
+    "@typescript-eslint/parser": "^8.46.2",
+    "@vitest/browser": "^4.0.3",
+    "@vitest/coverage-v8": "^4.0.3",
+    "@vitest/ui": "^4.0.3",
+    "chalk": "^5.6.2",
+    "eslint": "^9.38.0",
+    "typescript": "^5.9.3",
+    "vite": "^7.1.12",
+    "vite-plugin-dts": "^4.5.4",
+    "vitest": "^4.0.3"
+  },
+  "dependencies": {
+    "tiny-typed-emitter": "^2.1.0"
+  }
+}

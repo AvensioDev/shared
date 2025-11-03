@@ -2178,7 +2178,7 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
       expect(list.get(0)).toBeUndefined()
     })
     it('should sort the list', () => {
-      function fillList() {
+      function fillCollection() {
         list.add(1)
         list.add(-1)
         list.add(0)
@@ -2202,14 +2202,14 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
         expect(list.get(4)).toBe(2)
       }
 
-      fillList()
+      fillCollection()
       assertValues()
       list.comparator = numberComparatorASC
       list.sort()
       assertSortedValues()
       list.clear()
 
-      fillList()
+      fillCollection()
       assertValues()
       list.comparator = null!
       list.sort(numberComparatorASC)
@@ -2244,11 +2244,11 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
       list.add(1)
       list.add(-1)
       list.comparator = numberComparatorASC
-      expect(list.includes(1)).toBeTruthy()
-      expect(list.includes(-1)).toBeTruthy()
-      expect(list.includes(0)).toBeTruthy()
-      expect(list.includes(2)).toBeFalsy()
-      expect(list.includes(-2)).toBeFalsy()
+      expect(list.contains(1)).toBeTruthy()
+      expect(list.contains(-1)).toBeTruthy()
+      expect(list.contains(0)).toBeTruthy()
+      expect(list.contains(2)).toBeFalsy()
+      expect(list.contains(-2)).toBeFalsy()
     });
     describe('some', () => {
       it('contains no element equal to 1', () => {
@@ -2363,3 +2363,37 @@ describe('cyclic linked list', () => {
   linkedListTests(list, CyclicDoublyLinkedList<number>)
   iteratorTests(list)
 })
+
+describe('List coverage', () => {
+  it('covers List behaviour', () => exerciseList(new List<number>()))
+  it('covers LinkedList behaviour', () => exerciseList(new LinkedList<number>()))
+  it('covers DoublyLinkedList behaviour', () => exerciseList(new DoublyLinkedList<number>()))
+  it('covers CyclicDoublyLinkedList behaviour', () => {
+    exerciseList(new CyclicDoublyLinkedList<number>())
+    const single = new CyclicDoublyLinkedList<number>()
+    single.add(42)
+    expect(Array.from(single.reverseIterator())).toEqual([42])
+  })
+})
+
+function exerciseList(list: List<number> | LinkedList<number> | DoublyLinkedList<number> | CyclicDoublyLinkedList<number>) {
+  for (const value of [1, 2, 3, 4, 5]) list.add(value)
+
+  list.comparator = numberComparatorASC
+
+  expect(list.map(v => v + 1).get(0)).toBe(2)
+  expect(list.reduce((acc, value) => acc + value, 1)).toBe(16)
+  expect(list.filter(v => v % 2 === 0).size).toBe(2)
+  expect(list.every(v => v > 0)).toBe(true)
+  expect(list.some(v => v === 3)).toBe(true)
+
+  const snapshot = Array.from(list)
+  expect(list.remove(1)).toBe(snapshot[1])
+  list.add(6)
+  const current = Array.from(list)
+  const valueIndex = current.indexOf(6)
+  expect(valueIndex).toBeGreaterThan(-1)
+  expect(list.remove(6, false)).toBe(valueIndex)
+
+  expect(Array.from(list.reverseIterator())).toEqual(Array.from(list).reverse())
+}

@@ -38,12 +38,17 @@ export interface IReverseIterable<E> {
 }
 
 export interface ICollection<E> extends ISortable<E>, Iterable<E>, IReverseIterable<E> {
-  add(e: E): void
+  comparator: Comparator<E>
   size: number
-  isEmpty(): boolean
+  add(element: E): void
+  addAll(collection: ICollection<E>): void
+  remove(e: E | number, isIndex?: boolean): E | number
   clear(): void
+  isEmpty(): boolean
+  contains(element: E): boolean
 }
 
+// @ts-ignore
 export * from './stack'
 export * from './queue'
 export * from './list'

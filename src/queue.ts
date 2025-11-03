@@ -1,4 +1,10 @@
-import {Comparator, FibonacciHeap, ICollection, IStack, Node, Ordering, quicksort} from './index'
+import {
+  type Comparator,
+  type ICollection,
+  type IStack,
+  type Node,
+  Ordering,
+} from './'
 
 export interface IQueue<E> extends ICollection<E> {
   enqueue(e: E): void
@@ -10,12 +16,13 @@ export interface IDequeue<E> extends IQueue<E>, IStack<E> { }
 
 export class Queue<E> implements IQueue<E> {
   private arr: E[] = []
+  private headIndex = 0
   size = 0
   comparator: Comparator<E> = null!
 
   constructor(elements?: Iterable<E>, comparator?: Comparator<E>) {
     if (elements) {
-      for(const el of elements) {
+      for (const el of elements) {
         this.enqueue(el)
       }
     }
@@ -26,27 +33,54 @@ export class Queue<E> implements IQueue<E> {
     }
   }
 
+  private compactIfNeeded() {
+    const shouldCompact = this.headIndex > 0 && this.headIndex >= this.arr.length / 2
+    if (shouldCompact) {
+      this.arr = this.arr.slice(this.headIndex)
+      this.headIndex = 0
+    }
+  }
+
+  private toArray(): E[] {
+    return this.arr.slice(this.headIndex, this.headIndex + this.size)
+  }
+
   clear(): void {
-    this.arr.splice(0, this.size)
+    this.arr = []
+    this.headIndex = 0
     this.size = 0
   }
 
   dequeue(): E {
-    const head = this.arr.pop()
-    if (head === undefined) throw new Error('no such element')
+    if (this.size === 0) throw new Error('no such element')
+    const value = this.arr[this.headIndex]
+    this.arr[this.headIndex] = undefined!
+    this.headIndex++
     this.size--
-    return head
+
+    if (this.size === 0) {
+      this.clear()
+    } else {
+      this.compactIfNeeded()
+    }
+
+    return value
   }
 
   enqueue(e: E): void {
-    if (e !== undefined) {
-      this.arr.unshift(e)
-      this.size++
-    }
+    if (e === undefined) return
+    this.arr.push(e)
+    this.size++
   }
 
   add(e: E): void {
     this.enqueue(e)
+  }
+
+  addAll(collection: ICollection<E>): void {
+    for (let e of collection) {
+      this.enqueue(e)
+    }
   }
 
   isEmpty(): boolean {
@@ -54,41 +88,93 @@ export class Queue<E> implements IQueue<E> {
   }
 
   head(): E {
-    const head = this.arr[this.size - 1]
-    if (head === undefined) throw new Error('no such element')
-    return head
+    if (this.size === 0) throw new Error('no such element')
+    const value = this.arr[this.headIndex]
+    if (value === undefined) throw new Error('no such element')
+    return value
+  }
+
+  /**
+   * Checks if an element is contained in the Queue.
+   * For this function to work, a comparator must be set!
+   * O(size) amortized
+   * @param element
+   */
+  contains(element: E): boolean {
+    if (this.comparator) {
+      for (let i = 0; i < this.size; i++) {
+        const value = this.arr[this.headIndex + i]
+        if (this.comparator(element, value) === Ordering.EQ) return true
+      }
+    } else {
+      for (let i = 0; i < this.size; i++) {
+        const value = this.arr[this.headIndex + i]
+        if (value === element) return true
+      }
+    }
+    return false
   }
 
   [Symbol.iterator](): Iterator<E> {
     const queue = this
-    let index = this.size - 1
+    let index = 0
+    const end = this.size
     return {
-      next: () => {
-        let top
-        if (index > -2) top = queue.arr[index--]
+      next(): IteratorResult<E> {
+        if (index >= end) {
+          return { done: true, value: undefined! }
+        }
+        const value = queue.arr[queue.headIndex + index]
+        index++
         return {
-          done: index === -2,
-          value: top
-        } as IteratorResult<E>
+          done: false,
+          value
+        }
       }
     }
   }
 
   *reverseIterator(): Generator<E> {
-    for (let i = 0; i < this.size; i++) {
-      yield this.arr[i]
+    for (let i = this.size - 1; i >= 0; i--) {
+      yield this.arr[this.headIndex + i]
     }
   }
 
   sort(cmp?: Comparator<E>): void {
-    const backupCmp = this.comparator
+    const comparator = cmp || this.comparator
+    if (!comparator) throw new Error('comparator must be set before sorting')
+    const sorted = this.toArray().sort((a, b) => comparator(a, b))
+    this.arr = sorted
+    this.headIndex = 0
+    this.size = sorted.length
     if (cmp) {
-      this.comparator = cmp
+      this.comparator = comparator
     }
-    this.arr
-      .sort(this.comparator)
-      .reverse()
-    this.comparator = backupCmp
+  }
+
+  remove(target: E | number, isIndex: boolean = true): E | number {
+    if (this.size === 0) throw new Error('no such element')
+    let index: number
+    let values: E[] | undefined
+    if (isIndex) {
+      index = Number(target)
+    } else {
+      values = this.toArray()
+      const cmp = this.comparator
+      if (cmp) {
+        index = values.findIndex(value => cmp(value, target as E) === Ordering.EQ)
+      } else {
+        index = values.findIndex(value => value === target)
+      }
+    }
+    if (index < 0 || index >= this.size) throw new Error('no such element')
+    values = values ?? this.toArray()
+    const [removed] = values.splice(index, 1)
+    if (removed === undefined) throw new Error('no such element')
+    this.arr = values
+    this.headIndex = 0
+    this.size = values.length
+    return isIndex ? removed : index
   }
 }
 
@@ -129,6 +215,12 @@ export class LinkedQueue<E> implements IQueue<E> {
     this.enqueue(e)
   }
 
+  addAll(collection: ICollection<E>): void {
+    for (let e of collection) {
+      this.enqueue(e)
+    }
+  }
+
   /**
    * O(1)
    */
@@ -139,7 +231,7 @@ export class LinkedQueue<E> implements IQueue<E> {
     this.size--
     const value = head!.value
     if (this.isEmpty()) {
-      this.tail = this.tail!.value = this.tail!.next = this.tail!.prev = undefined! // GC
+      this.tail = undefined
     }
 
     head!.value = head!.prev = head!.next = undefined! // GC
@@ -165,8 +257,27 @@ export class LinkedQueue<E> implements IQueue<E> {
    * O(1)
    */
   clear() {
-    this._head = undefined
+    this._head = this.tail = undefined
     this.size = 0
+  }
+
+  /**
+   * Checks if an element is contained in the LinkedQueue.
+   * For this function to work, a comparator must be set!
+   * O(size) amortized
+   * @param element
+   */
+  contains(element: E): boolean {
+    if (this.comparator) {
+      for (const e of this) {
+        if (this.comparator(element, e) === Ordering.EQ) return true
+      }
+    } else {
+      for (const e of this) {
+        if (e === element) return true
+      }
+    }
+    return false
   }
 
   /**
@@ -198,52 +309,157 @@ export class LinkedQueue<E> implements IQueue<E> {
   }
 
   sort(cmp?: Comparator<E>): void {
-    const sorted = quicksort(this, cmp || this.comparator, () => new LinkedQueue())
+    const comparator = cmp || this.comparator
+    if (!comparator) throw new Error('comparator must be set before sorting')
+    const values = Array.from(this).sort((a, b) => comparator(a, b))
     this.clear()
-    for (const sortedElement of sorted) {
-      this.enqueue(sortedElement)
+    for (const value of values) {
+      this.enqueue(value)
     }
+    if (cmp) {
+      this.comparator = comparator
+    }
+  }
+
+  private removeAtIndex(index: number): E {
+    if (index < 0 || index >= this.size) throw new Error('no such element')
+    if (index === 0) return this.dequeue()
+
+    let prev = this._head
+    for (let i = 0; i < index - 1; i++) {
+      prev = prev?.next
+    }
+    const toRemove = prev?.next
+    if (!prev || !toRemove) throw new Error('no such element')
+    prev.next = toRemove.next
+    if (toRemove === this.tail) {
+      this.tail = prev
+    }
+    this.size--
+    const value = toRemove.value
+    toRemove.value = toRemove.next = toRemove.prev = undefined!
+    return value
+  }
+
+  remove(target: E | number, isIndex: boolean = true): E | number {
+    if (this.size === 0) throw new Error('no such element')
+    let index: number
+    if (isIndex) {
+      index = Number(target)
+    } else {
+      let node = this._head
+      index = -1
+      let i = 0
+      while (node) {
+        const match = this.comparator ? this.comparator(node.value, target as E) === Ordering.EQ : node.value === target
+        if (match) {
+          index = i
+          break
+        }
+        node = node.next
+        i++
+      }
+    }
+    if (index < 0 || index >= this.size) throw new Error('no such element')
+    const removed = this.removeAtIndex(index)
+    return isIndex ? removed : index
   }
 }
 
 export class PriorityQueue<E> implements IQueue<E> {
+  private heap: E[] = []
   size = 0
   comparator: Comparator<E>
-  heap: FibonacciHeap<E>
 
   constructor(comparator: Comparator<E>, elements?: Iterable<E>) {
     this.comparator = comparator
-    this.heap = new FibonacciHeap<E>(comparator)
     if (elements) {
-      for (const e of elements) {
-        this.heap.insert(e)
-        this.size++
+      for (const el of elements) {
+        this.enqueue(el)
       }
     }
   }
 
-  enqueue(e: E): void {
-    if (e !== undefined) {
-      this.heap.insert(e)
-      this.size++
+  private parent(index: number) {
+    return Math.floor((index - 1) / 2)
+  }
+
+  private left(index: number) {
+    return index * 2 + 1
+  }
+
+  private right(index: number) {
+    return index * 2 + 2
+  }
+
+  private swap(i: number, j: number) {
+    const tmp = this.heap[i]
+    this.heap[i] = this.heap[j]
+    this.heap[j] = tmp
+  }
+
+  private siftUp(index: number) {
+    let i = index
+    while (i > 0) {
+      const parentIndex = this.parent(i)
+      if (this.comparator(this.heap[i], this.heap[parentIndex]) !== Ordering.LT) break
+      this.swap(i, parentIndex)
+      i = parentIndex
     }
   }
 
-  dequeue(): E {
-    const minNode = this.heap.extractMin()
-    this.size--
-    const value = minNode.value
-    minNode.value = minNode.parent = minNode.child = minNode.left = minNode.right = undefined! // GC
-    return value
+  private siftDown(index: number) {
+    let i = index
+    while (true) {
+      const left = this.left(i)
+      const right = this.right(i)
+      let smallest = i
+
+      if (left < this.size && this.comparator(this.heap[left], this.heap[smallest]) === Ordering.LT) {
+        smallest = left
+      }
+      if (right < this.size && this.comparator(this.heap[right], this.heap[smallest]) === Ordering.LT) {
+        smallest = right
+      }
+
+      if (smallest === i) break
+      this.swap(i, smallest)
+      i = smallest
+    }
   }
 
-  head(): E {
-    if (this.size === 0) throw new Error('no such element')
-    return this.heap.minimum().value
+  enqueue(e: E): void {
+    if (e === undefined) return
+    this.heap[this.size] = e
+    this.size++
+    this.siftUp(this.size - 1)
   }
 
   add(e: E): void {
     this.enqueue(e)
+  }
+
+  addAll(collection: ICollection<E>): void {
+    for (const e of collection) {
+      this.enqueue(e)
+    }
+  }
+
+  dequeue(): E {
+    if (this.size === 0) throw new Error('no such element')
+    const min = this.heap[0]
+    const last = this.heap.pop()!
+    this.size--
+    if (this.size > 0) {
+      this.heap[0] = last
+      this.siftDown(0)
+    }
+    return min
+  }
+
+  head(): E {
+    if (this.size === 0) throw new Error('no such element')
+    return this.heap[0]
   }
 
   isEmpty(): boolean {
@@ -251,27 +467,81 @@ export class PriorityQueue<E> implements IQueue<E> {
   }
 
   clear(): void {
-    this.heap.clear()
+    this.heap = []
     this.size = 0
   }
 
+  contains(element: E): boolean {
+    if (this.comparator) {
+      for (let i = 0; i < this.size; i++) {
+        if (this.comparator(element, this.heap[i]) === Ordering.EQ) return true
+      }
+    } else {
+      for (let i = 0; i < this.size; i++) {
+        if (this.heap[i] === element) return true
+      }
+    }
+    return false
+  }
+
+  private snapshotSorted(): E[] {
+    const copy = this.heap.slice(0, this.size)
+    copy.sort((a, b) => this.comparator(a, b))
+    return copy
+  }
+
   [Symbol.iterator](): Iterator<E> {
-    return this.heap[Symbol.iterator]()
+    const values = this.snapshotSorted()
+    let index = 0
+    return {
+      next: () => {
+        if (index >= values.length) return { done: true, value: undefined as unknown as E }
+        return { done: false, value: values[index++] }
+      }
+    }
   }
 
   *reverseIterator(): Generator<E> {
-    const tmp = []
-    for (const e of this) {
-      tmp.push(e)
-    }
-
-    for (const e of tmp.reverse()) {
-      yield e
+    const values = this.snapshotSorted()
+    for (let i = values.length - 1; i >= 0; i--) {
+      yield values[i]
     }
   }
 
   sort(cmp?: Comparator<E>): void {
-    this.heap.sort(cmp || this.comparator)
+    const comparator = cmp || this.comparator
+    if (!comparator) throw new Error('comparator must be set before sorting')
+    const values = this.snapshotSorted().sort((a, b) => comparator(a, b))
+    if (cmp) {
+      this.comparator = comparator
+    }
+    this.heap = []
+    this.size = 0
+    for (const value of values) {
+      this.enqueue(value)
+    }
+  }
+
+  remove(target: E | number, isIndex: boolean = true): E | number {
+    if (this.size === 0) throw new Error('no such element')
+    const values = this.snapshotSorted()
+    let index: number
+    if (isIndex) {
+      index = Number(target)
+    } else if (this.comparator) {
+      index = values.findIndex(value => this.comparator(value, target as E) === Ordering.EQ)
+    } else {
+      index = values.findIndex(value => value === target)
+    }
+    if (index < 0 || index >= values.length) throw new Error('no such element')
+    const [removed] = values.splice(index, 1)
+    if (removed === undefined) throw new Error('no such element')
+    this.heap = []
+    this.size = 0
+    for (const value of values) {
+      this.enqueue(value)
+    }
+    return isIndex ? removed : index
   }
 }
 
@@ -316,6 +586,12 @@ export class Dequeue<E> implements IDequeue<E> {
 
   add(e: E): void {
     this.enqueue(e)
+  }
+
+  addAll(collection: ICollection<E>): void {
+    for (let e of collection) {
+      this.enqueue(e)
+    }
   }
 
   /**
@@ -414,12 +690,20 @@ export class Dequeue<E> implements IDequeue<E> {
   }
 
   /**
-   * For this method to work, a comparator must be set
-   * @param e
+   * Checks if an element is contained in the Dequeue.
+   * For this function to work, a comparator must be set!
+   * O(size) amortized
+   * @param element
    */
-  contains(e: E): boolean {
-    for (const _e of this) {
-      if (this.comparator(e, _e) === Ordering.EQ) return true
+  contains(element: E): boolean {
+    if (this.comparator) {
+      for (const e of this) {
+        if (this.comparator(element, e) === Ordering.EQ) return true
+      }
+    } else {
+      for (const e of this) {
+        if (e === element) return true
+      }
     }
     return false
   }
@@ -459,10 +743,57 @@ export class Dequeue<E> implements IDequeue<E> {
   }
 
   sort(cmp?: Comparator<E>): void {
-    const sorted = quicksort(this, cmp || this.comparator, () => new Dequeue())
+    const comparator = cmp || this.comparator
+    if (!comparator) throw new Error('comparator must be set before sorting')
+    const values = Array.from(this).sort((a, b) => comparator(a, b))
     this.clear()
-    for (const sortedElement of sorted) {
-      this.enqueue(sortedElement)
+    for (const value of values) {
+      this.enqueue(value)
     }
+    if (cmp) {
+      this.comparator = comparator
+    }
+  }
+
+  private removeAtIndex(index: number): E {
+    if (index < 0 || index >= this.size) throw new Error('no such element')
+    if (index === 0) return this.dequeue()
+    if (index === this.size - 1) return this.pop()
+
+    let node = this._head
+    for (let i = 0; i < index; i++) {
+      node = node?.next
+    }
+    if (!node) throw new Error('no such element')
+    node.prev!.next = node.next
+    node.next!.prev = node.prev
+    const value = node.value
+    node.value = node.next = node.prev = undefined!
+    this.size--
+    return value
+  }
+
+  remove(target: E | number, isIndex: boolean = true): E | number {
+    if (this.size === 0) throw new Error('no such element')
+    let index: number
+    if (isIndex) {
+      index = Number(target)
+    } else {
+      let node = this._head
+      index = -1
+      let i = 0
+      while (node) {
+        const match = this.comparator ? this.comparator(node.value, target as E) === Ordering.EQ : node.value === target
+        if (match) {
+          index = i
+          break
+        }
+        node = node.next
+        i++
+      }
+    }
+    if (index < 0 || index >= this.size) throw new Error('no such element')
+    const removed = this.removeAtIndex(index)
+    return isIndex ? removed : index
   }
 }

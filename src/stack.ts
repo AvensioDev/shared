@@ -1,11 +1,15 @@
-import {Comparator, ICollection, Node, Ordering, quicksort} from './index'
+import {
+  type Comparator,
+  type ICollection,
+  type Node,
+  Ordering,
+} from './'
 
 export interface IStack<E> extends ICollection<E> {
   comparator: Comparator<E>
   push(e: E): void
   pop(): E
   top(): E
-  contains(e: E): boolean
 }
 
 export class Stack<E> implements IStack<E> {
@@ -50,12 +54,20 @@ export class Stack<E> implements IStack<E> {
   }
 
   /**
-   * To use this method, a comparator must be set
-   * @param e
+   * Checks if an element is contained in the Stack.
+   * For this function to work, a comparator must be set!
+   * O(size) amortized
+   * @param element
    */
-  contains(e: E): boolean {
-    for (const _e of this) {
-      if (this.comparator(e, _e) === Ordering.EQ) return true
+  contains(element: E): boolean {
+    if (this.comparator) {
+      for (const value of this) {
+        if (this.comparator(element, value) === Ordering.EQ) return true
+      }
+    } else {
+      for (const value of this) {
+        if (value === element) return true
+      }
     }
     return false
   }
@@ -77,6 +89,32 @@ export class Stack<E> implements IStack<E> {
 
   add(e: E): void {
     this.push(e)
+  }
+
+  addAll(collection: ICollection<E>) {
+    for (let e of collection) {
+      this.push(e)
+    }
+  }
+
+  remove(target: E | number, isIndex: boolean = true): E | number {
+    if (this.size === 0) throw new Error('no such element')
+    let indexFromTop: number
+    if (isIndex) {
+      indexFromTop = Number(target)
+    } else {
+      const indexFromBottom = this.arr.findIndex(value => this.comparator
+        ? this.comparator(value, target as E) === Ordering.EQ
+        : value === target)
+      if (indexFromBottom === -1) throw new Error('no such element')
+      indexFromTop = this.size - 1 - indexFromBottom
+    }
+    if (indexFromTop < 0 || indexFromTop >= this.size) throw new Error('no such element')
+    const actual = this.size - 1 - indexFromTop
+    const [removed] = this.arr.splice(actual, 1)
+    this.size--
+    if (removed === undefined) throw new Error('no such element')
+    return isIndex ? removed : indexFromTop
   }
 
   *reverseIterator(): Generator<E> {
@@ -162,8 +200,14 @@ export class LinkedStack<E> implements IStack<E> {
    * @param e
    */
   contains(e: E): boolean {
-    for (const _e of this) {
-      if (this.comparator(e, _e) === Ordering.EQ) return true
+    if (this.comparator) {
+      for (const value of this) {
+        if (this.comparator(e, value) === Ordering.EQ) return true
+      }
+    } else {
+      for (const value of this) {
+        if (value === e) return true
+      }
     }
     return false
   }
@@ -189,6 +233,53 @@ export class LinkedStack<E> implements IStack<E> {
     this.push(e)
   }
 
+  addAll(collection: ICollection<E>) {
+    for (let e of collection) {
+      this.push(e)
+    }
+  }
+
+  private removeAtIndex(index: number): E {
+    if (index < 0 || index >= this.size) throw new Error('no such element')
+    if (index === 0) return this.pop()
+
+    let prev = this._top
+    for (let i = 0; i < index - 1; i++) {
+      prev = prev?.prev
+    }
+    const toRemove = prev?.prev
+    if (!prev || !toRemove) throw new Error('no such element')
+    prev.prev = toRemove.prev
+    this.size--
+    const value = toRemove.value
+    toRemove.value = toRemove.prev = toRemove.next = undefined!
+    return value
+  }
+
+  remove(target: E | number, isIndex: boolean = true): E | number {
+    if (this.size === 0) throw new Error('no such element')
+    let index: number
+    if (isIndex) {
+      index = Number(target)
+    } else {
+      let i = 0
+      let node = this._top
+      index = -1
+      while (node) {
+        const match = this.comparator ? this.comparator(node.value, target as E) === Ordering.EQ : node.value === target
+        if (match) {
+          index = i
+          break
+        }
+        node = node.prev
+        i++
+      }
+    }
+    if (index < 0 || index >= this.size) throw new Error('no such element')
+    const removed = this.removeAtIndex(index)
+    return isIndex ? removed : index
+  }
+
   *reverseIterator(): Generator<E> {
     const tmp = []
     for (const e of this) {
@@ -201,10 +292,15 @@ export class LinkedStack<E> implements IStack<E> {
   }
 
   sort(cmp?: Comparator<E>): void {
-    const sorted = quicksort(this, cmp || this.comparator, () => new LinkedStack())
+    const comparator = cmp || this.comparator
+    if (!comparator) throw new Error('comparator must be set before sorting')
+    const values = Array.from(this).sort((a, b) => comparator(a, b))
     this.clear()
-    for (const sortedElement of sorted) {
-      this.push(sortedElement)
+    for (const value of values) {
+      this.push(value)
+    }
+    if (cmp) {
+      this.comparator = comparator
     }
   }
 }

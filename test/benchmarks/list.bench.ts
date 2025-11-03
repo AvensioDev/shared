@@ -1,297 +1,229 @@
-import { bench, describe, expect } from 'vitest'
+import { describe } from 'vitest'
 import {
-  CyclicDoublyLinkedList,
-  DoublyLinkedList,
   IList,
-  LinkedList,
-  List,
-  numberComparatorASC,
-  quicksort,
+  ICollection,
 } from '../../src'
-import c from 'chalk'
+import {
+  fillCollection,
+  benchmark,
+  LIST_MAP,
+} from './utils'
 
-function fill(list: IList<number>) {
-  list.add(1)
-  list.add(2)
-  list.add(3)
-  list.add(4)
-  list.add(5)
-}
-const options = {
-  time: 50,
-  iterations: 1000,
-  warmupTime: 100,
-  warmupIterations: 1000,
-}
-describe(c.blue('sort (heap sort)'), () => {
-  function listSortTest(listType: new(options?: any) => IList<number>) {
-    const list = new listType()
-    list.comparator = numberComparatorASC
-    list.add(5)
-    list.add(3)
-    list.add(4)
-    list.add(2)
-    list.add(1)
-
-    list.sort()
-    expect(list.get(0)).toBe(1)
-    expect(list.get(1)).toBe(2)
-    expect(list.get(2)).toBe(3)
-    expect(list.get(3)).toBe(4)
-    expect(list.get(4)).toBe(5)
+describe('remove', () => {
+  function listRemoveTest(list: IList<number>) {
+    list.remove(4)
+    list.remove(2)
+    list.remove(0)
+    list.remove(1)
+    list.remove(0)
   }
 
-  bench('List (native sort)', () => {
-    listSortTest(List)
-  }, options)
-  bench('LinkedList', () => {
-    listSortTest(LinkedList)
-  }, options)
-  bench('DoublyLinkedList', () => {
-    listSortTest(DoublyLinkedList)
-  }, options)
-  bench('CyclicDoublyLinkedList', () => {
-    listSortTest(CyclicDoublyLinkedList)
-  }, options)
-})
-describe(c.blue('sort (quick sort)'), () => {
-  function listSortTest(listType: new(options?: any) => IList<number>) {
-    const list = new listType()
-    list.add(5)
-    list.add(3)
-    list.add(4)
-    list.add(2)
-    list.add(1)
-
-    const sorted = quicksort(list, numberComparatorASC, () => new listType()) as IList<number>
-    expect(sorted.get(0)).toBe(1)
-    expect(sorted.get(1)).toBe(2)
-    expect(sorted.get(2)).toBe(3)
-    expect(sorted.get(3)).toBe(4)
-    expect(sorted.get(4)).toBe(5)
+  function setup(collection: ICollection<number>) {
+    fillCollection(collection)
   }
-  bench('List (native sort)', () => {
-    listSortTest(List)
-  }, options)
-  bench('LinkedList', () => {
-    listSortTest(LinkedList)
-  }, options)
-  bench('DoublyLinkedList', () => {
-    listSortTest(DoublyLinkedList)
-  }, options)
-  bench('CyclicDoublyLinkedList', () => {
-    listSortTest(CyclicDoublyLinkedList)
-  }, options)
+
+  for (let key in LIST_MAP) {
+    benchmark(key, LIST_MAP[key], setup, listRemoveTest)
+  }
 })
 
-describe(c.blue('add'), () => {
-  function listAddTest(listType: new(options?: any) => IList<number>) {
-    const list = new listType()
-    fill(list)
-    expect(list.size).toBe(5)
-    expect(list.get(0)).toBe(1)
-    expect(list.get(1)).toBe(2)
-    expect(list.get(2)).toBe(3)
-    expect(list.get(3)).toBe(4)
-    expect(list.get(4)).toBe(5)
+describe('get', () => {
+  function listGetTest(list: IList<number>) {
+    list.get(0)
+    list.get(1)
+    list.get(2)
+    list.get(3)
+    list.get(4)
   }
 
-  bench('List', () => {
-    listAddTest(List)
-  }, options)
+  function setup(collection: ICollection<number>) {
+    fillCollection(collection)
+  }
 
-  bench('LinkedList', () => {
-    listAddTest(LinkedList)
-  }, options)
-
-  bench('DoublyLinkedList', () => {
-    listAddTest(DoublyLinkedList)
-  }, options)
-
-  bench('CyclicDoublyLinkedList', () => {
-    listAddTest(CyclicDoublyLinkedList)
-  }, options)
+  for (let key in LIST_MAP) {
+    benchmark(key, LIST_MAP[key], setup, listGetTest)
+  }
 })
 
-describe(c.blue('remove'), () => {
-  function listRemoveTest(listType: new (options?: any) => IList<number>) {
-    const list = new listType()
 
-    fill(list)
-    expect(list.remove(0)).toBe(1)
-    expect(list.remove(0)).toBe(2)
-    expect(list.remove(0)).toBe(3)
-    expect(list.remove(0)).toBe(4)
-    expect(list.remove(0)).toBe(5)
 
-    fill(list)
-    expect(list.remove(4)).toBe(5)
-    expect(list.remove(3)).toBe(4)
-    expect(list.remove(2)).toBe(3)
-    expect(list.remove(1)).toBe(2)
-    expect(list.remove(0)).toBe(1)
+describe('slice', () => {
+  function listSliceTest(list: IList<number>) {
+    list.slice(0, 0)
+    list.slice(1, 1)
+    list.slice(3, 2)
+    list.slice(0, 4)
+    list.slice(2, 1)
   }
 
-  bench('List', () => {
-    listRemoveTest(List)
-  }, options)
+  function setup(collection: ICollection<number>) {
+    fillCollection(collection)
+  }
 
-  bench('LinkedList', () => {
-    listRemoveTest(LinkedList)
-  }, options)
-
-  bench('DoublyLinkedList', () => {
-    listRemoveTest(DoublyLinkedList)
-  }, options)
-
-  bench('CyclicDoublyLinkedList', () => {
-    listRemoveTest(CyclicDoublyLinkedList)
-  }, options)
+  for (let key in LIST_MAP) {
+    benchmark(key, LIST_MAP[key], setup, listSliceTest)
+  }
 })
 
-describe(c.blue('get'), () => {
-  function listGetTest(listType: new (options?: any) => IList<number>) {
-    const list = new listType()
-
-    fill(list)
-    expect(list.get(0)).toBe(1)
-    expect(list.get(1)).toBe(2)
-    expect(list.get(2)).toBe(3)
-    expect(list.get(3)).toBe(4)
-    expect(list.get(4)).toBe(5)
-
-    fill(list)
-    expect(list.get(4)).toBe(5)
-    expect(list.get(3)).toBe(4)
-    expect(list.get(2)).toBe(3)
-    expect(list.get(1)).toBe(2)
-    expect(list.get(0)).toBe(1)
+describe('splice', () => {
+  function listSpliceTest(list: IList<number>) {
+    list.splice(3, 2)
+    list.splice(1, 1)
+    list.splice(0, 1)
+    list.splice(0, 1)
   }
 
-  bench('List', () => {
-    listGetTest(List)
-  }, options)
-
-  bench('LinkedList', () => {
-    listGetTest(LinkedList)
-  }, options)
-
-  bench('DoublyLinkedList', () => {
-    listGetTest(DoublyLinkedList)
-  }, options)
-
-  bench('CyclicDoublyLinkedList', () => {
-    listGetTest(CyclicDoublyLinkedList)
-  }, options)
-})
-describe(c.blue('slice'), () => {
-  function listSliceTest(listType: new (options?: any) => IList<number>) {
-    const list = new listType()
-    fill(list)
-    let slice = list.slice(0, 0)
-    expect(slice.size).toBe(1)
-    expect(slice.get(0)).toBe(1)
-
-    slice = list.slice(0, 1)
-    expect(slice.size).toBe(2)
-    expect(slice.get(0)).toBe(1)
-    expect(slice.get(1)).toBe(2)
-
-    slice = list.slice(0, 2)
-    expect(slice.size).toBe(3)
-    expect(slice.get(0)).toBe(1)
-    expect(slice.get(1)).toBe(2)
-    expect(slice.get(2)).toBe(3)
-
-    slice = list.slice(0, 3)
-    expect(slice.size).toBe(4)
-    expect(slice.get(0)).toBe(1)
-    expect(slice.get(1)).toBe(2)
-    expect(slice.get(2)).toBe(3)
-    expect(slice.get(3)).toBe(4)
-
-    slice = list.slice(0, 4)
-    expect(slice.size).toBe(5)
-    expect(slice.get(0)).toBe(1)
-    expect(slice.get(1)).toBe(2)
-    expect(slice.get(2)).toBe(3)
-    expect(slice.get(3)).toBe(4)
-    expect(slice.get(4)).toBe(5)
+  function setup(collection: ICollection<number>) {
+    fillCollection(collection)
   }
 
-  bench('List', () => {
-    listSliceTest(List)
-  }, options)
-
-  bench('LinkedList', () => {
-    listSliceTest(LinkedList)
-  }, options)
-
-  bench('DoublyLinkedList', () => {
-    listSliceTest(DoublyLinkedList)
-  }, options)
-
-  bench('CyclicDoublyLinkedList', () => {
-    listSliceTest(CyclicDoublyLinkedList)
-  }, options)
+  for (let key in LIST_MAP) {
+    benchmark(key, LIST_MAP[key], setup, listSpliceTest)
+  }
 })
 
-describe(c.blue('splice'), () => {
-  function listSpliceTest(listType: new (options?: any) => IList<number>) {
-    const list = new listType()
-    fill(list)
-    let slice = list.splice(0, 0)
-    expect(slice.size).toBe(0)
-    expect(list.size).toBe(5)
-
-    list.clear()
-    fill(list)
-    slice = list.splice(0, 1)
-    expect(slice.size).toBe(1)
-    expect(slice.get(0)).toBe(1)
-    expect(list.size).toBe(4)
-
-    list.clear()
-    fill(list)
-    slice = list.splice(0, 2)
-    expect(slice.size).toBe(2)
-    expect(slice.get(0)).toBe(1)
-    expect(slice.get(1)).toBe(2)
-    expect(list.size).toBe(3)
-
-    list.clear()
-    fill(list)
-    slice = list.splice(0, 3)
-    expect(slice.size).toBe(3)
-    expect(slice.get(0)).toBe(1)
-    expect(slice.get(1)).toBe(2)
-    expect(slice.get(2)).toBe(3)
-    expect(list.size).toBe(2)
-
-    list.clear()
-    fill(list)
-    slice = list.splice(0, 4)
-    expect(slice.size).toBe(4)
-    expect(slice.get(0)).toBe(1)
-    expect(slice.get(1)).toBe(2)
-    expect(slice.get(2)).toBe(3)
-    expect(slice.get(3)).toBe(4)
-    expect(list.size).toBe(1)
+describe('addFirst', () => {
+  function listAddFirstTest(list: IList<number>) {
+    const target = list as unknown as { addFirst?: (value: number) => void }
+    if (typeof target.addFirst === 'function') {
+      target.addFirst(-1)
+    } else {
+      list.add(-1)
+    }
   }
 
-  bench('List', () => {
-    listSpliceTest(List)
-  }, options)
+  function setup(collection: ICollection<number>) {
+    fillCollection(collection)
+  }
 
-  bench('LinkedList', () => {
-    listSpliceTest(LinkedList)
-  }, options)
+  for (let key in LIST_MAP) {
+    benchmark(key, LIST_MAP[key], setup, listAddFirstTest)
+  }
+})
 
-  bench('DoublyLinkedList', () => {
-    listSpliceTest(DoublyLinkedList)
-  }, options)
+describe('addLast', () => {
+  function listAddLastTest(list: IList<number>) {
+    const target = list as unknown as { addLast?: (value: number) => void }
+    if (typeof target.addLast === 'function') {
+      target.addLast(6)
+    } else {
+      list.add(6)
+    }
+  }
 
-  bench('CyclicDoublyLinkedList', () => {
-    listSpliceTest(CyclicDoublyLinkedList)
-  }, options)
+  function setup(collection: ICollection<number>) {
+    fillCollection(collection)
+  }
+
+  for (let key in LIST_MAP) {
+    benchmark(key, LIST_MAP[key], setup, listAddLastTest)
+  }
+})
+
+describe('getFirst', () => {
+  function listGetFirstTest(list: IList<number>) {
+    const target = list as unknown as { getFirst?: () => number }
+    if (typeof target.getFirst === 'function') {
+      target.getFirst()
+    } else {
+      list.get(0)
+    }
+  }
+
+  function setup(collection: ICollection<number>) {
+    fillCollection(collection)
+  }
+
+  for (let key in LIST_MAP) {
+    benchmark(key, LIST_MAP[key], setup, listGetFirstTest)
+  }
+})
+
+describe('getLast', () => {
+  function listGetLastTest(list: IList<number>) {
+    const target = list as unknown as { getLast?: () => number }
+    if (typeof target.getLast === 'function') {
+      target.getLast()
+    } else {
+      list.get(list.size - 1)
+    }
+  }
+
+  function setup(collection: ICollection<number>) {
+    fillCollection(collection)
+  }
+
+  for (let key in LIST_MAP) {
+    benchmark(key, LIST_MAP[key], setup, listGetLastTest)
+  }
+})
+
+describe('map', () => {
+  function listMapTest(list: IList<number>) {
+    list.map(value => value + 1)
+  }
+
+  function setup(collection: ICollection<number>) {
+    fillCollection(collection)
+  }
+
+  for (let key in LIST_MAP) {
+    benchmark(key, LIST_MAP[key], setup, listMapTest)
+  }
+})
+
+describe('reduce', () => {
+  function listReduceTest(list: IList<number>) {
+    list.reduce((acc, value) => acc + value, 0)
+  }
+
+  function setup(collection: ICollection<number>) {
+    fillCollection(collection)
+  }
+
+  for (let key in LIST_MAP) {
+    benchmark(key, LIST_MAP[key], setup, listReduceTest)
+  }
+})
+
+describe('filter', () => {
+  function listFilterTest(list: IList<number>) {
+    list.filter(value => (value & 1) === 0)
+  }
+
+  function setup(collection: ICollection<number>) {
+    fillCollection(collection)
+  }
+
+  for (let key in LIST_MAP) {
+    benchmark(key, LIST_MAP[key], setup, listFilterTest)
+  }
+})
+
+describe('every', () => {
+  function listEveryTest(list: IList<number>) {
+    list.every(value => value > 0)
+  }
+
+  function setup(collection: ICollection<number>) {
+    fillCollection(collection)
+  }
+
+  for (let key in LIST_MAP) {
+    benchmark(key, LIST_MAP[key], setup, listEveryTest)
+  }
+})
+
+describe('some', () => {
+  function listSomeTest(list: IList<number>) {
+    list.some(value => value === -1)
+  }
+
+  function setup(collection: ICollection<number>) {
+    fillCollection(collection)
+  }
+
+  for (let key in LIST_MAP) {
+    benchmark(key, LIST_MAP[key], setup, listSomeTest)
+  }
 })

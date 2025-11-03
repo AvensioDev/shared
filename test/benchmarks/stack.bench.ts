@@ -1,48 +1,36 @@
-import { bench, describe, expect } from 'vitest'
-import c from 'chalk'
-import { IStack, LinkedStack, Stack } from '../../src'
+import { describe } from 'vitest'
+import {
+  IStack,
+  ICollection,
+} from '../../src'
+import {
+  fillCollection,
+  benchmark,
+  STACK_MAP,
+} from './utils'
 
-const options = {
-  time: 50,
-  iterations: 1000,
-  warmupTime: 100,
-  warmupIterations: 1000,
-}
-function fill(stack: IStack<number>) {
-  stack.push(5)
-  stack.push(4)
-  stack.push(3)
-  stack.push(2)
-  stack.push(1)
-}
-describe(c.blue('stack (push)'), () => {
-  function stackPushTest(stackType: new(options?: any) => IStack<number>) {
-    const stack = new stackType()
-    fill(stack)
+describe('push', () => {
+  function stackPushTest(stack: IStack<number>) {
+    fillCollection(stack)
   }
 
-  bench('Stack', () => {
-    stackPushTest(Stack)
-  }, options)
-  bench('LinkedStack', () => {
-    stackPushTest(LinkedStack)
-  }, options)
+  function setup(collection: ICollection<number>) {}
+
+  for (let key in STACK_MAP) {
+    benchmark(key, STACK_MAP[key], setup, stackPushTest)
+  }
 })
-describe(c.blue('stack (pop)'), () => {
-  function stackPopTest(stackType: new(options?: any) => IStack<number>) {
-    const stack = new stackType()
-    fill(stack)
-    expect(stack.pop()).toBe(1)
-    expect(stack.pop()).toBe(2)
-    expect(stack.pop()).toBe(3)
-    expect(stack.pop()).toBe(4)
-    expect(stack.pop()).toBe(5)
+
+describe('pop', () => {
+  function stackPopTest(stack: IStack<number>) {
+    stack.pop()
   }
 
-  bench('Stack', () => {
-    stackPopTest(Stack)
-  }, options)
-  bench('LinkedStack', () => {
-    stackPopTest(LinkedStack)
-  }, options)
+  function setup(collection: ICollection<number>) {
+    fillCollection(collection)
+  }
+
+  for (let key in STACK_MAP) {
+    benchmark(key, STACK_MAP[key], setup, stackPopTest)
+  }
 })

@@ -1,80 +1,44 @@
-import { bench, describe, expect } from 'vitest'
-import c from 'chalk'
-import { Dequeue, IQueue, LinkedQueue, numberComparatorASC, PriorityQueue, Queue } from '../../src'
+import { describe } from 'vitest'
+import {
+  IQueue,
+  ICollection,
+} from '../../src'
+import {
+  fillCollection,
+  benchmark,
+  QUEUE_MAP,
+} from './utils'
 
-const options = {
-  time: 50,
-  iterations: 1000,
-  warmupTime: 100,
-  warmupIterations: 1000,
-}
+describe('enqueue', () => {
+  let value = 0
 
-function fill(queue: IQueue<number>) {
-  queue.enqueue(5)
-  queue.enqueue(4)
-  queue.enqueue(3)
-  queue.enqueue(2)
-  queue.enqueue(1)
-}
-describe(c.blue('queue (enqueue)'), () => {
-  function queueAddTest(queueType: new(options?: any) => IQueue<number>, isPriorityQueueTested = false) {
-    let queue
-    if (isPriorityQueueTested) {
-      queue = new queueType(numberComparatorASC)
-    } else {
-      queue = new queueType()
-    }
-    fill(queue)
+  function queueEnqueueTest(queue: IQueue<number>) {
+    queue.enqueue(++value)
   }
 
-  bench('Queue', () => {
-    queueAddTest(Queue)
-  }, options)
-  bench('LinkedQueue', () => {
-    queueAddTest(LinkedQueue)
-  }, options)
-  bench('PriorityQueue', () => {
-    queueAddTest(PriorityQueue, true)
-  }, options)
-  bench('Dequeue', () => {
-    queueAddTest(Dequeue)
-  }, options)
+  function setup(collection: ICollection<number>) {
+    collection.clear()
+  }
+
+  for (let key in QUEUE_MAP) {
+    benchmark(key, QUEUE_MAP[key], setup, queueEnqueueTest)
+  }
 })
-describe(c.blue('queue (dequeue)'), () => {
-  function queueDequeueTest(queueType: new(options?: any) => IQueue<number>, isPriorityQueueTested = false) {
-    let queue
-    if (isPriorityQueueTested) {
-      queue = new queueType(numberComparatorASC)
-    } else {
-      queue = new queueType()
-    }
-    fill(queue)
 
-    if (isPriorityQueueTested) {
-      expect(queue.dequeue()).toBe(1)
-      expect(queue.dequeue()).toBe(2)
-      expect(queue.dequeue()).toBe(3)
-      expect(queue.dequeue()).toBe(4)
-      expect(queue.dequeue()).toBe(5)
-    } else {
-      expect(queue.dequeue()).toBe(5)
-      expect(queue.dequeue()).toBe(4)
-      expect(queue.dequeue()).toBe(3)
-      expect(queue.dequeue()).toBe(2)
-      expect(queue.dequeue()).toBe(1)
-    }
+describe('dequeue', () => {
+  function queueDequeueTest(queue: IQueue<number>) {
+    queue.dequeue()
+    queue.dequeue()
+    queue.dequeue()
+    queue.dequeue()
+    queue.dequeue()
   }
 
-  bench('Queue', () => {
-    queueDequeueTest(Queue)
-  }, options)
-  bench('LinkedQueue', () => {
-    queueDequeueTest(LinkedQueue)
-  }, options)
-  bench('PriorityQueue', () => {
-    queueDequeueTest(PriorityQueue, true)
-  }, options)
-  bench('Dequeue', () => {
-    queueDequeueTest(Dequeue)
-  }, options)
+  function setup(collection: ICollection<number>) {
+    fillCollection(collection)
+  }
+
+  for (let key in QUEUE_MAP) {
+    benchmark(key, QUEUE_MAP[key], setup, queueDequeueTest)
+  }
 })

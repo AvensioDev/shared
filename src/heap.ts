@@ -1,4 +1,9 @@
-import {Comparator, CyclicDoublyLinkedList, ICollection, LinkedList, Ordering, quicksort} from './index'
+import {
+  Comparator,
+  CyclicDoublyLinkedList,
+  ICollection,
+  Ordering,
+} from './'
 
 export type HeapNode<E> = {
   value: E
@@ -10,14 +15,16 @@ export type HeapNode<E> = {
   child?: HeapNode<E>
 }
 
-// The Comparator has one requirement: When the "left" value is "null" the ordering must be Ordering.GT
-// This is needed for delete to function correctly
-
-
+/**
+ * FibonacciHeap Implementation
+ * The Comparator has one requirement: When the "left" value is "null" the ordering must be Ordering.GT
+ * This is needed for delete to function correctly
+ */
 export interface IFibonacciHeap<E> extends ICollection<E> {
   rootList: HeapNode<E>
   minNode: HeapNode<E>
   insert(element: E): HeapNode<E>
+  contains(element: E): boolean
   delete(node: HeapNode<E>): HeapNode<E>
   decreaseKey(node: HeapNode<E>, newValue: E): void
   minimum(): HeapNode<E>
@@ -45,13 +52,13 @@ export class FibonacciHeap<E> implements IFibonacciHeap<E> {
 
   /**
    * O(1)
-   * @param e
+   * @param element
    */
-  insert(e: E): HeapNode<E> {
-    if (e === undefined) return undefined!
+  insert(element: E): HeapNode<E> {
+    if (element === undefined) return undefined!
     // @ts-ignore
     const node: HeapNode<E> = {
-      value: e,
+      value: element,
       degree: 0,
       marked: false
     }
@@ -70,8 +77,24 @@ export class FibonacciHeap<E> implements IFibonacciHeap<E> {
     return node
   }
 
+  contains(element: E): boolean {
+    if (this.isEmpty()) return false
+    for (const node of this.traverseNodes()) {
+      if (this.comparator(element, node.value) === Ordering.EQ) {
+        return true
+      }
+    }
+    return false
+  }
+
   add(e: E): HeapNode<E> {
     return this.insert(e)
+  }
+
+  addAll(collection: ICollection<E>): void {
+    for (let e of collection) {
+      this.insert(e)
+    }
   }
 
   /**
@@ -148,6 +171,7 @@ export class FibonacciHeap<E> implements IFibonacciHeap<E> {
     } else {
       throw new Error('no such element')
     }
+
     return min
   }
 
@@ -193,26 +217,25 @@ export class FibonacciHeap<E> implements IFibonacciHeap<E> {
   }
   extractNeighbours(node: HeapNode<E>, includeSelf: boolean = false): CyclicDoublyLinkedList<HeapNode<E>> {
     const list = new CyclicDoublyLinkedList<HeapNode<E>>()
-    includeSelf && list.add(node)
-    let cursorNode = node
-
-    while (this.comparator(cursorNode.right.value, node.value) !== Ordering.EQ) {
-      list.add(cursorNode.right)
-      cursorNode = cursorNode.right
+    if (!node) return list
+    if (includeSelf) {
+      list.add(node)
     }
-
+    let current = node.right
+    while (current && current !== node) {
+      list.add(current)
+      current = current.right
+    }
     return list
   }
 
   extractChildren(node: HeapNode<E>): CyclicDoublyLinkedList<HeapNode<E>> {
-    const nodes = new CyclicDoublyLinkedList<HeapNode<E>>()
-    let _node = node.child!
-    for (let i = 0; i < node.degree; i++) {
-      nodes.add(_node)
-      _node = _node.left
+    const list = new CyclicDoublyLinkedList<HeapNode<E>>()
+    if (!node?.child) return list
+    for (const child of this.iterateSiblings(node.child)) {
+      list.add(child)
     }
-
-    return nodes
+    return list
   }
 
   private cut(x: HeapNode<E>, y: HeapNode<E>) {
@@ -253,14 +276,14 @@ export class FibonacciHeap<E> implements IFibonacciHeap<E> {
     if (parent.degree === 0) return
     if (
       parent.degree === 1
-      && this.comparator(node.right.value, node.value) === Ordering.EQ
+      && node.right === node
     ) {
       parent.child = undefined
       parent.degree = 0
     } else {
       node.left.right = node.right
       node.right.left = node.left
-      if (this.comparator(parent.child!.value, node.value) === Ordering.EQ) {
+      if (parent.child === node) {
         parent.child = node.right
       }
     }
@@ -278,8 +301,8 @@ export class FibonacciHeap<E> implements IFibonacciHeap<E> {
 
   private removeFromRootList(node: HeapNode<E>): void {
     if (node.parent) return
-    if (this.comparator(node.value, this.rootList.value) === Ordering.EQ) {
-      this.rootList = node.right
+    if (node === this.rootList) {
+      this.rootList = node.right !== node ? node.right : undefined!
     }
     node.left.right = node.right
     node.right.left = node.left
@@ -338,19 +361,57 @@ export class FibonacciHeap<E> implements IFibonacciHeap<E> {
     return Math.log(x) / Math.log(base)
   }
 
+  private *iterateSiblings(start?: HeapNode<E>): Generator<HeapNode<E>> {
+    if (!start) return
+    let current: HeapNode<E> | undefined = start
+    let first = true
+    while (current && (first || current !== start)) {
+      first = false
+      yield current
+      current = current.right
+    }
+  }
+
+  private *traverseNodes(): Generator<HeapNode<E>> {
+    if (this.isEmpty()) return
+    const visited = new Set<HeapNode<E>>()
+    const stack: HeapNode<E>[] = []
+
+    for (const root of this.iterateSiblings(this.rootList)) {
+      stack.push(root)
+    }
+
+    while (stack.length) {
+      const node = stack.pop()!
+      if (visited.has(node)) continue
+      visited.add(node)
+      yield node
+
+      for (const child of this.iterateSiblings(node.child)) {
+        stack.push(child)
+      }
+    }
+  }
+
+  private snapshotSortedNodes(): HeapNode<E>[] {
+    const nodes = Array.from(this.traverseNodes())
+    if (!this.comparator) {
+      return nodes
+    }
+    nodes.sort((a, b) => this.comparator(a.value, b.value))
+    return nodes
+  }
+
+  private snapshotSortedValues(): E[] {
+    return this.snapshotSortedNodes().map(node => node.value)
+  }
+
   /**
    * O(log(size)*size + size*3)
    */
   *nodeIterator() {
-    if (this.size === 0) return
-    const values = new LinkedList<E>()
-    while (this.size !== 0) {
-      const e = this.extractMin()
-      yield e
-      values.add(e.value)
-    }
-    for (const value of values) {
-      this.insert(value)
+    for (const node of this.snapshotSortedNodes()) {
+      yield node
     }
   }
 
@@ -358,38 +419,25 @@ export class FibonacciHeap<E> implements IFibonacciHeap<E> {
    * O(heap.size*3 + log(heap.size))
    */
   [Symbol.iterator](): Iterator<E> {
-    const heap = this
-    const values = new LinkedList<E>()
+    const values = this.snapshotSortedValues()
+    let index = 0
     return {
       next: () => {
-        if (heap.isEmpty()) {
-          for (const value of values) {
-            heap.insert(value)
-          }
+        if (index < values.length) {
           return {
-            done: true,
-            value: null
+            done: false,
+            value: values[index++]
           }
         }
-
-        const min = heap.extractMin()
-        values.add(min.value)
-        return {
-          done: false,
-          value: min.value
-        }
+        return { done: true, value: undefined as unknown as E }
       }
     }
   }
 
   *reverseIterator(): Generator<E> {
-    const result = []
-    for (const e of this) {
-      result.unshift(e)
-    }
-
-    for (const e of result) {
-      yield e
+    const values = this.snapshotSortedValues()
+    for (let i = values.length - 1; i >= 0; i--) {
+      yield values[i]
     }
   }
 
@@ -399,13 +447,36 @@ export class FibonacciHeap<E> implements IFibonacciHeap<E> {
    * @param cmp
    */
   sort(cmp?: Comparator<E>): void {
-    const sorted = quicksort(this, cmp || this.comparator, () => new FibonacciHeap<E>(cmp || this.comparator))
+    const comparator = cmp || this.comparator
+    if (!comparator) throw new Error('comparator must be set before sorting')
+    const values = Array.from(this).sort((a, b) => comparator(a, b))
     this.clear()
-    if (cmp) {
-      this.comparator = cmp
+    this.comparator = comparator
+    for (const value of values) {
+      this.insert(value)
     }
-    for (const sortedElement of sorted) {
-      this.insert(sortedElement)
+  }
+
+  remove(target: E | number, isIndex: boolean = true): E | number {
+    if (this.size === 0) throw new Error('no such element')
+    const values = Array.from(this)
+    let index: number
+    if (isIndex) {
+      index = Number(target)
+    } else {
+      if (this.comparator) {
+        index = values.findIndex(value => this.comparator(value, target as E) === Ordering.EQ)
+      } else {
+        index = values.findIndex(value => value === target)
+      }
     }
+    if (index < 0 || index >= values.length) throw new Error('no such element')
+    const [removed] = values.splice(index, 1)
+    if (removed === undefined) throw new Error('no such element')
+    this.clear()
+    for (const value of values) {
+      this.insert(value)
+    }
+    return isIndex ? removed : index
   }
 }

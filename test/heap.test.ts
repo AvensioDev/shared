@@ -760,8 +760,38 @@ describe('fibonacci heap', () => {
     expect([...heap.reverseIterator()]).toEqual([3,2,1])
     heap.sort(numberComparatorDESC)
     expect([...heap.reverseIterator()]).toEqual([1,2,3])
-  });
+  })
 })
+
+describe('FibonacciHeap coverage', () => {
+  it('exercises traversal, removal, union, and delete', () => {
+    const heap = new FibonacciHeap<number>(numberComparatorASC)
+    heap.insert(10)
+    heap.insert(5)
+    heap.insert(15)
+
+    expect(heap.contains(5)).toBe(true)
+    expect(heap.contains(99)).toBe(false)
+
+    const snapshot = Array.from(heap)
+    expect(heap.remove(1)).toBe(snapshot[1])
+
+    heap.insert(7)
+    const withSeven = Array.from(heap)
+    expect(heap.remove(7, false)).toBe(withSeven.indexOf(7))
+
+    const unionHeap = new FibonacciHeap<number>(numberComparatorASC, [20, 1])
+    heap.union(unionHeap)
+    expect(heap.contains(1)).toBe(true)
+
+    const minNode = heap.minimum()
+    heap.delete(minNode)
+    expect(heap.size).toBeGreaterThan(0)
+
+    expect(Array.from(heap.reverseIterator()).length).toBe(heap.size)
+  })
+})
+
 function constructJumbledHeaps(): FibonacciHeap<number>[] {
   const first = new FibonacciHeap<number>(numberComparatorASC)
   first.insert(9)

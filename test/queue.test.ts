@@ -10,6 +10,7 @@ import {
   LinkedQueue,
   LinkedStack,
   numberComparatorASC,
+  numberComparatorDESC,
   Ordering,
   PriorityQueue,
   Queue,
@@ -357,22 +358,22 @@ function queueTests(queue: IQueue<number>, queueType: QueueType, priorityQueueTe
   describe('reverse Iterator tests', () => {
     it('should correctly reverse iterate a queue', () => {
       const queue = new Queue([1,2,3,4])
-      const numbers = queue.reverseIterator().toArray()
+      const numbers = [...queue.reverseIterator()]
       expect(numbers).toEqual([4,3,2,1])
     });
     it('should correctly reverse iterate a linked queue', () => {
       const queue = new LinkedQueue([1,2,3,4])
-      const numbers = queue.reverseIterator().toArray()
+      const numbers = [...queue.reverseIterator()]
       expect(numbers).toEqual([4,3,2,1])
     });
     it('should correctly reverse iterate a priority queue', () => {
       const queue = new PriorityQueue(numberComparatorASC, [1,2,3,4])
-      const numbers = queue.reverseIterator().toArray()
+      const numbers = [...queue.reverseIterator()]
       expect(numbers).toEqual([4,3,2,1])
     });
     it('should correctly reverse iterate a dequeue', () => {
       const queue = new Dequeue([1,2,3,4])
-      const numbers = queue.reverseIterator().toArray()
+      const numbers = [...queue.reverseIterator()]
       expect(numbers).toEqual([4,3,2,1])
     });
   })
@@ -539,5 +540,153 @@ describe('queues', () => {
       expect(dequeue.contains(3)).toBeTruthy()
       expect(dequeue.contains(4)).toBeFalsy()
     })
+  })
+})
+
+describe('Dequeue coverage', () => {
+  it('covers head/tail operations, comparators, and removals', () => {
+    const dequeue = new Dequeue<number>()
+    dequeue.enqueue(1)
+    dequeue.enqueue(2)
+    dequeue.enqueue(3)
+
+    expect(dequeue.dequeue()).toBe(1)
+    dequeue.push(0)
+    expect(dequeue.pop()).toBe(3)
+
+    expect(dequeue.head()).toBe(0)
+    expect(dequeue.top()).toBe(2)
+
+    dequeue.comparator = numberComparatorASC
+    expect(dequeue.contains(2)).toBe(true)
+
+    dequeue.enqueue(5)
+    const snapshot = Array.from(dequeue)
+    expect(snapshot).toEqual([0, 2, 5])
+    expect(dequeue.remove(5, false)).toBe(snapshot.indexOf(5))
+    expect(Array.from(dequeue.reverseIterator())).toEqual([2, 0])
+
+    dequeue.clear()
+    dequeue.enqueue(7)
+    expect(Array.from(dequeue.reverseIterator())).toEqual([7])
+  })
+
+  it('removes from both ends using indices', () => {
+    const dequeue = new Dequeue<number>()
+    dequeue.enqueue(1)
+    dequeue.enqueue(2)
+    dequeue.enqueue(3)
+
+    expect(dequeue.remove(0)).toBe(1)
+    expect(dequeue.remove(dequeue.size - 1)).toBe(3)
+    expect(dequeue.remove(0)).toBe(2)
+    expect(() => dequeue.remove(0)).toThrow('no such element')
+  })
+})
+
+describe('Queue coverage', () => {
+  it('compacts storage and removes values by comparator', () => {
+    const queue = new Queue<number>()
+    queue.enqueue(1)
+    queue.enqueue(2)
+    queue.enqueue(3)
+    queue.enqueue(4)
+
+    queue.dequeue()
+    queue.dequeue()
+    queue.enqueue(5)
+
+    queue.comparator = numberComparatorASC
+    const snapshot = Array.from(queue)
+    expect(snapshot).toEqual([3, 4, 5])
+    expect(queue.contains(5)).toBe(true)
+
+    const valueIndex = snapshot.indexOf(5)
+    expect(queue.remove(5, false)).toBe(valueIndex)
+    expect(Array.from(queue)).toEqual([3, 4])
+
+    queue.sort(numberComparatorDESC)
+    expect(queue.comparator).toBe(numberComparatorDESC)
+    expect(Array.from(queue)).toEqual([4, 3])
+  })
+
+  it('throws meaningful errors for invalid operations', () => {
+    const queue = new Queue<number>()
+    expect(() => queue.dequeue()).toThrow('no such element')
+    queue.enqueue(1)
+    expect(() => queue.remove(2)).toThrow('no such element')
+    expect(() => queue.sort()).toThrow('comparator must be set before sorting')
+  })
+
+  it('supports addAll, clear, and non-comparator contains', () => {
+    const source = new Queue<number>()
+    source.enqueue(7)
+    source.enqueue(8)
+
+    const queue = new Queue<number>()
+    queue.addAll(source)
+    expect(queue.contains(7)).toBe(true)
+    expect(queue.head()).toBe(7)
+    expect(queue.dequeue()).toBe(7)
+    expect(queue.contains(9)).toBe(false)
+    queue.clear()
+    expect(queue.isEmpty()).toBe(true)
+    expect(() => queue.head()).toThrow('no such element')
+  })
+})
+
+describe('LinkedQueue coverage', () => {
+  it('iterates in both directions and removes by value', () => {
+    const queue = new LinkedQueue<number>()
+    for (const value of [1, 2, 3, 4]) queue.enqueue(value)
+
+    queue.comparator = numberComparatorASC
+    expect(queue.contains(3)).toBe(true)
+    expect(Array.from(queue.reverseIterator())).toEqual([4, 3, 2, 1])
+
+    expect(queue.remove(3, false)).toBe(2)
+    expect(Array.from(queue)).toEqual([1, 2, 4])
+
+    queue.enqueue(0)
+    queue.sort(numberComparatorDESC)
+    expect(Array.from(queue)).toEqual([4, 2, 1, 0])
+  })
+
+  it('updates tail on removal and handles errors', () => {
+    const queue = new LinkedQueue<number>()
+    queue.enqueue(1)
+    queue.enqueue(2)
+    queue.enqueue(3)
+
+    expect(queue.remove(2)).toBe(3)
+    queue.enqueue(4)
+    expect(Array.from(queue)).toEqual([1, 2, 4])
+    expect(() => queue.remove(5, false)).toThrow('no such element')
+    queue.clear()
+    expect(queue.isEmpty()).toBe(true)
+  })
+})
+
+describe('PriorityQueue coverage', () => {
+  it('supports iterator order and removal flows', () => {
+    const queue = new PriorityQueue<number>(numberComparatorASC, [4, 1, 3, 2])
+
+    expect(Array.from(queue)).toEqual([1, 2, 3, 4])
+    expect(Array.from(queue.reverseIterator())).toEqual([4, 3, 2, 1])
+
+    const valuesBefore = Array.from(queue)
+    expect(queue.remove(1)).toBe(valuesBefore[1])
+
+    const valuesBeforeValueRemoval = Array.from(queue)
+    const valueIndex = valuesBeforeValueRemoval.indexOf(3)
+    expect(queue.remove(3, false)).toBe(valueIndex)
+
+    queue.add(5)
+    expect(() => queue.remove(99, false)).toThrow('no such element')
+
+    queue.sort(numberComparatorDESC)
+    expect(queue.comparator).toBe(numberComparatorDESC)
+    expect(Array.from(queue)).toEqual([5, 4, 1])
+    expect(Array.from(queue.reverseIterator())).toEqual([1, 4, 5])
   })
 })

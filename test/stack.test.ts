@@ -317,3 +317,72 @@ describe('stacks', () => {
     iteratorTest(stack)
   })
 })
+
+describe('Stack coverage', () => {
+  it('covers iterator, comparator contains, and removals', () => {
+    const stack = new Stack<number>()
+    stack.push(1)
+    stack.push(2)
+    stack.push(3)
+
+    stack.comparator = numberComparatorASC
+    expect(stack.contains(2)).toBe(true)
+
+    const snapshot = Array.from(stack)
+    expect(snapshot).toEqual([3, 2, 1])
+    expect(stack.remove(1)).toBe(2)
+
+    stack.push(4)
+    const afterPush = Array.from(stack)
+    expect(stack.remove(4, false)).toBe(afterPush.indexOf(4))
+
+    const forwardOrder = Array.from(stack)
+    const reverseOrder = Array.from(stack.reverseIterator())
+    expect(reverseOrder).toEqual([...forwardOrder].reverse())
+
+    stack.sort(numberComparatorDESC)
+    expect(stack.top()).toBe(1)
+    expect(new Set(Array.from(stack))).toEqual(new Set([3, 1]))
+  })
+
+  it('handles empty stack errors and clearing', () => {
+    const stack = new Stack<number>()
+    expect(stack.isEmpty()).toBe(true)
+    expect(() => stack.top()).toThrow('no such element')
+    expect(() => stack.pop()).toThrow('no such element')
+    stack.push(9)
+    stack.clear()
+    expect(stack.size).toBe(0)
+    expect(() => stack.remove(0)).toThrow('no such element')
+  })
+})
+
+describe('LinkedStack coverage', () => {
+  it('covers value removal and iterator variants', () => {
+    const stack = new LinkedStack<number>()
+    stack.push(5)
+    stack.push(10)
+    stack.push(15)
+
+    stack.comparator = numberComparatorASC
+    expect(stack.contains(10)).toBe(true)
+
+    expect(stack.remove(0)).toBe(15)
+    const snapshot = Array.from(stack)
+    expect(stack.remove(10, false)).toBe(snapshot.indexOf(10))
+
+    stack.push(20)
+    const forwardLinked = Array.from(stack)
+    expect(Array.from(stack.reverseIterator())).toEqual([...forwardLinked].reverse())
+
+    stack.sort(numberComparatorDESC)
+    expect(stack.top()).toBe(5)
+    expect(new Set(Array.from(stack))).toEqual(new Set([20, 5]))
+  })
+
+  it('throws when removing from empty linked stack', () => {
+    const stack = new LinkedStack<number>()
+    expect(stack.isEmpty()).toBe(true)
+    expect(() => stack.remove(0)).toThrow('no such element')
+  })
+})

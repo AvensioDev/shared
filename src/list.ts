@@ -1,32 +1,35 @@
-import {Comparator, heapSort, ICollection, Node, Ordering} from './index'
+import {
+  type Comparator,
+  type ICollection,
+  type Node,
+  Ordering,
+} from './'
+
 export interface IListFunctions<E> {
-  map<V>(fn: (e: E) => V): IList<V>
+  map<V>(fn: (element: E) => V): IList<V>
   reduce<V>(fn: (accumulator: V, element: E) => V, initialValue?: V): V
-  filter(predicate: (e: E) => boolean): IList<E>
-  every(predicate: (e: E) => boolean): boolean
-  some(predicate: (e: E) => boolean): boolean
+  filter(predicate: (element: E) => boolean): IList<E>
+  every(predicate: (element: E) => boolean): boolean
+  some(predicate: (element: E) => boolean): boolean
   slice(startIndex: number, endIndex: number): IList<E>
   slice2(startIndex: number, endIndex: number): IList<E>
   splice(startIndex: number, deleteCount: number): IList<E>
 }
 
 export interface IList<E> extends ICollection<E>, IListFunctions<E> {
-  comparator: Comparator<E>
-  addAll(c: Iterable<E>): void
+  addAll(collection: Iterable<E>): void
   get(index: number): E
-  set(index: number, e: E | null): boolean
-  remove(index: number): E
-  equals(l: IList<E>): boolean
-  indexOf(e: E): number
-  includes(e: E): boolean
+  set(index: number, element: E | null): boolean
+  equals(otherList: IList<E>): boolean
+  indexOf(element: E, startIndex: number): number
   reverseIterator(): Generator<E>
 }
 export interface ILinkedList<E> extends IList<E> {
   first: Node<E>
   last: Node<E>
   getNode(index: number): Node<E>
-  addFirst(e: E): void
-  addLast(e: E): void
+  addFirst(element: E): void
+  addLast(element: E): void
   getFirst(): E
   getLast(): E
   removeFirst(): E
@@ -214,21 +217,29 @@ export class List<E> implements IList<E> {
     this.size = 0
   }
 
-  remove(index: number): E {
-    const slice = this.arr.splice(index, 1)
-    if (slice.length === 1) {
-      this.size--
-      return slice[0]
-    }
-    throw new Error("no such element")
+  private removeAtIndex(index: number): E {
+    if (index < 0 || index >= this.size) throw new Error('no such element')
+    const [removed] = this.arr.splice(index, 1)
+    if (removed === undefined) throw new Error('no such element')
+    this.size = this.arr.length
+    return removed
+  }
+
+  remove(target: E | number, isIndex: boolean = true): E | number {
+    if (this.size === 0) throw new Error('no such element')
+    const index = isIndex ? Number(target) : this.indexOf(target as E)
+    const removed = this.removeAtIndex(index)
+    return isIndex ? removed : index
   }
 
   /**
-   * For this method to work, a comparator must be set
-   * @param e
+   * Checks if an element is contained in the List.
+   * For this function to work, a comparator must be set!
+   * O(size) amortized
+   * @param element
    */
-  includes(e: E): boolean {
-    return this.indexOf(e) > -1
+  contains(element: E): boolean {
+    return this.indexOf(element) > -1
   }
 
   /**
@@ -246,23 +257,21 @@ export class List<E> implements IList<E> {
 
   /**
    * Finds the first index of the element
-   * @param e
+   * O(size) amortized
+   * @param element
+   * @param startIndex
    */
-  indexOf(e: E): number {
-    for (let i = 0; i < this.size; i++) {
-      if (this.comparator(e, this.get(i)) === Ordering.EQ) return i
+  indexOf(element: E, startIndex: number = 0): number {
+    const start = Math.max(0, startIndex)
+    for (let i = start; i < this.size; i++) {
+      if (this.comparator(element, this.get(i)) === Ordering.EQ) return i
     }
 
     return -1
   }
 
   sort(cmp?: Comparator<E>): void {
-    const backupCmp = this.comparator
-    if (cmp) {
-      this.comparator = cmp
-    }
-    this.arr.sort(this.comparator)
-    this.comparator = backupCmp
+    this.arr = this.arr.sort((cmp || this.comparator))
   }
 
   *reverseIterator() {
@@ -293,6 +302,8 @@ export class LinkedList<E> implements ILinkedList<E> {
   last: Node<E>
   size: number = 0
   comparator: Comparator<E> = null!
+  private cursorNode?: Node<E>
+  private cursorIndex = -1
 
   constructor(elements?: Iterable<E>, reverse = false) {
     if (elements) {
@@ -301,6 +312,11 @@ export class LinkedList<E> implements ILinkedList<E> {
         else this.add(el)
       }
     }
+  }
+
+  private resetCursor() {
+    this.cursorNode = undefined
+    this.cursorIndex = -1
   }
 
   /**
@@ -323,6 +339,7 @@ export class LinkedList<E> implements ILinkedList<E> {
    */
   addFirst(e: E): void {
     if (e === undefined) return
+    this.resetCursor()
     this.first = {
       value: e,
       next: this.first
@@ -339,6 +356,7 @@ export class LinkedList<E> implements ILinkedList<E> {
    */
   addLast(e: E): void {
     if (e === undefined) return
+    this.resetCursor()
     const node = { value: e }
     if (!this.first) {
       this.first = node
@@ -358,6 +376,7 @@ export class LinkedList<E> implements ILinkedList<E> {
   clear(): void {
     this.first = this.last = undefined
     this.size = 0
+    this.resetCursor()
   }
 
   /**
@@ -451,7 +470,9 @@ export class LinkedList<E> implements ILinkedList<E> {
 
   splice(startIndex: number, deleteCount: number): LinkedList<E> {
     // @ts-ignore
-    return _splice.call(this, startIndex, deleteCount, new LinkedList<E>());
+    const slice = _splice.call(this, startIndex, deleteCount, new LinkedList<E>());
+    this.resetCursor()
+    return slice as LinkedList<E>
   }
 
   map<V>(fn: (e: E) => V): LinkedList<V> {
@@ -527,44 +548,39 @@ export class LinkedList<E> implements ILinkedList<E> {
     return this.size === 0
   }
 
-  /**
-   * O(size)<br>
-   * Ω(1)
-   * @param index
-   */
-  remove(index: number): E {
+  private removeAtIndex(index: number): E {
+    this.resetCursor()
     if (index >= this.size || index < 0)
       throw new Error("no such element")
 
-    let toRemove
-    let value
-    switch (index) {
-      case 0:
-        return this.removeFirst()
-      case this.size - 1:
-        return this.removeLast()
-      case 1:
-        toRemove = this.getNode(1)!
-        this.first!.next = toRemove.next
-        value = toRemove.value
-        toRemove.next = toRemove.value = undefined! // GC
-        break
-      default:
-        const prevNode = this.getNode(index - 1)
-        toRemove = prevNode?.next!
-        prevNode!.next = prevNode?.next?.next
-        value = toRemove.value
-        toRemove.next = toRemove.value = undefined! // GC
-        break
+    if (index === 0) return this.removeFirst()
+    if (index === this.size - 1) return this.removeLast()
+
+    const prev = this.getNode(index - 1)
+    const toRemove = prev?.next
+    if (!toRemove) throw new Error('no such element')
+    prev!.next = toRemove.next
+    if (toRemove === this.last) {
+      this.last = prev
     }
+    const value = toRemove.value
+    toRemove.next = toRemove.value = undefined! // GC
     this.size--
     return value
+  }
+
+  remove(target: E | number, isIndex: boolean = true): E | number {
+    if (this.size === 0) throw new Error('no such element')
+    const index = isIndex ? Number(target) : this.indexOf(target as E)
+    const removed = this.removeAtIndex(index)
+    return isIndex ? removed : index
   }
 
   /**
    * O(1)
    */
   removeFirst(): E {
+    this.resetCursor()
     let value
     switch (this.size) {
       case 0:
@@ -600,6 +616,7 @@ export class LinkedList<E> implements ILinkedList<E> {
    * Ω(1)
    */
   removeLast(): E {
+    this.resetCursor()
     let value
     switch (this.size) {
       case 0:
@@ -635,19 +652,33 @@ export class LinkedList<E> implements ILinkedList<E> {
    */
   getNode(index: number): Node<E> {
     if (index < 0 || index >= this.size) throw new Error('no such element')
-    let node = this.first
-    for (let i = 0; i < index; i++) {
+    let node: Node<E> | undefined
+    let start = 0
+    if (this.cursorNode && this.cursorIndex !== -1 && index >= this.cursorIndex) {
+      node = this.cursorNode
+      start = this.cursorIndex
+    } else {
+      node = this.first
+      start = 0
+    }
+
+    for (let i = start; i < index; i++) {
       node = node!.next
     }
-    return node
+
+    this.cursorNode = node
+    this.cursorIndex = index
+    return node!
   }
 
   /**
-   * For this method to work, a comparator must be set
-   * @param e
+   * Checks if an element is contained in the LinkedList.
+   * For this function to work, a comparator must be set!
+   * O(size) amortized
+   * @param element
    */
-  includes(e: E): boolean {
-    return this.indexOf(e) > -1
+  contains(element: E): boolean {
+    return this.indexOf(element) > -1
   }
 
   /**
@@ -663,25 +694,32 @@ export class LinkedList<E> implements ILinkedList<E> {
     return true
   }
 
-  indexOf(e: E): number {
+  /**
+   * Finds the first index of the element
+   * O(size) amortized
+   * @param element
+   */
+  indexOf(element: E): number {
     for (let i = 0; i < this.size; i++) {
-      if (this.comparator(e, this.get(i)) === Ordering.EQ) return i
+      if (this.comparator(element, this.get(i)) === Ordering.EQ) return i
     }
 
     return -1
   }
 
   sort(cmp?: Comparator<E>): void {
-    const backupCmp = this.comparator
+    const comparator = cmp || this.comparator
+    if (!comparator) throw new Error('comparator must be set before sorting')
+    const values = Array.from(this).sort((a, b) => comparator(a, b))
+    let current = this.first
+    for (let i = 0; i < values.length; i++) {
+      if (!current) break
+      current.value = values[i]
+      current = current.next
+    }
     if (cmp) {
-      this.comparator = cmp
+      this.comparator = comparator
     }
-    const sorted = heapSort(this, this.comparator)
-    this.clear()
-    for (const sortedElement of sorted) {
-      this.add(sortedElement)
-    }
-    this.comparator = backupCmp
   }
 
   /**
@@ -969,31 +1007,25 @@ export class DoublyLinkedList<E> implements ILinkedList<E> {
    * Ω(1)
    * @param index
    */
-  remove(index: number): E {
-    if (index >= this.size || index < 0) throw new Error("no such element")
-    let value
-    switch (index) {
-      case 0:
-        return this.removeFirst()
-      case this.size - 1:
-        return this.removeLast()
-      case 1:
-        const toRemove = this.getNode(index)
-        this.first!.next = toRemove!.next
-        this.first!.next!.prev = this.first
-        value = toRemove!.value
-        toRemove!.prev = toRemove!.next = toRemove!.value = undefined! // GC
-        break
-      default:
-        const toRemove2 = this.getNode(index)
-        toRemove2!.prev!.next = toRemove2!.next
-        toRemove2!.next!.prev = toRemove2!.prev
-        value = toRemove2!.value
-        toRemove2!.next = toRemove2!.prev = toRemove2!.value = undefined! // GC
-    }
+  private removeAtIndex(index: number): E {
+    if (index >= this.size || index < 0) throw new Error('no such element')
+    if (index === 0) return this.removeFirst()
+    if (index === this.size - 1) return this.removeLast()
 
+    const toRemove = this.getNode(index)
+    toRemove!.prev!.next = toRemove!.next
+    toRemove!.next!.prev = toRemove!.prev
+    const value = toRemove!.value
+    toRemove!.next = toRemove!.prev = toRemove!.value = undefined! // GC
     this.size--
     return value
+  }
+
+  remove(target: E | number, isIndex: boolean = true): E | number {
+    if (this.size === 0) throw new Error('no such element')
+    const index = isIndex ? Number(target) : this.indexOf(target as E)
+    const removed = this.removeAtIndex(index)
+    return isIndex ? removed : index
   }
 
   /**
@@ -1083,11 +1115,13 @@ export class DoublyLinkedList<E> implements ILinkedList<E> {
   }
 
   /**
-   * For this method to work, a comparator must be set
-   * @param e
+   * Checks if an element is contained in the DoublyLinkedList.
+   * For this function to work, a comparator must be set!
+   * O(size) amortized
+   * @param element
    */
-  includes(e: E): boolean {
-    return this.indexOf(e) > -1
+  contains(element: E): boolean {
+    return this.indexOf(element) > -1
   }
 
   /**
@@ -1103,25 +1137,31 @@ export class DoublyLinkedList<E> implements ILinkedList<E> {
     return true
   }
 
-  indexOf(e: E): number {
+  /**
+   * Finds the first index of the element
+   * O(size) amortized
+   * @param element
+   */
+  indexOf(element: E): number {
     for (let i = 0; i < this.size; i++) {
-      if (this.comparator(e, this.get(i)) === Ordering.EQ) return i
+      if (this.comparator(element, this.get(i)) === Ordering.EQ) return i
     }
 
     return -1
   }
 
   sort(cmp?: Comparator<E>): void {
-    const backupCmp = this.comparator
+    const comparator = cmp || this.comparator
+    if (!comparator) throw new Error('comparator must be set before sorting')
+    const values = Array.from(this).sort((a, b) => comparator(a, b))
+    let current = this.first
+    for (let i = 0; i < values.length; i++) {
+      current!.value = values[i]
+      current = current!.next
+    }
     if (cmp) {
-      this.comparator = cmp
+      this.comparator = comparator
     }
-    const sorted = heapSort(this, this.comparator)
-    this.clear()
-    for (const sortedElement of sorted) {
-      this.add(sortedElement)
-    }
-    this.comparator = backupCmp
   }
 
   /**
@@ -1419,31 +1459,26 @@ export class CyclicDoublyLinkedList<E> implements ILinkedList<E> {
    * Ω(1)
    * @param index
    */
-  remove(index: number): E {
-    if (index >= this.size || index < 0) throw new Error("no such element")
+  private removeAtIndex(index: number): E {
+    if (index >= this.size || index < 0) throw new Error('no such element')
 
-    let value
-    switch (index) {
-      case 0:
-        return this.removeFirst()
-      case this.size - 1:
-        return this.removeLast()
-      case 1:
-        const toRemove = this.getNode(index)
-        this.first!.next = toRemove!.next
-        this.first!.next!.prev = this.first
-        value = toRemove!.value
-        toRemove!.next = toRemove!.prev = toRemove!.value = undefined! // GC
-        break
-      default:
-        const toRemove2 = this.getNode(index)
-        toRemove2!.prev!.next = toRemove2!.next
-        toRemove2!.next!.prev = toRemove2!.prev
-        value =  toRemove2!.value
-        toRemove2!.next = toRemove2!.prev = toRemove2!.value = undefined! // GC
-    }
+    if (index === 0) return this.removeFirst()
+    if (index === this.size - 1) return this.removeLast()
+
+    const toRemove = this.getNode(index)
+    toRemove!.prev!.next = toRemove!.next
+    toRemove!.next!.prev = toRemove!.prev
+    const value = toRemove!.value
+    toRemove!.next = toRemove!.prev = toRemove!.value = undefined! // GC
     this.size--
     return value
+  }
+
+  remove(target: E | number, isIndex: boolean = true): E | number {
+    if (this.size === 0) throw new Error('no such element')
+    const index = isIndex ? Number(target) : this.indexOf(target as E)
+    const removed = this.removeAtIndex(index)
+    return isIndex ? removed : index
   }
 
   /**
@@ -1543,11 +1578,13 @@ export class CyclicDoublyLinkedList<E> implements ILinkedList<E> {
   }
 
   /**
-   * For this method to work, a comparator must be set
-   * @param e
+   * Checks if an element is contained in the Queue.
+   * For this function to work, a comparator must be set!
+   * O(size) amortized
+   * @param element
    */
-  includes(e: E): boolean {
-    return this.indexOf(e) > -1
+  contains(element: E): boolean {
+    return this.indexOf(element) > -1
   }
 
   /**
@@ -1563,25 +1600,32 @@ export class CyclicDoublyLinkedList<E> implements ILinkedList<E> {
     return true
   }
 
-  indexOf(e: E): number {
+  /**
+   * Finds the first index of the element
+   * O(size) amortized
+   * @param element
+   */
+  indexOf(element: E): number {
     for (let i = 0; i < this.size; i++) {
-      if (this.comparator(e, this.get(i)) === Ordering.EQ) return i
+      if (this.comparator(element, this.get(i)) === Ordering.EQ) return i
     }
 
     return -1
   }
 
   sort(cmp?: Comparator<E>): void {
-    const backupCmp = this.comparator
+    const comparator = cmp || this.comparator
+    if (!comparator) throw new Error('comparator must be set before sorting')
+    if (this.size <= 1) return
+    const values = Array.from(this).sort((a, b) => comparator(a, b))
+    let current = this.first
+    for (let i = 0; i < values.length; i++) {
+      current!.value = values[i]
+      current = current!.next
+    }
     if (cmp) {
-      this.comparator = cmp
+      this.comparator = comparator
     }
-    const sorted = heapSort(this, this.comparator)
-    this.clear()
-    for (const sortedElement of sorted) {
-      this.add(sortedElement)
-    }
-    this.comparator = backupCmp
   }
 
   /**
@@ -1672,9 +1716,11 @@ function _splice<E>(this: IList<E>, startIndex: number, deleteCount: number, sli
     // slice and remove to the left
     for (let i = 0, j = start; i < toIndex; i++, j--) {
       if (j < 0) {
+        // @ts-ignore
         slice.add(this.remove(this.size - 1))
         j = this.size
       } else {
+        // @ts-ignore
         slice.add(this.remove(j))
       }
     }
@@ -1690,6 +1736,7 @@ function _splice<E>(this: IList<E>, startIndex: number, deleteCount: number, sli
 
   // slice and remove to the right
   for (let i = start; i < toIndex; i++) {
+    // @ts-ignore
     slice.add(this.remove(start % this.size))
     if (this.size < start) {
       start--

@@ -1,9 +1,20 @@
-import {Comparator, FibonacciHeap, ICollection} from '../index'
+import {
+  type Comparator,
+  FibonacciHeap,
+  type ICollection,
+} from '../'
 
 export interface ISortable<V> {
   sort(cmp?: Comparator<V>): void
 }
 
+/**
+ * quicksort recursively splits a collection into two chunks
+ * by a pivot element and sort both chunks on the way to the final result.
+ * @param collection instance of an ICollection type for sorting
+ * @param comparator
+ * @param factory an ICollection type for splitting
+ */
 export function quicksort<V>(
   collection: ICollection<V>,
   comparator: Comparator<V>,
@@ -37,9 +48,10 @@ export function quicksort<V>(
 
 
 /**
- * Heapsort variant using a fibonacci heap
+ * Heapsort variant using a fibonacci heap.
+ * Needs a Comparator to function properly!
  *
- * @param A must have a comparator set!
+ * @param A
  * @param comparator
  */
 export function heapSort<V>(A: Iterable<V>, comparator: Comparator<V>) {

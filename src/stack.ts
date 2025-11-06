@@ -92,7 +92,7 @@ export class Stack<E> implements IStack<E> {
   }
 
   addAll(collection: ICollection<E>) {
-    for (let e of collection) {
+    for (const e of collection) {
       this.push(e)
     }
   }
@@ -234,7 +234,7 @@ export class LinkedStack<E> implements IStack<E> {
   }
 
   addAll(collection: ICollection<E>) {
-    for (let e of collection) {
+    for (const e of collection) {
       this.push(e)
     }
   }

@@ -22,7 +22,7 @@ describe('remove', () => {
     fillCollection(collection)
   }
 
-  for (let key in LIST_MAP) {
+  for (const key in LIST_MAP) {
     benchmark(key, LIST_MAP[key], setup, listRemoveTest)
   }
 })
@@ -40,7 +40,7 @@ describe('get', () => {
     fillCollection(collection)
   }
 
-  for (let key in LIST_MAP) {
+  for (const key in LIST_MAP) {
     benchmark(key, LIST_MAP[key], setup, listGetTest)
   }
 })
@@ -60,7 +60,7 @@ describe('slice', () => {
     fillCollection(collection)
   }
 
-  for (let key in LIST_MAP) {
+  for (const key in LIST_MAP) {
     benchmark(key, LIST_MAP[key], setup, listSliceTest)
   }
 })
@@ -77,7 +77,7 @@ describe('splice', () => {
     fillCollection(collection)
   }
 
-  for (let key in LIST_MAP) {
+  for (const key in LIST_MAP) {
     benchmark(key, LIST_MAP[key], setup, listSpliceTest)
   }
 })
@@ -96,7 +96,7 @@ describe('addFirst', () => {
     fillCollection(collection)
   }
 
-  for (let key in LIST_MAP) {
+  for (const key in LIST_MAP) {
     benchmark(key, LIST_MAP[key], setup, listAddFirstTest)
   }
 })
@@ -115,7 +115,7 @@ describe('addLast', () => {
     fillCollection(collection)
   }
 
-  for (let key in LIST_MAP) {
+  for (const key in LIST_MAP) {
     benchmark(key, LIST_MAP[key], setup, listAddLastTest)
   }
 })
@@ -134,7 +134,7 @@ describe('getFirst', () => {
     fillCollection(collection)
   }
 
-  for (let key in LIST_MAP) {
+  for (const key in LIST_MAP) {
     benchmark(key, LIST_MAP[key], setup, listGetFirstTest)
   }
 })
@@ -153,7 +153,7 @@ describe('getLast', () => {
     fillCollection(collection)
   }
 
-  for (let key in LIST_MAP) {
+  for (const key in LIST_MAP) {
     benchmark(key, LIST_MAP[key], setup, listGetLastTest)
   }
 })
@@ -167,7 +167,7 @@ describe('map', () => {
     fillCollection(collection)
   }
 
-  for (let key in LIST_MAP) {
+  for (const key in LIST_MAP) {
     benchmark(key, LIST_MAP[key], setup, listMapTest)
   }
 })
@@ -181,7 +181,7 @@ describe('reduce', () => {
     fillCollection(collection)
   }
 
-  for (let key in LIST_MAP) {
+  for (const key in LIST_MAP) {
     benchmark(key, LIST_MAP[key], setup, listReduceTest)
   }
 })
@@ -195,7 +195,7 @@ describe('filter', () => {
     fillCollection(collection)
   }
 
-  for (let key in LIST_MAP) {
+  for (const key in LIST_MAP) {
     benchmark(key, LIST_MAP[key], setup, listFilterTest)
   }
 })
@@ -209,7 +209,7 @@ describe('every', () => {
     fillCollection(collection)
   }
 
-  for (let key in LIST_MAP) {
+  for (const key in LIST_MAP) {
     benchmark(key, LIST_MAP[key], setup, listEveryTest)
   }
 })
@@ -223,7 +223,7 @@ describe('some', () => {
     fillCollection(collection)
   }
 
-  for (let key in LIST_MAP) {
+  for (const key in LIST_MAP) {
     benchmark(key, LIST_MAP[key], setup, listSomeTest)
   }
 })

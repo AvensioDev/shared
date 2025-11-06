@@ -24,9 +24,9 @@ describe('add/enqueue/push', () => {
     collection.clear()
   }
 
-  function setup(collection: ICollection<number>) {}
+  function setup() {}
 
-  for (let key in DATA_STRUCTURES_MAP) {
+  for (const key in DATA_STRUCTURES_MAP) {
     benchmark(key + (key.includes('Queue') || key.includes('Dequeue') ? ' enqueue' : (key.includes('Stack')) ? ' push' : ' add' ), DATA_STRUCTURES_MAP[key], setup, addTest)
   }
 })
@@ -43,7 +43,7 @@ describe('contains', () => {
     fillCollection(collection)
   }
 
-  for (let key in DATA_STRUCTURES_MAP) {
+  for (const key in DATA_STRUCTURES_MAP) {
     benchmark(key, DATA_STRUCTURES_MAP[key], setup, containsTest)
   }
 })
@@ -57,7 +57,7 @@ describe('sort', () => {
     fillCollection(collection)
   }
 
-  for (let key in DATA_STRUCTURES_MAP) {
+  for (const key in DATA_STRUCTURES_MAP) {
     if (key === 'PriorityQueue') continue
     benchmark(key, DATA_STRUCTURES_MAP[key], setup, sortTest)
   }
@@ -66,7 +66,7 @@ describe('sort', () => {
 describe('iterate', () => {
   function iterateTest(collection: ICollection<number>) {
     for (let i = 0; i < OPS; i++) {
-      for (const _ of collection) {}
+      for (const _ of collection) { console.log(_) }
     }
   }
 
@@ -74,7 +74,7 @@ describe('iterate', () => {
     fillCollection(collection)
   }
 
-  for (let key in DATA_STRUCTURES_MAP) {
+  for (const key in DATA_STRUCTURES_MAP) {
     benchmark(key, DATA_STRUCTURES_MAP[key], setup, iterateTest)
   }
 })
@@ -82,7 +82,7 @@ describe('iterate', () => {
 describe('reverse iterate', () => {
   function reverseIterateTest(collection: ICollection<number>) {
     for (let i = 0; i < OPS; i++) {
-      for (const _ of collection.reverseIterator()) {}
+      for (const _ of collection.reverseIterator()) { console.log(_) }
     }
   }
 
@@ -90,7 +90,7 @@ describe('reverse iterate', () => {
     fillCollection(collection)
   }
 
-  for (let key in DATA_STRUCTURES_MAP) {
+  for (const key in DATA_STRUCTURES_MAP) {
     benchmark(key, DATA_STRUCTURES_MAP[key], setup, reverseIterateTest)
   }
 })
@@ -107,7 +107,7 @@ describe('clear', () => {
     fillCollection(collection)
   }
 
-  for (let key in DATA_STRUCTURES_MAP) {
+  for (const key in DATA_STRUCTURES_MAP) {
     benchmark(key, DATA_STRUCTURES_MAP[key], setup, clearTest)
   }
 })
@@ -122,7 +122,7 @@ describe('isEmpty', () => {
     fillCollection(collection)
   }
 
-  for (let key in DATA_STRUCTURES_MAP) {
+  for (const key in DATA_STRUCTURES_MAP) {
     benchmark(key, DATA_STRUCTURES_MAP[key], setup, isEmptyTest)
   }
 })
@@ -141,7 +141,7 @@ describe('remove', () => {
     fillCollection(collection)
   }
 
-  for (let key in DATA_STRUCTURES_MAP) {
+  for (const key in DATA_STRUCTURES_MAP) {
     benchmark(key, DATA_STRUCTURES_MAP[key], setup, removeTest)
   }
 })
@@ -151,15 +151,15 @@ describe('dequeue/pop/remove', () => {
     fillCollection(collection)
   }
 
-  for (let key in QUEUE_MAP) {
+  for (const key in QUEUE_MAP) {
     benchmark(`${key} dequeue`, QUEUE_MAP[key], _setup, dequeueTest)
   }
 
-  for (let key in STACK_MAP) {
+  for (const key in STACK_MAP) {
     benchmark(`${key} pop`, STACK_MAP[key], _setup, popTest)
   }
 
-  for (let key in DATA_STRUCTURES_MAP) {
+  for (const key in DATA_STRUCTURES_MAP) {
     benchmark(`${key} remove`, DATA_STRUCTURES_MAP[key], _setup, removeTest)
   }
 })
@@ -169,11 +169,11 @@ describe('dequeue/pop', () => {
     fillCollection(collection)
   }
 
-  for (let key in QUEUE_MAP) {
+  for (const key in QUEUE_MAP) {
     benchmark(`${key} dequeue`, QUEUE_MAP[key], _setup, dequeueTest)
   }
 
-  for (let key in STACK_MAP) {
+  for (const key in STACK_MAP) {
     benchmark(`${key} pop`, STACK_MAP[key], _setup, popTest)
   }
 })
@@ -183,11 +183,11 @@ describe('dequeue/remove', () => {
     fillCollection(collection)
   }
 
-  for (let key in DATA_STRUCTURES_MAP) {
+  for (const key in DATA_STRUCTURES_MAP) {
     benchmark(`${key} remove`, DATA_STRUCTURES_MAP[key], _setup, removeTest)
   }
 
-  for (let key in QUEUE_MAP) {
+  for (const key in QUEUE_MAP) {
     benchmark(`${key} dequeue`, QUEUE_MAP[key], _setup, dequeueTest)
   }
 })
@@ -197,11 +197,11 @@ describe('pop/remove', () => {
     fillCollection(collection)
   }
 
-  for (let key in DATA_STRUCTURES_MAP) {
+  for (const key in DATA_STRUCTURES_MAP) {
     benchmark(`${key} remove`, DATA_STRUCTURES_MAP[key], _setup, removeTest)
   }
 
-  for (let key in STACK_MAP) {
+  for (const key in STACK_MAP) {
     benchmark(`${key} pop`, STACK_MAP[key], _setup, popTest)
   }
 })

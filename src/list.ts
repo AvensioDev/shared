@@ -77,10 +77,10 @@ export class List<E> implements IList<E> {
    */
   slice(startIndex: number, endIndex: number): List<E> {
     const slice = new List<E>()
-    // @ts-ignore
-    let {start, end} = calculateStartAndEnd.call(this, startIndex, endIndex);
+    const calc = calculateStartAndEnd.call(this, startIndex, endIndex)
+    let { start } = calc
+    const { end } = calc
 
-    // @ts-ignore
     const count = calculateCount.call(this, start, end, true)
     for (let i = 0; i < count; i++) {
       slice.add(this.get(start % this.size))
@@ -287,7 +287,7 @@ export class List<E> implements IList<E> {
         let el
         try {
           el = this.get(index)
-        } catch (e) {}
+        } catch { /* empty */ }
         return {
           done: index++ === this.size,
           value: el
@@ -389,7 +389,7 @@ export class LinkedList<E> implements ILinkedList<E> {
       if (node) {
         return node.value
       }
-    } catch (e) {}
+    } catch { /* empty */ }
     return undefined!
   }
 
@@ -405,7 +405,7 @@ export class LinkedList<E> implements ILinkedList<E> {
 
   slice(startIndex: number, endIndex: number): LinkedList<E> {
     // @ts-ignore
-    return _slice.call(this, startIndex, endIndex, new LinkedList<E>());
+    return _slice.call(this, startIndex, endIndex, new LinkedList<E>())
   }
 
   slice2(startIndex: number, endIndex: number): LinkedList<E> {
@@ -470,7 +470,7 @@ export class LinkedList<E> implements ILinkedList<E> {
 
   splice(startIndex: number, deleteCount: number): LinkedList<E> {
     // @ts-ignore
-    const slice = _splice.call(this, startIndex, deleteCount, new LinkedList<E>());
+    const slice = _splice.call(this, startIndex, deleteCount, new LinkedList<E>())
     this.resetCursor()
     return slice as LinkedList<E>
   }
@@ -848,7 +848,7 @@ export class DoublyLinkedList<E> implements ILinkedList<E> {
       if (node) {
         return node.value
       }
-    } catch (e) {}
+    } catch { /* empty */ }
     return undefined!
   }
 
@@ -866,7 +866,7 @@ export class DoublyLinkedList<E> implements ILinkedList<E> {
 
   slice(startIndex: number, endIndex: number): DoublyLinkedList<E> {
     // @ts-ignore
-    return _slice.call(this, startIndex, endIndex, new DoublyLinkedList<E>());
+    return _slice.call(this, startIndex, endIndex, new DoublyLinkedList<E>())
   }
 
   slice2(startIndex: number, endIndex: number): DoublyLinkedList<E> {
@@ -1303,7 +1303,7 @@ export class CyclicDoublyLinkedList<E> implements ILinkedList<E> {
       if (node) {
         return node.value
       }
-    } catch (e) {}
+    } catch { /* empty */ }
     return undefined!
   }
 
@@ -1321,7 +1321,7 @@ export class CyclicDoublyLinkedList<E> implements ILinkedList<E> {
 
   slice(startIndex: number, endIndex: number): CyclicDoublyLinkedList<E> {
     // @ts-ignore
-    return _slice.call(this, startIndex, endIndex, new CyclicDoublyLinkedList<E>());
+    return _slice.call(this, startIndex, endIndex, new CyclicDoublyLinkedList<E>())
   }
 
   slice2(startIndex: number, endIndex: number): CyclicDoublyLinkedList<E> {
@@ -1696,7 +1696,7 @@ function calculateStartAndEnd<E>(this: IList<E>, startIndex: number, endIndex: n
     end = this.size + (endIndex % this.size)
   else
     end = endIndex % this.size
-  return {start, end};
+  return {start, end}
 }
 
 function _splice<E>(this: IList<E>, startIndex: number, deleteCount: number, slice: IList<E>): IList<E> {
@@ -1746,9 +1746,10 @@ function _splice<E>(this: IList<E>, startIndex: number, deleteCount: number, sli
 }
 
 function _slice<E>(this: ILinkedList<E>, startIndex: number, endIndex: number, slice: ILinkedList<E>) {
-  // @ts-ignore
-  let {start, end} = calculateStartAndEnd.call(this, startIndex, endIndex);
-  // @ts-ignore
+  const calc = calculateStartAndEnd.call(this, startIndex, endIndex)
+  let { start } = calc
+  const { end } = calc
+
   const count = calculateCount.call(this, start, end, true)
   let startNode = this.getNode(start)
   for (let i = 0; i < count; i++) {

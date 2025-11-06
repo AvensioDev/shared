@@ -92,7 +92,7 @@ export class FibonacciHeap<E> implements IFibonacciHeap<E> {
   }
 
   addAll(collection: ICollection<E>): void {
-    for (let e of collection) {
+    for (const e of collection) {
       this.insert(e)
     }
   }

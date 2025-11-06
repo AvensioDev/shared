@@ -78,7 +78,7 @@ export class Queue<E> implements IQueue<E> {
   }
 
   addAll(collection: ICollection<E>): void {
-    for (let e of collection) {
+    for (const e of collection) {
       this.enqueue(e)
     }
   }
@@ -216,7 +216,7 @@ export class LinkedQueue<E> implements IQueue<E> {
   }
 
   addAll(collection: ICollection<E>): void {
-    for (let e of collection) {
+    for (const e of collection) {
       this.enqueue(e)
     }
   }
@@ -589,7 +589,7 @@ export class Dequeue<E> implements IDequeue<E> {
   }
 
   addAll(collection: ICollection<E>): void {
-    for (let e of collection) {
+    for (const e of collection) {
       this.enqueue(e)
     }
   }

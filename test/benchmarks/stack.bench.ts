@@ -14,9 +14,9 @@ describe('push', () => {
     fillCollection(stack)
   }
 
-  function setup(collection: ICollection<number>) {}
+  function setup() {}
 
-  for (let key in STACK_MAP) {
+  for (const key in STACK_MAP) {
     benchmark(key, STACK_MAP[key], setup, stackPushTest)
   }
 })
@@ -30,7 +30,7 @@ describe('pop', () => {
     fillCollection(collection)
   }
 
-  for (let key in STACK_MAP) {
+  for (const key in STACK_MAP) {
     benchmark(key, STACK_MAP[key], setup, stackPopTest)
   }
 })

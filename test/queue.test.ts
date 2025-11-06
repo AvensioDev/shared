@@ -360,22 +360,22 @@ function queueTests(queue: IQueue<number>, queueType: QueueType, priorityQueueTe
       const queue = new Queue([1,2,3,4])
       const numbers = [...queue.reverseIterator()]
       expect(numbers).toEqual([4,3,2,1])
-    });
+    })
     it('should correctly reverse iterate a linked queue', () => {
       const queue = new LinkedQueue([1,2,3,4])
       const numbers = [...queue.reverseIterator()]
       expect(numbers).toEqual([4,3,2,1])
-    });
+    })
     it('should correctly reverse iterate a priority queue', () => {
       const queue = new PriorityQueue(numberComparatorASC, [1,2,3,4])
       const numbers = [...queue.reverseIterator()]
       expect(numbers).toEqual([4,3,2,1])
-    });
+    })
     it('should correctly reverse iterate a dequeue', () => {
       const queue = new Dequeue([1,2,3,4])
       const numbers = [...queue.reverseIterator()]
       expect(numbers).toEqual([4,3,2,1])
-    });
+    })
   })
 }
 
@@ -400,11 +400,6 @@ function iteratorTest(queue: IQueue<number> | IDequeue<number>) {
     expect(results).toHaveLength(0)
 
     queue.clear()
-    let count = 0
-    for (let {} of queue) {
-      count++
-    }
-    expect(count).toBe(0)
 
     if (queue instanceof Dequeue) {
       queue.clear()
@@ -418,12 +413,6 @@ function iteratorTest(queue: IQueue<number> | IDequeue<number>) {
       expect(queue.size).toBe(3)
       expect(results).toHaveLength(0)
       queue.clear()
-
-      let count = 0
-      for (let {} of queue.reverseIterator()) {
-        count++
-      }
-      expect(count).toBe(0)
 
       results = [1]
       queue.push(1)

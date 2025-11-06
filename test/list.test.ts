@@ -163,7 +163,7 @@ function linkedListTests(list: ILinkedList<number>, listType: new (elements?: It
       expect(_list.get(0)).toBe(3)
       expect(_list.get(1)).toBe(2)
       expect(_list.get(2)).toBe(1)
-    });
+    })
     it('should not add "undefined"', () => {
       list.addFirst(undefined!)
       list.addLast(undefined!)
@@ -603,7 +603,7 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
         list.comparator = numberComparatorASC
         const otherListUnequal = new listType([1,2,2])
         expect(list.equals(otherListUnequal)).toBeFalsy()
-      });
+      })
       it('should equal another list', () => {
         list.add(1)
         list.add(2)
@@ -625,8 +625,8 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
         expect(list.equals(otherList)).toBeTruthy()
         otherList.add(2)
         expect(list.equals(otherList)).toBeFalsy()
-      });
-    });
+      })
+    })
     function commonSliceTests(_slice: (startIndex: number, endIndex: number) => IList<number>) {
       beforeEach(() => {
         list.add(1)
@@ -650,20 +650,20 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
             const slice = _slice.call(list, 0, 0)
             expect(slice.size).toBe(1)
             expect(slice.get(0)).toBe(1)
-          });
+          })
           it('should slice (start = 0, end = 1)', () => {
             const slice = _slice.call(list, 0, 1)
             expect(slice.size).toBe(2)
             expect(slice.get(0)).toBe(1)
             expect(slice.get(1)).toBe(2)
-          });
+          })
           it('should slice (start = 0, end = 2)', () => {
             const slice = _slice.call(list, 0, 2)
             expect(slice.size).toBe(3)
             expect(slice.get(0)).toBe(1)
             expect(slice.get(1)).toBe(2)
             expect(slice.get(2)).toBe(3)
-          });
+          })
           it('should slice (start = 0, end = 3)', () => {
             const slice = _slice.call(list, 0, 3)
             expect(slice.size).toBe(4)
@@ -671,7 +671,7 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
             expect(slice.get(1)).toBe(2)
             expect(slice.get(2)).toBe(3)
             expect(slice.get(3)).toBe(4)
-          });
+          })
           it('should slice (start = 0, end = 4)', () => {
             const slice = _slice.call(list, 0, 4)
             expect(slice.size).toBe(5)
@@ -680,7 +680,7 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
             expect(slice.get(2)).toBe(3)
             expect(slice.get(3)).toBe(4)
             expect(slice.get(4)).toBe(5)
-          });
+          })
           it('should slice (start = 0, end = 5)', () => {
             const slice = _slice.call(list, 0, 5)
             expect(slice.size).toBe(6)
@@ -690,7 +690,7 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
             expect(slice.get(3)).toBe(4)
             expect(slice.get(4)).toBe(5)
             expect(slice.get(5)).toBe(6)
-          });
+          })
         })
         describe('should slice (start = 1, end = [0,5])', () => {
           it('should slice (start = 1, end = 0)', () => {
@@ -702,25 +702,25 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
             expect(slice.get(3)).toBe(5)
             expect(slice.get(4)).toBe(6)
             expect(slice.get(5)).toBe(1)
-          });
+          })
           it('should slice (start = 1, end = 1)', () => {
             const slice = _slice.call(list, 1, 1)
             expect(slice.size).toBe(1)
             expect(slice.get(0)).toBe(2)
-          });
+          })
           it('should slice (start = 1, end = 2)', () => {
             const slice = _slice.call(list, 1, 2)
             expect(slice.size).toBe(2)
             expect(slice.get(0)).toBe(2)
             expect(slice.get(1)).toBe(3)
-          });
+          })
           it('should slice (start = 1, end = 3)', () => {
             const slice = _slice.call(list, 1, 3)
             expect(slice.size).toBe(3)
             expect(slice.get(0)).toBe(2)
             expect(slice.get(1)).toBe(3)
             expect(slice.get(2)).toBe(4)
-          });
+          })
           it('should slice (start = 1, end = 4)', () => {
             const slice = _slice.call(list, 1, 4)
             expect(slice.size).toBe(4)
@@ -728,7 +728,7 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
             expect(slice.get(1)).toBe(3)
             expect(slice.get(2)).toBe(4)
             expect(slice.get(3)).toBe(5)
-          });
+          })
           it('should slice (start = 1, end = 5)', () => {
             const slice = _slice.call(list, 1, 5)
             expect(slice.size).toBe(5)
@@ -737,7 +737,7 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
             expect(slice.get(2)).toBe(4)
             expect(slice.get(3)).toBe(5)
             expect(slice.get(4)).toBe(6)
-          });
+          })
         })
         describe('should slice (start = 2, end = [0,5])', () => {
           it('should slice (start = 2, end = 0)', () => {
@@ -748,7 +748,7 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
             expect(slice.get(2)).toBe(5)
             expect(slice.get(3)).toBe(6)
             expect(slice.get(4)).toBe(1)
-          });
+          })
           it('should slice (start = 2, end = 1)', () => {
             const slice = _slice.call(list, 2, 1)
             expect(slice.size).toBe(6)
@@ -758,25 +758,25 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
             expect(slice.get(3)).toBe(6)
             expect(slice.get(4)).toBe(1)
             expect(slice.get(5)).toBe(2)
-          });
+          })
           it('should slice (start = 2, end = 2)', () => {
             const slice = _slice.call(list, 2, 2)
             expect(slice.size).toBe(1)
             expect(slice.get(0)).toBe(3)
-          });
+          })
           it('should slice (start = 2, end = 3)', () => {
             const slice = _slice.call(list, 2, 3)
             expect(slice.size).toBe(2)
             expect(slice.get(0)).toBe(3)
             expect(slice.get(1)).toBe(4)
-          });
+          })
           it('should slice (start = 2, end = 4)', () => {
             const slice = _slice.call(list, 2, 4)
             expect(slice.size).toBe(3)
             expect(slice.get(0)).toBe(3)
             expect(slice.get(1)).toBe(4)
             expect(slice.get(2)).toBe(5)
-          });
+          })
           it('should slice (start = 2, end = 5)', () => {
             const slice = _slice.call(list, 2, 5)
             expect(slice.size).toBe(4)
@@ -784,7 +784,7 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
             expect(slice.get(1)).toBe(4)
             expect(slice.get(2)).toBe(5)
             expect(slice.get(3)).toBe(6)
-          });
+          })
         })
         describe('should slice (start = 3, end = [0,5])', () => {
           it('should slice (start = 3, end = 0)', () => {
@@ -794,7 +794,7 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
             expect(slice.get(1)).toBe(5)
             expect(slice.get(2)).toBe(6)
             expect(slice.get(3)).toBe(1)
-          });
+          })
           it('should slice (start = 3, end = 1)', () => {
             const slice = _slice.call(list, 3, 1)
             expect(slice.size).toBe(5)
@@ -803,7 +803,7 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
             expect(slice.get(2)).toBe(6)
             expect(slice.get(3)).toBe(1)
             expect(slice.get(4)).toBe(2)
-          });
+          })
           it('should slice (start = 3, end = 2)', () => {
             const slice = _slice.call(list, 3, 2)
             expect(slice.size).toBe(6)
@@ -813,25 +813,25 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
             expect(slice.get(3)).toBe(1)
             expect(slice.get(4)).toBe(2)
             expect(slice.get(5)).toBe(3)
-          });
+          })
           it('should slice (start = 3, end = 3)', () => {
             const slice = _slice.call(list, 3, 3)
             expect(slice.size).toBe(1)
             expect(slice.get(0)).toBe(4)
-          });
+          })
           it('should slice (start = 3, end = 4)', () => {
             const slice = _slice.call(list, 3, 4)
             expect(slice.size).toBe(2)
             expect(slice.get(0)).toBe(4)
             expect(slice.get(1)).toBe(5)
-          });
+          })
           it('should slice (start = 3, end = 5)', () => {
             const slice = _slice.call(list, 3, 5)
             expect(slice.size).toBe(3)
             expect(slice.get(0)).toBe(4)
             expect(slice.get(1)).toBe(5)
             expect(slice.get(2)).toBe(6)
-          });
+          })
         })
         describe('should slice (start = 4, end = [0,5])', () => {
           it('should slice (start = 4, end = 0)', () => {
@@ -840,7 +840,7 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
             expect(slice.get(0)).toBe(5)
             expect(slice.get(1)).toBe(6)
             expect(slice.get(2)).toBe(1)
-          });
+          })
           it('should slice (start = 4, end = 1)', () => {
             const slice = _slice.call(list, 4, 1)
             expect(slice.size).toBe(4)
@@ -848,7 +848,7 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
             expect(slice.get(1)).toBe(6)
             expect(slice.get(2)).toBe(1)
             expect(slice.get(3)).toBe(2)
-          });
+          })
           it('should slice (start = 4, end = 2)', () => {
             const slice = _slice.call(list, 4, 2)
             expect(slice.size).toBe(5)
@@ -857,7 +857,7 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
             expect(slice.get(2)).toBe(1)
             expect(slice.get(3)).toBe(2)
             expect(slice.get(4)).toBe(3)
-          });
+          })
           it('should slice (start = 4, end = 3)', () => {
             const slice = _slice.call(list, 4, 3)
             expect(slice.size).toBe(6)
@@ -867,18 +867,18 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
             expect(slice.get(3)).toBe(2)
             expect(slice.get(4)).toBe(3)
             expect(slice.get(5)).toBe(4)
-          });
+          })
           it('should slice (start = 4, end = 4)', () => {
             const slice = _slice.call(list, 4, 4)
             expect(slice.size).toBe(1)
             expect(slice.get(0)).toBe(5)
-          });
+          })
           it('should slice (start = 4, end = 5)', () => {
             const slice = _slice.call(list, 4, 5)
             expect(slice.size).toBe(2)
             expect(slice.get(0)).toBe(5)
             expect(slice.get(1)).toBe(6)
-          });
+          })
         })
         describe('should slice (start = 5, end = [0,5])', () => {
           it('should slice (start = 5, end = 0)', () => {
@@ -886,14 +886,14 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
             expect(slice.size).toBe(2)
             expect(slice.get(0)).toBe(6)
             expect(slice.get(1)).toBe(1)
-          });
+          })
           it('should slice (start = 5, end = 1)', () => {
             const slice = _slice.call(list, 5, 1)
             expect(slice.size).toBe(3)
             expect(slice.get(0)).toBe(6)
             expect(slice.get(1)).toBe(1)
             expect(slice.get(2)).toBe(2)
-          });
+          })
           it('should slice (start = 5, end = 2)', () => {
             const slice = _slice.call(list, 5, 2)
             expect(slice.size).toBe(4)
@@ -901,7 +901,7 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
             expect(slice.get(1)).toBe(1)
             expect(slice.get(2)).toBe(2)
             expect(slice.get(3)).toBe(3)
-          });
+          })
           it('should slice (start = 5, end = 3)', () => {
             const slice = _slice.call(list, 5, 3)
             expect(slice.size).toBe(5)
@@ -910,7 +910,7 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
             expect(slice.get(2)).toBe(2)
             expect(slice.get(3)).toBe(3)
             expect(slice.get(4)).toBe(4)
-          });
+          })
           it('should slice (start = 5, end = 4)', () => {
             const slice = _slice.call(list, 5, 4)
             expect(slice.size).toBe(6)
@@ -920,19 +920,19 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
             expect(slice.get(3)).toBe(3)
             expect(slice.get(4)).toBe(4)
             expect(slice.get(5)).toBe(5)
-          });
+          })
           it('should slice (start = 5, end = 5)', () => {
             const slice = _slice.call(list, 5, 5)
             expect(slice.size).toBe(1)
             expect(slice.get(0)).toBe(6)
-          });
+          })
         })
-      });
+      })
     }
     describe('slice', () => {
       describe('slice variant 1', () => {
         commonSliceTests(list.slice)
-      });
+      })
       describe('slice variant 2 (with left direction per negative end index)', () => {
         commonSliceTests(list.slice2)
         describe('same 6 residue classes but with a slice direction change on negative end index', () => {
@@ -946,14 +946,14 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
               expect(slice.get(3)).toBe(5)
               expect(slice.get(4)).toBe(6)
               expect(slice.get(5)).toBe(1)
-            });
+            })
             it('should slice (start = -5, end = -1)', () => {
               const slice = list.slice2(-5, -1)
               expect(slice.size).toBe(3)
               expect(slice.get(0)).toBe(2)
               expect(slice.get(1)).toBe(1)
               expect(slice.get(2)).toBe(6)
-            });
+            })
             it('should slice (start = -5, end = -2)', () => {
               const slice = list.slice2(-5, -2)
               expect(slice.size).toBe(4)
@@ -961,7 +961,7 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
               expect(slice.get(1)).toBe(1)
               expect(slice.get(2)).toBe(6)
               expect(slice.get(3)).toBe(5)
-            });
+            })
             it('should slice (start = -5, end = -3)', () => {
               const slice = list.slice2(-5, -3)
               expect(slice.size).toBe(5)
@@ -970,7 +970,7 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
               expect(slice.get(2)).toBe(6)
               expect(slice.get(3)).toBe(5)
               expect(slice.get(4)).toBe(4)
-            });
+            })
             it('should slice (start = -5, end = -4)', () => {
               const slice = list.slice2(-5, -4)
               expect(slice.size).toBe(6)
@@ -980,12 +980,12 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
               expect(slice.get(3)).toBe(5)
               expect(slice.get(4)).toBe(4)
               expect(slice.get(5)).toBe(3)
-            });
+            })
             it('should slice (start = -5, end = -5)', () => {
               const slice = list.slice2(-5, -5)
               expect(slice.size).toBe(1)
               expect(slice.get(0)).toBe(2)
-            });
+            })
           })
           describe('should slice (start = -4, end = [0,-5])', () => {
             it('should slice (start = -4, end = 0)', () => {
@@ -996,7 +996,7 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
               expect(slice.get(2)).toBe(5)
               expect(slice.get(3)).toBe(6)
               expect(slice.get(4)).toBe(1)
-            });
+            })
             it('should slice (start = -4, end = -1)', () => {
               const slice = list.slice2(-4, -1)
               expect(slice.size).toBe(4)
@@ -1004,7 +1004,7 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
               expect(slice.get(1)).toBe(2)
               expect(slice.get(2)).toBe(1)
               expect(slice.get(3)).toBe(6)
-            });
+            })
             it('should slice (start = -4, end = -2)', () => {
               const slice = list.slice2(-4, -2)
               expect(slice.size).toBe(5)
@@ -1013,7 +1013,7 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
               expect(slice.get(2)).toBe(1)
               expect(slice.get(3)).toBe(6)
               expect(slice.get(4)).toBe(5)
-            });
+            })
             it('should slice (start = -4, end = -3)', () => {
               const slice = list.slice2(-4, -3)
               expect(slice.size).toBe(6)
@@ -1023,18 +1023,18 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
               expect(slice.get(3)).toBe(6)
               expect(slice.get(4)).toBe(5)
               expect(slice.get(5)).toBe(4)
-            });
+            })
             it('should slice (start = -4, end = -4)', () => {
               const slice = list.slice2(-4, -4)
               expect(slice.size).toBe(1)
               expect(slice.get(0)).toBe(3)
-            });
+            })
             it('should slice (start = -4, end = -5)', () => {
               const slice = list.slice2(-4, -5)
               expect(slice.size).toBe(2)
               expect(slice.get(0)).toBe(3)
               expect(slice.get(1)).toBe(2)
-            });
+            })
           })
           describe('should slice (start = -3, end = [0,-5])', () => {
             it('should slice (start = -3, end = 0)', () => {
@@ -1044,7 +1044,7 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
               expect(slice.get(1)).toBe(5)
               expect(slice.get(2)).toBe(6)
               expect(slice.get(3)).toBe(1)
-            });
+            })
             it('should slice (start = -3, end = 1)', () => {
               const slice = list.slice2(-3, 1)
               expect(slice.size).toBe(5)
@@ -1053,7 +1053,7 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
               expect(slice.get(2)).toBe(6)
               expect(slice.get(3)).toBe(1)
               expect(slice.get(4)).toBe(2)
-            });
+            })
             it('should slice (start = -3, end = 2)', () => {
               const slice = list.slice2(-3, 2)
               expect(slice.size).toBe(6)
@@ -1063,25 +1063,25 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
               expect(slice.get(3)).toBe(1)
               expect(slice.get(4)).toBe(2)
               expect(slice.get(5)).toBe(3)
-            });
+            })
             it('should slice (start = -3, end = 3)', () => {
               const slice = list.slice2(-3, 3)
               expect(slice.size).toBe(1)
               expect(slice.get(0)).toBe(4)
-            });
+            })
             it('should slice (start = -3, end = 4)', () => {
               const slice = list.slice2(-3, 4)
               expect(slice.size).toBe(2)
               expect(slice.get(0)).toBe(4)
               expect(slice.get(1)).toBe(5)
-            });
+            })
             it('should slice (start = -3, end = 5)', () => {
               const slice = list.slice2(-3, 5)
               expect(slice.size).toBe(3)
               expect(slice.get(0)).toBe(4)
               expect(slice.get(1)).toBe(5)
               expect(slice.get(2)).toBe(6)
-            });
+            })
           })
           describe('should slice (start = -2, end = [0,-5])', () => {
             it('should slice (start = -2, end = 0)', () => {
@@ -1090,7 +1090,7 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
               expect(slice.get(0)).toBe(5)
               expect(slice.get(1)).toBe(6)
               expect(slice.get(2)).toBe(1)
-            });
+            })
             it('should slice (start = -2, end = -1)', () => {
               const slice = list.slice2(-2, -1)
               expect(slice.size).toBe(6)
@@ -1100,25 +1100,25 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
               expect(slice.get(3)).toBe(2)
               expect(slice.get(4)).toBe(1)
               expect(slice.get(5)).toBe(6)
-            });
+            })
             it('should slice (start = -2, end = -2)', () => {
               const slice = list.slice2(-2, -2)
               expect(slice.size).toBe(1)
               expect(slice.get(0)).toBe(5)
-            });
+            })
             it('should slice (start = -2, end = -3)', () => {
               const slice = list.slice2(-2, -3)
               expect(slice.size).toBe(2)
               expect(slice.get(0)).toBe(5)
               expect(slice.get(1)).toBe(4)
-            });
+            })
             it('should slice (start = -2, end = -4)', () => {
               const slice = list.slice2(-2, -4)
               expect(slice.size).toBe(3)
               expect(slice.get(0)).toBe(5)
               expect(slice.get(1)).toBe(4)
               expect(slice.get(2)).toBe(3)
-            });
+            })
             it('should slice (start = -2, end = -5)', () => {
               const slice = list.slice2(-2, -5)
               expect(slice.size).toBe(4)
@@ -1126,7 +1126,7 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
               expect(slice.get(1)).toBe(4)
               expect(slice.get(2)).toBe(3)
               expect(slice.get(3)).toBe(2)
-            });
+            })
           })
           describe('should slice (start = -1, end = [0,-5])', () => {
             it('should slice (start = -1, end = 0)', () => {
@@ -1134,25 +1134,25 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
               expect(slice.size).toBe(2)
               expect(slice.get(0)).toBe(6)
               expect(slice.get(1)).toBe(1)
-            });
+            })
             it('should slice (start = -1, end = -1)', () => {
               const slice = list.slice2(-1, -1)
               expect(slice.size).toBe(1)
               expect(slice.get(0)).toBe(6)
-            });
+            })
             it('should slice (start = -1, end = -2)', () => {
               const slice = list.slice2(-1, -2)
               expect(slice.size).toBe(2)
               expect(slice.get(0)).toBe(6)
               expect(slice.get(1)).toBe(5)
-            });
+            })
             it('should slice (start = -1, end = -3)', () => {
               const slice = list.slice2(-1, -3)
               expect(slice.size).toBe(3)
               expect(slice.get(0)).toBe(6)
               expect(slice.get(1)).toBe(5)
               expect(slice.get(2)).toBe(4)
-            });
+            })
             it('should slice (start = -1, end = -4)', () => {
               const slice = list.slice2(-1, -4)
               expect(slice.size).toBe(4)
@@ -1160,7 +1160,7 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
               expect(slice.get(1)).toBe(5)
               expect(slice.get(2)).toBe(4)
               expect(slice.get(3)).toBe(3)
-            });
+            })
             it('should slice (start = -1, end = -5)', () => {
               const slice = list.slice2(-1, -5)
               expect(slice.size).toBe(5)
@@ -1169,27 +1169,27 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
               expect(slice.get(2)).toBe(4)
               expect(slice.get(3)).toBe(3)
               expect(slice.get(4)).toBe(2)
-            });
+            })
           })
           describe('should slice (start = 0, end = [0,-5])', () => {
             it('should slice (start = 0, end = 0)', () => {
               const slice = list.slice2(0, 0)
               expect(slice.size).toBe(1)
               expect(slice.get(0)).toBe(1)
-            });
+            })
             it('should slice (start = 0, end = -1)', () => {
               const slice = list.slice2(0, -1)
               expect(slice.size).toBe(2)
               expect(slice.get(0)).toBe(1)
               expect(slice.get(1)).toBe(6)
-            });
+            })
             it('should slice (start = 0, end = -2)', () => {
               const slice = list.slice2(0, -2)
               expect(slice.size).toBe(3)
               expect(slice.get(0)).toBe(1)
               expect(slice.get(1)).toBe(6)
               expect(slice.get(2)).toBe(5)
-            });
+            })
             it('should slice (start = 0, end = -3)', () => {
               const slice = list.slice2(0, -3)
               expect(slice.size).toBe(4)
@@ -1197,7 +1197,7 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
               expect(slice.get(1)).toBe(6)
               expect(slice.get(2)).toBe(5)
               expect(slice.get(3)).toBe(4)
-            });
+            })
             it('should slice (start = 0, end = -4)', () => {
               const slice = list.slice2(0, -4)
               expect(slice.size).toBe(5)
@@ -1206,7 +1206,7 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
               expect(slice.get(2)).toBe(5)
               expect(slice.get(3)).toBe(4)
               expect(slice.get(4)).toBe(3)
-            });
+            })
             it('should slice (start = 0, end = -5)', () => {
               const slice = list.slice2(0, -5)
               expect(slice.size).toBe(6)
@@ -1216,7 +1216,7 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
               expect(slice.get(3)).toBe(4)
               expect(slice.get(4)).toBe(3)
               expect(slice.get(5)).toBe(2)
-            });
+            })
           })
           describe('should slice (start = 1, end = [0,-5])', () => {
             it('should slice (start = 1, end = 0)', () => {
@@ -1228,14 +1228,14 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
               expect(slice.get(3)).toBe(5)
               expect(slice.get(4)).toBe(6)
               expect(slice.get(5)).toBe(1)
-            });
+            })
             it('should slice (start = 1, end = -1)', () => {
               const slice = list.slice2(1, -1)
               expect(slice.size).toBe(3)
               expect(slice.get(0)).toBe(2)
               expect(slice.get(1)).toBe(1)
               expect(slice.get(2)).toBe(6)
-            });
+            })
             it('should slice (start = 1, end = -2)', () => {
               const slice = list.slice2(1, -2)
               expect(slice.size).toBe(4)
@@ -1243,7 +1243,7 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
               expect(slice.get(1)).toBe(1)
               expect(slice.get(2)).toBe(6)
               expect(slice.get(3)).toBe(5)
-            });
+            })
             it('should slice (start = 1, end = -3)', () => {
               const slice = list.slice2(1, -3)
               expect(slice.size).toBe(5)
@@ -1252,7 +1252,7 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
               expect(slice.get(2)).toBe(6)
               expect(slice.get(3)).toBe(5)
               expect(slice.get(4)).toBe(4)
-            });
+            })
             it('should slice (start = 1, end = -4)', () => {
               const slice = list.slice2(1, -4)
               expect(slice.size).toBe(6)
@@ -1262,12 +1262,12 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
               expect(slice.get(3)).toBe(5)
               expect(slice.get(4)).toBe(4)
               expect(slice.get(5)).toBe(3)
-            });
+            })
             it('should slice (start = 1, end = -5)', () => {
               const slice = list.slice2(1, -5)
               expect(slice.size).toBe(1)
               expect(slice.get(0)).toBe(2)
-            });
+            })
           })
           describe('should slice (start = 2, end = [0,-5])', () => {
             it('should slice (start = 2, end = 0)', () => {
@@ -1278,7 +1278,7 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
               expect(slice.get(2)).toBe(5)
               expect(slice.get(3)).toBe(6)
               expect(slice.get(4)).toBe(1)
-            });
+            })
             it('should slice (start = 2, end = -1)', () => {
               const slice = list.slice2(2, -1)
               expect(slice.size).toBe(4)
@@ -1286,7 +1286,7 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
               expect(slice.get(1)).toBe(2)
               expect(slice.get(2)).toBe(1)
               expect(slice.get(3)).toBe(6)
-            });
+            })
             it('should slice (start = 2, end = -2)', () => {
               const slice = list.slice2(2, -2)
               expect(slice.size).toBe(5)
@@ -1295,7 +1295,7 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
               expect(slice.get(2)).toBe(1)
               expect(slice.get(3)).toBe(6)
               expect(slice.get(4)).toBe(5)
-            });
+            })
             it('should slice (start = 2, end = -3)', () => {
               const slice = list.slice2(2, -3)
               expect(slice.size).toBe(6)
@@ -1305,18 +1305,18 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
               expect(slice.get(3)).toBe(6)
               expect(slice.get(4)).toBe(5)
               expect(slice.get(5)).toBe(4)
-            });
+            })
             it('should slice (start = 2, end = -4)', () => {
               const slice = list.slice2(2, -4)
               expect(slice.size).toBe(1)
               expect(slice.get(0)).toBe(3)
-            });
+            })
             it('should slice (start = 2, end = -5)', () => {
               const slice = list.slice2(2, -5)
               expect(slice.size).toBe(2)
               expect(slice.get(0)).toBe(3)
               expect(slice.get(1)).toBe(2)
-            });
+            })
           })
           describe('should slice (start = 3, end = [0,-5])', () => {
             it('should slice (start = 3, end = 0)', () => {
@@ -1326,7 +1326,7 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
               expect(slice.get(1)).toBe(5)
               expect(slice.get(2)).toBe(6)
               expect(slice.get(3)).toBe(1)
-            });
+            })
             it('should slice (start = 3, end = 1)', () => {
               const slice = list.slice2(3, 1)
               expect(slice.size).toBe(5)
@@ -1335,7 +1335,7 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
               expect(slice.get(2)).toBe(6)
               expect(slice.get(3)).toBe(1)
               expect(slice.get(4)).toBe(2)
-            });
+            })
             it('should slice (start = 3, end = 2)', () => {
               const slice = list.slice2(3, 2)
               expect(slice.size).toBe(6)
@@ -1345,25 +1345,25 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
               expect(slice.get(3)).toBe(1)
               expect(slice.get(4)).toBe(2)
               expect(slice.get(5)).toBe(3)
-            });
+            })
             it('should slice (start = 3, end = 3)', () => {
               const slice = list.slice2(3, 3)
               expect(slice.size).toBe(1)
               expect(slice.get(0)).toBe(4)
-            });
+            })
             it('should slice (start = 3, end = 4)', () => {
               const slice = list.slice2(3, 4)
               expect(slice.size).toBe(2)
               expect(slice.get(0)).toBe(4)
               expect(slice.get(1)).toBe(5)
-            });
+            })
             it('should slice (start = 3, end = 5)', () => {
               const slice = list.slice2(3, 5)
               expect(slice.size).toBe(3)
               expect(slice.get(0)).toBe(4)
               expect(slice.get(1)).toBe(5)
               expect(slice.get(2)).toBe(6)
-            });
+            })
           })
           describe('should slice (start = 4, end = [0,-5])', () => {
             it('should slice (start = 4, end = 0)', () => {
@@ -1372,7 +1372,7 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
               expect(slice.get(0)).toBe(5)
               expect(slice.get(1)).toBe(6)
               expect(slice.get(2)).toBe(1)
-            });
+            })
             it('should slice (start = 4, end = -1)', () => {
               const slice = list.slice2(4, -1)
               expect(slice.size).toBe(6)
@@ -1382,25 +1382,25 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
               expect(slice.get(3)).toBe(2)
               expect(slice.get(4)).toBe(1)
               expect(slice.get(5)).toBe(6)
-            });
+            })
             it('should slice (start = 4, end = -2)', () => {
               const slice = list.slice2(4, -2)
               expect(slice.size).toBe(1)
               expect(slice.get(0)).toBe(5)
-            });
+            })
             it('should slice (start = 4, end = -3)', () => {
               const slice = list.slice2(4, -3)
               expect(slice.size).toBe(2)
               expect(slice.get(0)).toBe(5)
               expect(slice.get(1)).toBe(4)
-            });
+            })
             it('should slice (start = 4, end = -4)', () => {
               const slice = list.slice2(4, -4)
               expect(slice.size).toBe(3)
               expect(slice.get(0)).toBe(5)
               expect(slice.get(1)).toBe(4)
               expect(slice.get(2)).toBe(3)
-            });
+            })
             it('should slice (start = 4, end = -5)', () => {
               const slice = list.slice2(4, -5)
               expect(slice.size).toBe(4)
@@ -1408,7 +1408,7 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
               expect(slice.get(1)).toBe(4)
               expect(slice.get(2)).toBe(3)
               expect(slice.get(3)).toBe(2)
-            });
+            })
           })
           describe('should slice (start = 5, end = [0,-5])', () => {
             it('should slice (start = 5, end = 0)', () => {
@@ -1416,25 +1416,25 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
               expect(slice.size).toBe(2)
               expect(slice.get(0)).toBe(6)
               expect(slice.get(1)).toBe(1)
-            });
+            })
             it('should slice (start = 5, end = -1)', () => {
               const slice = list.slice2(5, -1)
               expect(slice.size).toBe(1)
               expect(slice.get(0)).toBe(6)
-            });
+            })
             it('should slice (start = 5, end = -2)', () => {
               const slice = list.slice2(5, -2)
               expect(slice.size).toBe(2)
               expect(slice.get(0)).toBe(6)
               expect(slice.get(1)).toBe(5)
-            });
+            })
             it('should slice (start = 5, end = -3)', () => {
               const slice = list.slice2(5, -3)
               expect(slice.size).toBe(3)
               expect(slice.get(0)).toBe(6)
               expect(slice.get(1)).toBe(5)
               expect(slice.get(2)).toBe(4)
-            });
+            })
             it('should slice (start = 5, end = -4)', () => {
               const slice = list.slice2(5, -4)
               expect(slice.size).toBe(4)
@@ -1442,7 +1442,7 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
               expect(slice.get(1)).toBe(5)
               expect(slice.get(2)).toBe(4)
               expect(slice.get(3)).toBe(3)
-            });
+            })
             it('should slice (start = 5, end = -5)', () => {
               const slice = list.slice2(5, -5)
               expect(slice.size).toBe(5)
@@ -1451,11 +1451,11 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
               expect(slice.get(2)).toBe(4)
               expect(slice.get(3)).toBe(3)
               expect(slice.get(4)).toBe(2)
-            });
+            })
           })
-        });
+        })
       })
-    });
+    })
     describe('splice (slice and remove)', () => {
       beforeEach(() => {
         list.add(1)
@@ -1464,7 +1464,7 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
         list.add(4)
         list.add(5)
         list.add(6)
-      });
+      })
       it('should get and remove a slice of the list', () => {
         expect(list.size).toBe(6)
 
@@ -1484,7 +1484,7 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
         expect(slice.get(2)).toBe(6)
 
         expect(list.size).toBe(0)
-      });
+      })
       it('should return empty list (startIndex [-5, 5], deleteCount = 0)', () => {
         expect(list.splice(-5, 0).size).toBe(0)
         expect(list.splice(-4, 0).size).toBe(0)
@@ -1497,7 +1497,7 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
         expect(list.splice(3, 0).size).toBe(0)
         expect(list.splice(4, 0).size).toBe(0)
         expect(list.splice(5, 0).size).toBe(0)
-      });
+      })
       describe('splice (startIndex = [0, 5], deleteCount = [-6, 6]', () => {
         describe('(startIndex = 0, deleteCount = [-6, 6])', () => {
           beforeEach(() => {
@@ -1508,9 +1508,9 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
             list.add(4)
             list.add(5)
             list.add(6)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 0, deleteCount = -6)', () => {
-            const slice = list.splice(0, -6);
+            const slice = list.splice(0, -6)
             expect(slice.size).toBe(6)
             expect(slice.get(0)).toBe(1)
             expect(slice.get(1)).toBe(6)
@@ -1518,83 +1518,83 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
             expect(slice.get(3)).toBe(4)
             expect(slice.get(4)).toBe(3)
             expect(slice.get(5)).toBe(2)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 0, deleteCount = -5)', () => {
-            const slice = list.splice(0, -5);
+            const slice = list.splice(0, -5)
             expect(slice.size).toBe(5)
             expect(slice.get(0)).toBe(1)
             expect(slice.get(1)).toBe(6)
             expect(slice.get(2)).toBe(5)
             expect(slice.get(3)).toBe(4)
             expect(slice.get(4)).toBe(3)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 0, deleteCount = -4)', () => {
-            const slice = list.splice(0, -4);
+            const slice = list.splice(0, -4)
             expect(slice.size).toBe(4)
             expect(slice.get(0)).toBe(1)
             expect(slice.get(1)).toBe(6)
             expect(slice.get(2)).toBe(5)
             expect(slice.get(3)).toBe(4)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 0, deleteCount = -3)', () => {
-            const slice = list.splice(0, -3);
+            const slice = list.splice(0, -3)
             expect(slice.size).toBe(3)
             expect(slice.get(0)).toBe(1)
             expect(slice.get(1)).toBe(6)
             expect(slice.get(2)).toBe(5)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 0, deleteCount = -2)', () => {
-            const slice = list.splice(0, -2);
+            const slice = list.splice(0, -2)
             expect(slice.size).toBe(2)
             expect(slice.get(0)).toBe(1)
             expect(slice.get(1)).toBe(6)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 0, deleteCount = -1)', () => {
-            const slice = list.splice(0, -1);
+            const slice = list.splice(0, -1)
             expect(slice.size).toBe(1)
             expect(slice.get(0)).toBe(1)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 0, deleteCount = 0)', () => {
-            const slice = list.splice(0, 0);
+            const slice = list.splice(0, 0)
             expect(slice.size).toBe(0)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 0, deleteCount = 1)', () => {
-            const slice = list.splice(0, 1);
+            const slice = list.splice(0, 1)
             expect(slice.size).toBe(1)
             expect(slice.get(0)).toBe(1)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 0, deleteCount = 2)', () => {
-            const slice = list.splice(0, 2);
+            const slice = list.splice(0, 2)
             expect(slice.size).toBe(2)
             expect(slice.get(0)).toBe(1)
             expect(slice.get(1)).toBe(2)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 0, deleteCount = 3)', () => {
-            const slice = list.splice(0, 3);
+            const slice = list.splice(0, 3)
             expect(slice.size).toBe(3)
             expect(slice.get(0)).toBe(1)
             expect(slice.get(1)).toBe(2)
             expect(slice.get(2)).toBe(3)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 0, deleteCount = 4)', () => {
-            const slice = list.splice(0, 4);
+            const slice = list.splice(0, 4)
             expect(slice.size).toBe(4)
             expect(slice.get(0)).toBe(1)
             expect(slice.get(1)).toBe(2)
             expect(slice.get(2)).toBe(3)
             expect(slice.get(3)).toBe(4)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 0, deleteCount = 5)', () => {
-            const slice = list.splice(0, 5);
+            const slice = list.splice(0, 5)
             expect(slice.size).toBe(5)
             expect(slice.get(0)).toBe(1)
             expect(slice.get(1)).toBe(2)
             expect(slice.get(2)).toBe(3)
             expect(slice.get(3)).toBe(4)
             expect(slice.get(4)).toBe(5)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 0, deleteCount = 6)', () => {
-            const slice = list.splice(0, 6);
+            const slice = list.splice(0, 6)
             expect(slice.size).toBe(6)
             expect(slice.get(0)).toBe(1)
             expect(slice.get(1)).toBe(2)
@@ -1602,8 +1602,8 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
             expect(slice.get(3)).toBe(4)
             expect(slice.get(4)).toBe(5)
             expect(slice.get(5)).toBe(6)
-          });
-        });
+          })
+        })
         describe('(startIndex = 1, deleteCount = [-6, 6])', () => {
           beforeEach(() => {
             list.clear()
@@ -1613,9 +1613,9 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
             list.add(4)
             list.add(5)
             list.add(6)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 1, deleteCount = -6)', () => {
-            const slice = list.splice(1, -6);
+            const slice = list.splice(1, -6)
             expect(slice.size).toBe(6)
             expect(slice.get(0)).toBe(2)
             expect(slice.get(1)).toBe(1)
@@ -1623,83 +1623,83 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
             expect(slice.get(3)).toBe(5)
             expect(slice.get(4)).toBe(4)
             expect(slice.get(5)).toBe(3)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 1, deleteCount = -5)', () => {
-            const slice = list.splice(1, -5);
+            const slice = list.splice(1, -5)
             expect(slice.size).toBe(5)
             expect(slice.get(0)).toBe(2)
             expect(slice.get(1)).toBe(1)
             expect(slice.get(2)).toBe(6)
             expect(slice.get(3)).toBe(5)
             expect(slice.get(4)).toBe(4)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 1, deleteCount = -4)', () => {
-            const slice = list.splice(1, -4);
+            const slice = list.splice(1, -4)
             expect(slice.size).toBe(4)
             expect(slice.get(0)).toBe(2)
             expect(slice.get(1)).toBe(1)
             expect(slice.get(2)).toBe(6)
             expect(slice.get(3)).toBe(5)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 1, deleteCount = -3)', () => {
-            const slice = list.splice(1, -3);
+            const slice = list.splice(1, -3)
             expect(slice.size).toBe(3)
             expect(slice.get(0)).toBe(2)
             expect(slice.get(1)).toBe(1)
             expect(slice.get(2)).toBe(6)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 1, deleteCount = -2)', () => {
-            const slice = list.splice(1, -2);
+            const slice = list.splice(1, -2)
             expect(slice.size).toBe(2)
             expect(slice.get(0)).toBe(2)
             expect(slice.get(1)).toBe(1)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 1, deleteCount = -1)', () => {
-            const slice = list.splice(1, -1);
+            const slice = list.splice(1, -1)
             expect(slice.size).toBe(1)
             expect(slice.get(0)).toBe(2)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 1, deleteCount = 0)', () => {
-            const slice = list.splice(1, 0);
+            const slice = list.splice(1, 0)
             expect(slice.size).toBe(0)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 1, deleteCount = 1)', () => {
-            const slice = list.splice(1, 1);
+            const slice = list.splice(1, 1)
             expect(slice.size).toBe(1)
             expect(slice.get(0)).toBe(2)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 1, deleteCount = 2)', () => {
-            const slice = list.splice(1, 2);
+            const slice = list.splice(1, 2)
             expect(slice.size).toBe(2)
             expect(slice.get(0)).toBe(2)
             expect(slice.get(1)).toBe(3)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 1, deleteCount = 3)', () => {
-            const slice = list.splice(1, 3);
+            const slice = list.splice(1, 3)
             expect(slice.size).toBe(3)
             expect(slice.get(0)).toBe(2)
             expect(slice.get(1)).toBe(3)
             expect(slice.get(2)).toBe(4)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 1, deleteCount = 4)', () => {
-            const slice = list.splice(1, 4);
+            const slice = list.splice(1, 4)
             expect(slice.size).toBe(4)
             expect(slice.get(0)).toBe(2)
             expect(slice.get(1)).toBe(3)
             expect(slice.get(2)).toBe(4)
             expect(slice.get(3)).toBe(5)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 1, deleteCount = 5)', () => {
-            const slice = list.splice(1, 5);
+            const slice = list.splice(1, 5)
             expect(slice.size).toBe(5)
             expect(slice.get(0)).toBe(2)
             expect(slice.get(1)).toBe(3)
             expect(slice.get(2)).toBe(4)
             expect(slice.get(3)).toBe(5)
             expect(slice.get(4)).toBe(6)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 1, deleteCount = 6)', () => {
-            const slice = list.splice(1, 6);
+            const slice = list.splice(1, 6)
             expect(slice.size).toBe(6)
             expect(slice.get(0)).toBe(2)
             expect(slice.get(1)).toBe(3)
@@ -1707,8 +1707,8 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
             expect(slice.get(3)).toBe(5)
             expect(slice.get(4)).toBe(6)
             expect(slice.get(5)).toBe(1)
-          });
-        });
+          })
+        })
         describe('(startIndex = 2, deleteCount = [-6, 6])', () => {
           beforeEach(() => {
             list.clear()
@@ -1718,9 +1718,9 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
             list.add(4)
             list.add(5)
             list.add(6)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 2, deleteCount = -6)', () => {
-            const slice = list.splice(2, -6);
+            const slice = list.splice(2, -6)
             expect(slice.size).toBe(6)
             expect(slice.get(0)).toBe(3)
             expect(slice.get(1)).toBe(2)
@@ -1728,83 +1728,83 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
             expect(slice.get(3)).toBe(6)
             expect(slice.get(4)).toBe(5)
             expect(slice.get(5)).toBe(4)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 2, deleteCount = -5)', () => {
-            const slice = list.splice(2, -5);
+            const slice = list.splice(2, -5)
             expect(slice.size).toBe(5)
             expect(slice.get(0)).toBe(3)
             expect(slice.get(1)).toBe(2)
             expect(slice.get(2)).toBe(1)
             expect(slice.get(3)).toBe(6)
             expect(slice.get(4)).toBe(5)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 2, deleteCount = -4)', () => {
-            const slice = list.splice(2, -4);
+            const slice = list.splice(2, -4)
             expect(slice.size).toBe(4)
             expect(slice.get(0)).toBe(3)
             expect(slice.get(1)).toBe(2)
             expect(slice.get(2)).toBe(1)
             expect(slice.get(3)).toBe(6)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 2, deleteCount = -3)', () => {
-            const slice = list.splice(2, -3);
+            const slice = list.splice(2, -3)
             expect(slice.size).toBe(3)
             expect(slice.get(0)).toBe(3)
             expect(slice.get(1)).toBe(2)
             expect(slice.get(2)).toBe(1)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 2, deleteCount = -2)', () => {
-            const slice = list.splice(2, -2);
+            const slice = list.splice(2, -2)
             expect(slice.size).toBe(2)
             expect(slice.get(0)).toBe(3)
             expect(slice.get(1)).toBe(2)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 2, deleteCount = -1)', () => {
-            const slice = list.splice(2, -1);
+            const slice = list.splice(2, -1)
             expect(slice.size).toBe(1)
             expect(slice.get(0)).toBe(3)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 2, deleteCount = 0)', () => {
-            const slice = list.splice(2, 0);
+            const slice = list.splice(2, 0)
             expect(slice.size).toBe(0)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 2, deleteCount = 1)', () => {
-            const slice = list.splice(2, 1);
+            const slice = list.splice(2, 1)
             expect(slice.size).toBe(1)
             expect(slice.get(0)).toBe(3)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 2, deleteCount = 2)', () => {
-            const slice = list.splice(2, 2);
+            const slice = list.splice(2, 2)
             expect(slice.size).toBe(2)
             expect(slice.get(0)).toBe(3)
             expect(slice.get(1)).toBe(4)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 2, deleteCount = 3)', () => {
-            const slice = list.splice(2, 3);
+            const slice = list.splice(2, 3)
             expect(slice.size).toBe(3)
             expect(slice.get(0)).toBe(3)
             expect(slice.get(1)).toBe(4)
             expect(slice.get(2)).toBe(5)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 2, deleteCount = 4)', () => {
-            const slice = list.splice(2, 4);
+            const slice = list.splice(2, 4)
             expect(slice.size).toBe(4)
             expect(slice.get(0)).toBe(3)
             expect(slice.get(1)).toBe(4)
             expect(slice.get(2)).toBe(5)
             expect(slice.get(3)).toBe(6)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 2, deleteCount = 5)', () => {
-            const slice = list.splice(2, 5);
+            const slice = list.splice(2, 5)
             expect(slice.size).toBe(5)
             expect(slice.get(0)).toBe(3)
             expect(slice.get(1)).toBe(4)
             expect(slice.get(2)).toBe(5)
             expect(slice.get(3)).toBe(6)
             expect(slice.get(4)).toBe(1)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 2, deleteCount = 6)', () => {
-            const slice = list.splice(2, 6);
+            const slice = list.splice(2, 6)
             expect(slice.size).toBe(6)
             expect(slice.get(0)).toBe(3)
             expect(slice.get(1)).toBe(4)
@@ -1812,8 +1812,8 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
             expect(slice.get(3)).toBe(6)
             expect(slice.get(4)).toBe(1)
             expect(slice.get(5)).toBe(2)
-          });
-        });
+          })
+        })
         describe('(startIndex = 3, deleteCount = [-6, 6])', () => {
           beforeEach(() => {
             list.clear()
@@ -1823,9 +1823,9 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
             list.add(4)
             list.add(5)
             list.add(6)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 3, deleteCount = -6)', () => {
-            const slice = list.splice(3, -6);
+            const slice = list.splice(3, -6)
             expect(slice.size).toBe(6)
             expect(slice.get(0)).toBe(4)
             expect(slice.get(1)).toBe(3)
@@ -1833,83 +1833,83 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
             expect(slice.get(3)).toBe(1)
             expect(slice.get(4)).toBe(6)
             expect(slice.get(5)).toBe(5)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 3, deleteCount = -5)', () => {
-            const slice = list.splice(3, -5);
+            const slice = list.splice(3, -5)
             expect(slice.size).toBe(5)
             expect(slice.get(0)).toBe(4)
             expect(slice.get(1)).toBe(3)
             expect(slice.get(2)).toBe(2)
             expect(slice.get(3)).toBe(1)
             expect(slice.get(4)).toBe(6)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 3, deleteCount = -4)', () => {
-            const slice = list.splice(3, -4);
+            const slice = list.splice(3, -4)
             expect(slice.size).toBe(4)
             expect(slice.get(0)).toBe(4)
             expect(slice.get(1)).toBe(3)
             expect(slice.get(2)).toBe(2)
             expect(slice.get(3)).toBe(1)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 3, deleteCount = -3)', () => {
-            const slice = list.splice(3, -3);
+            const slice = list.splice(3, -3)
             expect(slice.size).toBe(3)
             expect(slice.get(0)).toBe(4)
             expect(slice.get(1)).toBe(3)
             expect(slice.get(2)).toBe(2)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 3, deleteCount = -2)', () => {
-            const slice = list.splice(3, -2);
+            const slice = list.splice(3, -2)
             expect(slice.size).toBe(2)
             expect(slice.get(0)).toBe(4)
             expect(slice.get(1)).toBe(3)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 3, deleteCount = -1)', () => {
-            const slice = list.splice(3, -1);
+            const slice = list.splice(3, -1)
             expect(slice.size).toBe(1)
             expect(slice.get(0)).toBe(4)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 3, deleteCount = 0)', () => {
-            const slice = list.splice(3, 0);
+            const slice = list.splice(3, 0)
             expect(slice.size).toBe(0)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 3, deleteCount = 1)', () => {
-            const slice = list.splice(3, 1);
+            const slice = list.splice(3, 1)
             expect(slice.size).toBe(1)
             expect(slice.get(0)).toBe(4)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 3, deleteCount = 2)', () => {
-            const slice = list.splice(3, 2);
+            const slice = list.splice(3, 2)
             expect(slice.size).toBe(2)
             expect(slice.get(0)).toBe(4)
             expect(slice.get(1)).toBe(5)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 3, deleteCount = 3)', () => {
-            const slice = list.splice(3, 3);
+            const slice = list.splice(3, 3)
             expect(slice.size).toBe(3)
             expect(slice.get(0)).toBe(4)
             expect(slice.get(1)).toBe(5)
             expect(slice.get(2)).toBe(6)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 3, deleteCount = 4)', () => {
-            const slice = list.splice(3, 4);
+            const slice = list.splice(3, 4)
             expect(slice.size).toBe(4)
             expect(slice.get(0)).toBe(4)
             expect(slice.get(1)).toBe(5)
             expect(slice.get(2)).toBe(6)
             expect(slice.get(3)).toBe(1)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 3, deleteCount = 5)', () => {
-            const slice = list.splice(3, 5);
+            const slice = list.splice(3, 5)
             expect(slice.size).toBe(5)
             expect(slice.get(0)).toBe(4)
             expect(slice.get(1)).toBe(5)
             expect(slice.get(2)).toBe(6)
             expect(slice.get(3)).toBe(1)
             expect(slice.get(4)).toBe(2)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 3, deleteCount = 6)', () => {
-            const slice = list.splice(3, 6);
+            const slice = list.splice(3, 6)
             expect(slice.size).toBe(6)
             expect(slice.get(0)).toBe(4)
             expect(slice.get(1)).toBe(5)
@@ -1917,8 +1917,8 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
             expect(slice.get(3)).toBe(1)
             expect(slice.get(4)).toBe(2)
             expect(slice.get(5)).toBe(3)
-          });
-        });
+          })
+        })
         describe('(startIndex = 4, deleteCount = [-6, 6])', () => {
           beforeEach(() => {
             list.clear()
@@ -1928,9 +1928,9 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
             list.add(4)
             list.add(5)
             list.add(6)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 4, deleteCount = -6)', () => {
-            const slice = list.splice(4, -6);
+            const slice = list.splice(4, -6)
             expect(slice.size).toBe(6)
             expect(slice.get(0)).toBe(5)
             expect(slice.get(1)).toBe(4)
@@ -1938,83 +1938,83 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
             expect(slice.get(3)).toBe(2)
             expect(slice.get(4)).toBe(1)
             expect(slice.get(5)).toBe(6)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 4, deleteCount = -5)', () => {
-            const slice = list.splice(4, -5);
+            const slice = list.splice(4, -5)
             expect(slice.size).toBe(5)
             expect(slice.get(0)).toBe(5)
             expect(slice.get(1)).toBe(4)
             expect(slice.get(2)).toBe(3)
             expect(slice.get(3)).toBe(2)
             expect(slice.get(4)).toBe(1)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 4, deleteCount = -4)', () => {
-            const slice = list.splice(4, -4);
+            const slice = list.splice(4, -4)
             expect(slice.size).toBe(4)
             expect(slice.get(0)).toBe(5)
             expect(slice.get(1)).toBe(4)
             expect(slice.get(2)).toBe(3)
             expect(slice.get(3)).toBe(2)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 4, deleteCount = -3)', () => {
-            const slice = list.splice(4, -3);
+            const slice = list.splice(4, -3)
             expect(slice.size).toBe(3)
             expect(slice.get(0)).toBe(5)
             expect(slice.get(1)).toBe(4)
             expect(slice.get(2)).toBe(3)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 4, deleteCount = -2)', () => {
-            const slice = list.splice(4, -2);
+            const slice = list.splice(4, -2)
             expect(slice.size).toBe(2)
             expect(slice.get(0)).toBe(5)
             expect(slice.get(1)).toBe(4)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 4, deleteCount = -1)', () => {
-            const slice = list.splice(4, -1);
+            const slice = list.splice(4, -1)
             expect(slice.size).toBe(1)
             expect(slice.get(0)).toBe(5)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 4, deleteCount = 0)', () => {
-            const slice = list.splice(4, 0);
+            const slice = list.splice(4, 0)
             expect(slice.size).toBe(0)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 4, deleteCount = 1)', () => {
-            const slice = list.splice(4, 1);
+            const slice = list.splice(4, 1)
             expect(slice.size).toBe(1)
             expect(slice.get(0)).toBe(5)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 4, deleteCount = 2)', () => {
-            const slice = list.splice(4, 2);
+            const slice = list.splice(4, 2)
             expect(slice.size).toBe(2)
             expect(slice.get(0)).toBe(5)
             expect(slice.get(1)).toBe(6)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 4, deleteCount = 3)', () => {
-            const slice = list.splice(4, 3);
+            const slice = list.splice(4, 3)
             expect(slice.size).toBe(3)
             expect(slice.get(0)).toBe(5)
             expect(slice.get(1)).toBe(6)
             expect(slice.get(2)).toBe(1)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 4, deleteCount = 4)', () => {
-            const slice = list.splice(4, 4);
+            const slice = list.splice(4, 4)
             expect(slice.size).toBe(4)
             expect(slice.get(0)).toBe(5)
             expect(slice.get(1)).toBe(6)
             expect(slice.get(2)).toBe(1)
             expect(slice.get(3)).toBe(2)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 4, deleteCount = 5)', () => {
-            const slice = list.splice(4, 5);
+            const slice = list.splice(4, 5)
             expect(slice.size).toBe(5)
             expect(slice.get(0)).toBe(5)
             expect(slice.get(1)).toBe(6)
             expect(slice.get(2)).toBe(1)
             expect(slice.get(3)).toBe(2)
             expect(slice.get(4)).toBe(3)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 4, deleteCount = 6)', () => {
-            const slice = list.splice(4, 6);
+            const slice = list.splice(4, 6)
             expect(slice.size).toBe(6)
             expect(slice.get(0)).toBe(5)
             expect(slice.get(1)).toBe(6)
@@ -2022,8 +2022,8 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
             expect(slice.get(3)).toBe(2)
             expect(slice.get(4)).toBe(3)
             expect(slice.get(5)).toBe(4)
-          });
-        });
+          })
+        })
         describe('(startIndex = 5, deleteCount = [-6, 6])', () => {
           beforeEach(() => {
             list.clear()
@@ -2033,9 +2033,9 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
             list.add(4)
             list.add(5)
             list.add(6)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 5, deleteCount = -6)', () => {
-            const slice = list.splice(5, -6);
+            const slice = list.splice(5, -6)
             expect(slice.size).toBe(6)
             expect(slice.get(0)).toBe(6)
             expect(slice.get(1)).toBe(5)
@@ -2043,83 +2043,83 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
             expect(slice.get(3)).toBe(3)
             expect(slice.get(4)).toBe(2)
             expect(slice.get(5)).toBe(1)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 5, deleteCount = -5)', () => {
-            const slice = list.splice(5, -5);
+            const slice = list.splice(5, -5)
             expect(slice.size).toBe(5)
             expect(slice.get(0)).toBe(6)
             expect(slice.get(1)).toBe(5)
             expect(slice.get(2)).toBe(4)
             expect(slice.get(3)).toBe(3)
             expect(slice.get(4)).toBe(2)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 5, deleteCount = -4)', () => {
-            const slice = list.splice(5, -4);
+            const slice = list.splice(5, -4)
             expect(slice.size).toBe(4)
             expect(slice.get(0)).toBe(6)
             expect(slice.get(1)).toBe(5)
             expect(slice.get(2)).toBe(4)
             expect(slice.get(3)).toBe(3)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 5, deleteCount = -3)', () => {
-            const slice = list.splice(5, -3);
+            const slice = list.splice(5, -3)
             expect(slice.size).toBe(3)
             expect(slice.get(0)).toBe(6)
             expect(slice.get(1)).toBe(5)
             expect(slice.get(2)).toBe(4)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 5, deleteCount = -2)', () => {
-            const slice = list.splice(5, -2);
+            const slice = list.splice(5, -2)
             expect(slice.size).toBe(2)
             expect(slice.get(0)).toBe(6)
             expect(slice.get(1)).toBe(5)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 5, deleteCount = -1)', () => {
-            const slice = list.splice(5, -1);
+            const slice = list.splice(5, -1)
             expect(slice.size).toBe(1)
             expect(slice.get(0)).toBe(6)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 5, deleteCount = 0)', () => {
-            const slice = list.splice(5, 0);
+            const slice = list.splice(5, 0)
             expect(slice.size).toBe(0)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 5, deleteCount = 1)', () => {
-            const slice = list.splice(5, 1);
+            const slice = list.splice(5, 1)
             expect(slice.size).toBe(1)
             expect(slice.get(0)).toBe(6)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 5, deleteCount = 2)', () => {
-            const slice = list.splice(5, 2);
+            const slice = list.splice(5, 2)
             expect(slice.size).toBe(2)
             expect(slice.get(0)).toBe(6)
             expect(slice.get(1)).toBe(1)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 5, deleteCount = 3)', () => {
-            const slice = list.splice(5, 3);
+            const slice = list.splice(5, 3)
             expect(slice.size).toBe(3)
             expect(slice.get(0)).toBe(6)
             expect(slice.get(1)).toBe(1)
             expect(slice.get(2)).toBe(2)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 5, deleteCount = 4)', () => {
-            const slice = list.splice(5, 4);
+            const slice = list.splice(5, 4)
             expect(slice.size).toBe(4)
             expect(slice.get(0)).toBe(6)
             expect(slice.get(1)).toBe(1)
             expect(slice.get(2)).toBe(2)
             expect(slice.get(3)).toBe(3)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 5, deleteCount = 5)', () => {
-            const slice = list.splice(5, 5);
+            const slice = list.splice(5, 5)
             expect(slice.size).toBe(5)
             expect(slice.get(0)).toBe(6)
             expect(slice.get(1)).toBe(1)
             expect(slice.get(2)).toBe(2)
             expect(slice.get(3)).toBe(3)
             expect(slice.get(4)).toBe(4)
-          });
+          })
           it('should get and remove a slice of the list (startIndex = 5, deleteCount = 6)', () => {
-            const slice = list.splice(5, 6);
+            const slice = list.splice(5, 6)
             expect(slice.size).toBe(6)
             expect(slice.get(0)).toBe(6)
             expect(slice.get(1)).toBe(1)
@@ -2127,10 +2127,10 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
             expect(slice.get(3)).toBe(3)
             expect(slice.get(4)).toBe(4)
             expect(slice.get(5)).toBe(5)
-          });
-        });
-      });
-    });
+          })
+        })
+      })
+    })
     it('should have correct size', () => {
       expect(list.isEmpty()).toBeTruthy()
       expect(list.size).toBe(0)
@@ -2249,7 +2249,7 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
       expect(list.contains(0)).toBeTruthy()
       expect(list.contains(2)).toBeFalsy()
       expect(list.contains(-2)).toBeFalsy()
-    });
+    })
     describe('some', () => {
       it('contains no element equal to 1', () => {
         list.add(0)
@@ -2264,14 +2264,14 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
     describe('every', () => {
       it('every element matches the predicate', () => {
         list.add(0)
-        expect(list.every(_ => true)).toBeTruthy()
+        expect(list.every(() => true)).toBeTruthy()
       })
       it("at least one element doesn't match the predicate", () => {
         list.add(0)
-        expect(list.every(_ => false)).toBeFalsy()
+        expect(list.every(() => false)).toBeFalsy()
       })
       it('list size: 0; an empty list resolves to true (predicate: all true)', () => {
-        expect(list.every(_ => true)).toBeTruthy()
+        expect(list.every(() => true)).toBeTruthy()
       })
     })
   })

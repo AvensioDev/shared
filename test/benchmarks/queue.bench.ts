@@ -20,7 +20,7 @@ describe('enqueue', () => {
     collection.clear()
   }
 
-  for (let key in QUEUE_MAP) {
+  for (const key in QUEUE_MAP) {
     benchmark(key, QUEUE_MAP[key], setup, queueEnqueueTest)
   }
 })
@@ -38,7 +38,7 @@ describe('dequeue', () => {
     fillCollection(collection)
   }
 
-  for (let key in QUEUE_MAP) {
+  for (const key in QUEUE_MAP) {
     benchmark(key, QUEUE_MAP[key], setup, queueDequeueTest)
   }
 })

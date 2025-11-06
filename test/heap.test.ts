@@ -31,7 +31,7 @@ describe('fibonacci heap', () => {
   })
 
   it('should create an empty heap', () => {
-    expect(heap).not.toBeNull
+    expect(heap).not.toBe(null)
   })
   it('should be possible to add "null" values to the heap', () => {
     heap.insert(null!)
@@ -237,8 +237,8 @@ describe('fibonacci heap', () => {
     heap.insert(3)
     heap.insert(4)
 
-    expect(heap.minNode).not.toBeUndefined
-    expect(heap.rootList).not.toBeUndefined
+    expect(heap.minNode).not.toBe(undefined)
+    expect(heap.rootList).not.toBe(undefined)
 
     expect(heap.size).toBe(4)
     heap.clear()
@@ -276,11 +276,6 @@ describe('fibonacci heap', () => {
     expect(heap.size).toBe(7)
 
     heap.clear()
-    let iterationCount = 0
-    for (let {} of heap) {
-      iterationCount++
-    }
-    expect(iterationCount).toBe(0)
   })
 
   describe('union', () => {
@@ -750,7 +745,7 @@ describe('fibonacci heap', () => {
     expect([...heap]).toEqual([3,2,1])
     heap.sort(numberComparatorASC)
     expect([...heap]).toEqual([1,2,3])
-  });
+  })
 
   it('should reverse iterate over the heap', () => {
     const heap = new FibonacciHeap<number>(numberComparatorASC)

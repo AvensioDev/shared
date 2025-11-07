@@ -28,18 +28,18 @@
     "datastructures"
   ],
   "scripts": {
-    "postinstall": "node ../../scripts/hooks/commit-msg.mjs",
+    "postinstall": "node ./scripts/hooks/commit-msg.mjs",
     "prepack": "pnpm run release",
     "release": "pnpm run test && pnpm run build && pnpm run changelog",
     "changelog": "changelogen --release --push --yes",
     "dev": "vitest --logHeapUsage --coverage",
     "bench": "vitest bench test/benchmarks/",
     "build": "vite build && vite build -c vite.iife.config.ts",
+    "postbuild": "node ./scripts/update.ts",
     "lint": "eslint --fix",
     "test": "vitest --coverage test/",
     "docs": "vitepress",
-    "clean": "rm -rf node_modules/ && rm -rf dist/",
-    "preview": "vite preview"
+    "clean": "rm -rf node_modules/ && rm -rf dist/"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org",

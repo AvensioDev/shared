@@ -14,24 +14,43 @@ export type Node<E> = undefined | {
   next?: Node<E>
 }
 
-export function numberComparatorASC(n1: number, n2: number) {
-  if (n1 === n2) return Ordering.EQ // 0
-  if (n1 < n2) return Ordering.LT // -1
+export function createComparator<T>(
+  key: keyof T,
+  direction?: 'asc' | 'desc'
+): Comparator<T>
 
-  return Ordering.GT // 1
+export function createComparator<T>(
+  extractor: (value: T) => number | string,
+  direction?: 'asc' | 'desc'
+): Comparator<T>
+
+export function createComparator<T>(
+  extractorOrKey?: ((value: T) => number | string) | keyof T,
+  direction: 'asc' | 'desc' = 'asc'
+): Comparator<T> {
+  const extractor =
+    typeof extractorOrKey === 'function'
+      ? extractorOrKey
+      : extractorOrKey
+        ? (v: T) => v[extractorOrKey] as unknown as number | string
+        : (v: T) => v as unknown as number | string
+
+  return (a, b) => {
+    const va = extractor(a)
+    const vb = extractor(b)
+
+    if (va === vb) return Ordering.EQ
+    const result = va < vb ? Ordering.LT : Ordering.GT
+    return direction === 'asc' ? result : (result * -1) as Ordering
+  }
 }
 
-export function numberComparatorDESC(n1: number, n2: number) {
-  if (n1 === n2) return Ordering.EQ
-  if (n1 < n2) return Ordering.GT
-  return Ordering.LT
-}
-
-export function stringComparator(s1: string, s2: string) {
-  if (s1 === s2) return Ordering.EQ
-  if (s1 < s2) return Ordering.LT
-  return Ordering.GT
-}
+const identityExtractor = (e: any) => e
+export const numberComparatorASC = createComparator<number>(identityExtractor)
+export const numberComparatorDESC = createComparator<number>(identityExtractor, 'desc')
+export const stringComparatorASC = createComparator<string>(identityExtractor)
+export const stringComparatorDESC = createComparator<string>(identityExtractor, 'desc')
+export const stringComparator = stringComparatorASC
 
 export interface IReverseIterable<E> {
   reverseIterator(): Generator<E>
@@ -48,10 +67,10 @@ export interface ICollection<E> extends ISortable<E>, Iterable<E>, IReverseItera
   contains(element: E): boolean
 }
 
-// @ts-ignore
 export * from './stack'
 export * from './queue'
 export * from './list'
 export * from './heap'
 export * from './sort'
 export * from './math'
+export * from './tree'

@@ -1,3 +1,4 @@
+// src/heap.ts
 import {
   Comparator,
   CyclicDoublyLinkedList,
@@ -5,14 +6,193 @@ import {
   Ordering,
 } from './'
 
-export type HeapNode<E> = {
+export class BinaryHeap<E> implements ICollection<E> {
+  private heap: E[] = []
+  size = 0
+  comparator: Comparator<E>
+
+  constructor(comparator: Comparator<E>, elements?: Iterable<E>) {
+    this.comparator = comparator
+    if (elements) {
+      for (const element of elements) {
+        this.insert(element)
+      }
+    }
+  }
+
+  insert(element: E): void {
+    if (element === undefined) return
+    this.heap[this.size] = element
+    this.size++
+    this.siftUp(this.size - 1)
+  }
+
+  extractMin(): E {
+    if (this.size === 0) throw new Error('no such element')
+    const top = this.heap[0]
+    const last = this.heap.pop()!
+    this.size--
+    if (this.size > 0) {
+      this.heap[0] = last
+      this.siftDown(0)
+    }
+    return top
+  }
+
+  peek(): E {
+    if (this.size === 0) throw new Error('no such element')
+    return this.heap[0]
+  }
+
+  add(element: E): void {
+    this.insert(element)
+  }
+
+  addAll(collection: ICollection<E>): void {
+    for (const value of collection) {
+      this.insert(value)
+    }
+  }
+
+  clear(): void {
+    this.heap = []
+    this.size = 0
+  }
+
+  isEmpty(): boolean {
+    return this.size === 0
+  }
+
+  contains(element: E): boolean {
+    if (this.comparator) {
+      for (let i = 0; i < this.size; i++) {
+        if (this.comparator(element, this.heap[i]) === Ordering.EQ) return true
+      }
+      return false
+    }
+    for (let i = 0; i < this.size; i++) {
+      if (this.heap[i] === element) return true
+    }
+    return false
+  }
+
+  sort(cmp?: Comparator<E>): void {
+    const comparator = cmp || this.comparator
+    if (!comparator) throw new Error('comparator must be set before sorting')
+    const values = this.snapshotSorted().sort((a, b) => comparator(a, b))
+    if (cmp) {
+      this.comparator = comparator
+    }
+    this.heap = []
+    this.size = 0
+    for (const value of values) {
+      this.insert(value)
+    }
+  }
+
+  remove(target: E | number, isIndex: boolean = true): E | number {
+    if (this.size === 0) throw new Error('no such element')
+    const values = this.snapshotSorted()
+    let index: number
+    if (isIndex) {
+      index = Number(target)
+    } else if (this.comparator) {
+      index = values.findIndex(value => this.comparator(value, target as E) === Ordering.EQ)
+    } else {
+      index = values.findIndex(value => value === target)
+    }
+    if (index < 0 || index >= values.length) throw new Error('no such element')
+    const [removed] = values.splice(index, 1)
+    if (removed === undefined) throw new Error('no such element')
+    this.heap = []
+    this.size = 0
+    for (const value of values) {
+      this.insert(value)
+    }
+    return isIndex ? removed : index
+  }
+
+  [Symbol.iterator](): Iterator<E> {
+    const values = this.snapshotSorted()
+    let index = 0
+    return {
+      next: () => {
+        if (index >= values.length) return { done: true, value: undefined as unknown as E }
+        return { done: false, value: values[index++] }
+      }
+    }
+  }
+
+  *reverseIterator(): Generator<E> {
+    const values = this.snapshotSorted()
+    for (let i = values.length - 1; i >= 0; i--) {
+      yield values[i]
+    }
+  }
+
+  private snapshotSorted(): E[] {
+    const copy = this.heap.slice(0, this.size)
+    copy.sort((a, b) => this.comparator(a, b))
+    return copy
+  }
+
+  private parent(index: number) {
+    return Math.floor((index - 1) / 2)
+  }
+
+  private left(index: number) {
+    return index * 2 + 1
+  }
+
+  private right(index: number) {
+    return index * 2 + 2
+  }
+
+  private swap(i: number, j: number) {
+    const tmp = this.heap[i]
+    this.heap[i] = this.heap[j]
+    this.heap[j] = tmp
+  }
+
+  private siftUp(index: number) {
+    let i = index
+    while (i > 0) {
+      const parentIndex = this.parent(i)
+      if (this.comparator(this.heap[i], this.heap[parentIndex]) !== Ordering.LT) break
+      this.swap(i, parentIndex)
+      i = parentIndex
+    }
+  }
+
+  private siftDown(index: number) {
+    let i = index
+    while (true) {
+      const left = this.left(i)
+      const right = this.right(i)
+      let smallest = i
+
+      if (left < this.size && this.comparator(this.heap[left], this.heap[smallest]) === Ordering.LT) {
+        smallest = left
+      }
+      if (right < this.size && this.comparator(this.heap[right], this.heap[smallest]) === Ordering.LT) {
+        smallest = right
+      }
+
+      if (smallest === i) break
+      this.swap(i, smallest)
+      i = smallest
+    }
+  }
+}
+
+export type FibonacciHeapNode<E> = {
   value: E
   degree: number
   marked: boolean
-  left: HeapNode<E>
-  right: HeapNode<E>
-  parent?: HeapNode<E>
-  child?: HeapNode<E>
+  left: FibonacciHeapNode<E>
+  right: FibonacciHeapNode<E>
+  parent?: FibonacciHeapNode<E>
+  child?: FibonacciHeapNode<E>
 }
 
 /**
@@ -21,22 +201,22 @@ export type HeapNode<E> = {
  * This is needed for delete to function correctly
  */
 export interface IFibonacciHeap<E> extends ICollection<E> {
-  rootList: HeapNode<E>
-  minNode: HeapNode<E>
-  insert(element: E): HeapNode<E>
+  rootList: FibonacciHeapNode<E>
+  minNode: FibonacciHeapNode<E>
+  insert(element: E): FibonacciHeapNode<E>
   contains(element: E): boolean
-  delete(node: HeapNode<E>): HeapNode<E>
-  decreaseKey(node: HeapNode<E>, newValue: E): void
-  minimum(): HeapNode<E>
-  extractMin(): HeapNode<E>
+  delete(node: FibonacciHeapNode<E>): FibonacciHeapNode<E>
+  decreaseKey(node: FibonacciHeapNode<E>, newValue: E): void
+  minimum(): FibonacciHeapNode<E>
+  extractMin(): FibonacciHeapNode<E>
   union(heap: IFibonacciHeap<E>): void
-  extractNeighbours(node: HeapNode<E>, includeSelf?: boolean): CyclicDoublyLinkedList<HeapNode<E>>
-  extractChildren(node: HeapNode<E>): CyclicDoublyLinkedList<HeapNode<E>>
+  extractNeighbours(node: FibonacciHeapNode<E>, includeSelf?: boolean): CyclicDoublyLinkedList<FibonacciHeapNode<E>>
+  extractChildren(node: FibonacciHeapNode<E>): CyclicDoublyLinkedList<FibonacciHeapNode<E>>
 }
 
 export class FibonacciHeap<E> implements IFibonacciHeap<E> {
-  rootList!: HeapNode<E>
-  minNode!: HeapNode<E>
+  rootList!: FibonacciHeapNode<E>
+  minNode!: FibonacciHeapNode<E>
   size = 0
   comparator: Comparator<E>
   private readonly goldenCut = (1 + Math.sqrt(5)) / 2
@@ -54,10 +234,10 @@ export class FibonacciHeap<E> implements IFibonacciHeap<E> {
    * O(1)
    * @param element
    */
-  insert(element: E): HeapNode<E> {
+  insert(element: E): FibonacciHeapNode<E> {
     if (element === undefined) return undefined!
     // @ts-ignore
-    const node: HeapNode<E> = {
+    const node: FibonacciHeapNode<E> = {
       value: element,
       degree: 0,
       marked: false
@@ -87,7 +267,7 @@ export class FibonacciHeap<E> implements IFibonacciHeap<E> {
     return false
   }
 
-  add(e: E): HeapNode<E> {
+  add(e: E): FibonacciHeapNode<E> {
     return this.insert(e)
   }
 
@@ -102,7 +282,7 @@ export class FibonacciHeap<E> implements IFibonacciHeap<E> {
    *
    * @param e
    */
-  delete(e: HeapNode<E>): HeapNode<E> {
+  delete(e: FibonacciHeapNode<E>): FibonacciHeapNode<E> {
     this.decreaseKey(e, null!)
     return this.extractMin()
   }
@@ -115,7 +295,7 @@ export class FibonacciHeap<E> implements IFibonacciHeap<E> {
    * @param node
    * @param newValue
    */
-  decreaseKey(node: HeapNode<E>, newValue: E): void {
+  decreaseKey(node: FibonacciHeapNode<E>, newValue: E): void {
     if (!node) throw new Error('node to decrease is null!')
     if (newValue && node && this.comparator(newValue, node.value) === Ordering.GT) {
       throw new Error('new value is greater then old one')
@@ -134,18 +314,12 @@ export class FibonacciHeap<E> implements IFibonacciHeap<E> {
     }
   }
 
-  /**
-   * O(1)
-   */
-  minimum(): HeapNode<E> {
+  minimum(): FibonacciHeapNode<E> {
     if (this.isEmpty()) throw new Error('no such element')
     return this.minNode
   }
 
-  /**
-   * O(log(size)) (amortized)
-   */
-  extractMin(): HeapNode<E> {
+  extractMin(): FibonacciHeapNode<E> {
     const min = this.minNode
     if (min) {
       if (min.child) {
@@ -201,22 +375,16 @@ export class FibonacciHeap<E> implements IFibonacciHeap<E> {
     this.size = this.size + heap.size
   }
 
-  /**
-   * O(1)
-   */
   isEmpty(): boolean {
     return this.size === 0
   }
 
-  /**
-   * O(1)
-   */
   clear(): void {
     this.rootList = this.minNode = undefined!
     this.size = 0
   }
-  extractNeighbours(node: HeapNode<E>, includeSelf: boolean = false): CyclicDoublyLinkedList<HeapNode<E>> {
-    const list = new CyclicDoublyLinkedList<HeapNode<E>>()
+  extractNeighbours(node: FibonacciHeapNode<E>, includeSelf: boolean = false): CyclicDoublyLinkedList<FibonacciHeapNode<E>> {
+    const list = new CyclicDoublyLinkedList<FibonacciHeapNode<E>>()
     if (!node) return list
     if (includeSelf) {
       list.add(node)
@@ -229,8 +397,8 @@ export class FibonacciHeap<E> implements IFibonacciHeap<E> {
     return list
   }
 
-  extractChildren(node: HeapNode<E>): CyclicDoublyLinkedList<HeapNode<E>> {
-    const list = new CyclicDoublyLinkedList<HeapNode<E>>()
+  extractChildren(node: FibonacciHeapNode<E>): CyclicDoublyLinkedList<FibonacciHeapNode<E>> {
+    const list = new CyclicDoublyLinkedList<FibonacciHeapNode<E>>()
     if (!node?.child) return list
     for (const child of this.iterateSiblings(node.child)) {
       list.add(child)
@@ -238,14 +406,14 @@ export class FibonacciHeap<E> implements IFibonacciHeap<E> {
     return list
   }
 
-  private cut(x: HeapNode<E>, y: HeapNode<E>) {
+  private cut(x: FibonacciHeapNode<E>, y: FibonacciHeapNode<E>) {
     this.removeFromChildList(y, x)
     y.degree--
     this.mergeWithRootList(x)
     x.marked = false
   }
 
-  private cascadingCut(y: HeapNode<E>) {
+  private cascadingCut(y: FibonacciHeapNode<E>) {
     const z = y.parent
     if (z) {
       if (!y.marked) {
@@ -257,7 +425,7 @@ export class FibonacciHeap<E> implements IFibonacciHeap<E> {
     }
   }
 
-  private addToChildList(parent: HeapNode<E>, newChild: HeapNode<E>) {
+  private addToChildList(parent: FibonacciHeapNode<E>, newChild: FibonacciHeapNode<E>) {
     if (!parent.child) {
       newChild.left = newChild.right = newChild
       parent.child = newChild
@@ -272,7 +440,7 @@ export class FibonacciHeap<E> implements IFibonacciHeap<E> {
     newChild.parent = parent
   }
 
-  private removeFromChildList(parent: HeapNode<E>, node: HeapNode<E>) {
+  private removeFromChildList(parent: FibonacciHeapNode<E>, node: FibonacciHeapNode<E>) {
     if (parent.degree === 0) return
     if (
       parent.degree === 1
@@ -291,7 +459,7 @@ export class FibonacciHeap<E> implements IFibonacciHeap<E> {
     node.marked = false
   }
 
-  private mergeWithRootList(node: HeapNode<E>): void {
+  private mergeWithRootList(node: FibonacciHeapNode<E>): void {
     node.right = this.rootList
     node.left = this.rootList.left
     node.parent = undefined
@@ -299,7 +467,7 @@ export class FibonacciHeap<E> implements IFibonacciHeap<E> {
     this.rootList.left = node
   }
 
-  private removeFromRootList(node: HeapNode<E>): void {
+  private removeFromRootList(node: FibonacciHeapNode<E>): void {
     if (node.parent) return
     if (node === this.rootList) {
       this.rootList = node.right !== node ? node.right : undefined!
@@ -310,7 +478,7 @@ export class FibonacciHeap<E> implements IFibonacciHeap<E> {
 
   private consolidate() {
     const Dh = Math.floor(this.log(this.goldenCut, this.size))
-    const A = new CyclicDoublyLinkedList<HeapNode<E>>()
+    const A = new CyclicDoublyLinkedList<FibonacciHeapNode<E>>()
     for (let i = 0; i < Dh; i++) {
       A.add(null!)
     }
@@ -344,7 +512,7 @@ export class FibonacciHeap<E> implements IFibonacciHeap<E> {
     }
   }
 
-  private heapLink(elementInRootList: HeapNode<E>, newParent: HeapNode<E>) {
+  private heapLink(elementInRootList: FibonacciHeapNode<E>, newParent: FibonacciHeapNode<E>) {
     this.removeFromRootList(elementInRootList)
     this.addToChildList(newParent, elementInRootList)
     elementInRootList.marked = false
@@ -361,9 +529,9 @@ export class FibonacciHeap<E> implements IFibonacciHeap<E> {
     return Math.log(x) / Math.log(base)
   }
 
-  private *iterateSiblings(start?: HeapNode<E>): Generator<HeapNode<E>> {
+  private *iterateSiblings(start?: FibonacciHeapNode<E>): Generator<FibonacciHeapNode<E>> {
     if (!start) return
-    let current: HeapNode<E> | undefined = start
+    let current: FibonacciHeapNode<E> | undefined = start
     let first = true
     while (current && (first || current !== start)) {
       first = false
@@ -372,10 +540,10 @@ export class FibonacciHeap<E> implements IFibonacciHeap<E> {
     }
   }
 
-  private *traverseNodes(): Generator<HeapNode<E>> {
+  private *traverseNodes(): Generator<FibonacciHeapNode<E>> {
     if (this.isEmpty()) return
-    const visited = new Set<HeapNode<E>>()
-    const stack: HeapNode<E>[] = []
+    const visited = new Set<FibonacciHeapNode<E>>()
+    const stack: FibonacciHeapNode<E>[] = []
 
     for (const root of this.iterateSiblings(this.rootList)) {
       stack.push(root)
@@ -393,7 +561,7 @@ export class FibonacciHeap<E> implements IFibonacciHeap<E> {
     }
   }
 
-  private snapshotSortedNodes(): HeapNode<E>[] {
+  private snapshotSortedNodes(): FibonacciHeapNode<E>[] {
     const nodes = Array.from(this.traverseNodes())
     if (!this.comparator) {
       return nodes
@@ -406,18 +574,12 @@ export class FibonacciHeap<E> implements IFibonacciHeap<E> {
     return this.snapshotSortedNodes().map(node => node.value)
   }
 
-  /**
-   * O(log(size)*size + size*3)
-   */
   *nodeIterator() {
     for (const node of this.snapshotSortedNodes()) {
       yield node
     }
   }
 
-  /**
-   * O(heap.size*3 + log(heap.size))
-   */
   [Symbol.iterator](): Iterator<E> {
     const values = this.snapshotSortedValues()
     let index = 0

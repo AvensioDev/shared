@@ -1,6 +1,7 @@
 # Comparator Helpers
 
-All collections in `@avensio/shared` rely on comparators that return an `Ordering` (`LT = -1`, `EQ = 0`, `GT = 1`). The `createComparator` utility makes it easy to build them.
+All collections rely on comparators that return an `Ordering`. Use `createComparator` for property
+based comparisons or the built-in number/string comparators for quick wins.
 
 ## `createComparator`
 ```ts
@@ -36,10 +37,31 @@ Use these when you just need basic numeric/string ordering. All of them are buil
 
 ## Applying comparators
 ```ts
+import {
+  BinaryHeap,
+  List,
+  createComparator,
+  numberComparatorASC,
+} from '@avensio/shared'
+
 const list = new List([{ title: 'foo' }, { title: 'bar' }])
 list.comparator = createComparator('title')
 list.sort()
 
-const heap = new BinaryHeap(createComparator('priority', 'desc'))
+const heap = new BinaryHeap(numberComparatorASC)
+heap.insert(3)
+heap.insert(1)
+heap.extractMin()
 ```
-A consistent comparator ensures `List.sort`, heaps, priority queues, and other collections behave deterministically.
+
+## Complexity
+| Helper                 | Notes |
+| ---------------------- | ----- |
+| `createComparator`     | Builds an `O(1)` comparator from a key or extractor. |
+| `numberComparator*`    | Prebuilt ascending/descending numeric comparators. |
+| `stringComparator*`    | Prebuilt ascending/descending string comparators. |
+
+## Notes
+- Extractors may return numbers or strings; convert complex types accordingly.
+- Reuse comparator instances to keep equality checks consistent across structures.
+- See [Heaps](./heaps.md) and [Trees](./trees.md) for real-world comparator usage.

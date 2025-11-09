@@ -1,6 +1,7 @@
 # Sorting
 
-Two algorithms are provided for collections that implement `ICollection`/`ISortable`.
+Two helpers are provided: `quicksort` (operates on any `ICollection`) and `heapSort` (builds a
+`FibonacciHeap`). Both require explicit comparators to define ordering.
 
 ## QuickSort (`quicksort`)
 ```ts
@@ -15,7 +16,15 @@ const sorted = quicksort(list, createComparator('score'), () => new List())
 const heap = heapSort(items, createComparator('priority', 'desc'))
 const max = heap.extractMin()
 ```
-- Builds a `FibonacciHeap` using the provided iterable and comparator.
-- Useful when you need both a sorted order and heap operations (e.g., repeatedly `extractMin`).
 
-Remember to set comparators explicitly; neither algorithm can infer ordering for complex objects without one.
+## Complexity
+
+| Algorithm  | Average | Worst-case | Notes |
+| ---------- | ------- | ---------- | ----- |
+| `quicksort` | O(n log n) | O(n²) | Requires a collection factory for partitions. |
+| `heapSort`  | O(n) build + O(log n) per extract | same | Returns a heap you can drain incrementally. |
+
+## Notes
+- `heapSort` is handy when you need both sorting *and* fast incremental extraction.
+- Supply stable comparators from [Comparator Helpers](./comparators.md) to avoid subtle bugs.
+- For small collections consider [`List.sort`](./lists.md) which delegates to the built-in comparator.

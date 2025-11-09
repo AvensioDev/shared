@@ -1,6 +1,8 @@
 # Lists
-
 `List` and its linked variants offer array-like APIs plus iterable helpers.
+
+All list types share the same `IList`/`ILinkedList` contracts and support iterators (`Iterable`) as well as
+`reverseIterator`, sorting (`ISortable`) and functional helpers (`IListFunctions`).
 
 ## `List`
 - Backed by an array.
@@ -36,3 +38,25 @@ list.sort()
 
 ## Initialization via `Iterable`
 Every list constructor accepts an `Iterable`, so you can pass generators, sets, or other collections to bootstrap contents quickly.
+
+
+## Complexity
+
+| Operation              | `List` (array) | Linked variants |
+| ---------------------- | -------------- | --------------- |
+| `add`, `addLast`       | Amortized O(1) | O(1)            |
+| `addFirst`             | O(n)           | O(1)            |
+| `remove` by index      | O(n)           | O(n)            |
+| `slice` / `splice`     | O(k)           | O(k)            |
+| `map` / `filter`       | O(n)           | O(n)            |
+| `indexOf` / `contains` | O(n)           | O(n)            |
+
+`k` denotes the number of elements copied/removed.
+
+Use `List` (array-backed) for random access and functional helpers, or select `LinkedList`,
+`DoublyLinkedList`, or `CyclicDoublyLinkedList` when you need O(1) insertion/removal at the ends.
+
+## Notes
+- Linked variants expose `addFirst`/`removeFirst`/`getNode` via `ILinkedList`.
+- Use [Queues](./queues.md) or [Stacks](./stacks.md) when you only need strict FIFO/LIFO semantics.
+- Pair lists with the [Comparator helpers](./comparators.md) to use value-based equality.

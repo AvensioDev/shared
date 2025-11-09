@@ -1,6 +1,8 @@
 # Heaps
 
-Heaps power priority queues and scheduling features.
+Heaps power priority queues and graph algorithms. Use `BinaryHeap` for general-purpose scheduling
+and as the backing store for `PriorityQueue`, or `FibonacciHeap` when you need amortized O(1)
+insert/decrease-key operations (e.g., Dijkstra, Prim).
 
 ## BinaryHeap
 `BinaryHeap<E>` is an array-backed heap that provides `insert`, `extractMin`, `peek`, iteration, and `ICollection` APIs (`addAll`, `remove`, `contains`, `sort`). The comparator decides whether the heap behaves as a min- or max-heap.
@@ -23,9 +25,18 @@ heap.insert({ priority: 10 })
 const min = heap.extractMin()
 ```
 
-Notes:
-- Comparators must return `Ordering.GT` when the “left” value is `null`. This requirement ensures deletion logic works correctly.
-- `decreaseKey` accepts a node handle (returned by `insert`); pass `null` to mark a node as the new minimum before extracting.
-- `extractChildren`/`extractNeighbours` help with custom traversals or visualizations.
+## Complexity
 
-Pick `BinaryHeap` for general-purpose scheduling and when you need `PriorityQueue`-style semantics. Choose Fibonacci heaps when you need fast amortized `decreaseKey` (e.g., Dijkstra-style algorithms).
+| Operation          | `BinaryHeap` | `FibonacciHeap` |
+| ------------------ | ------------ | --------------- |
+| `insert` / `add`   | O(log n)     | O(1) amortized  |
+| `extractMin`       | O(log n)     | O(log n) amortized |
+| `peek` / `minimum` | O(1)         | O(1)            |
+| `decreaseKey`      | —            | O(1) amortized  |
+| `contains`         | O(n)         | O(n)            |
+
+## Notes
+- `PriorityQueue` now delegates to `BinaryHeap`, so the complexities above apply directly.
+- When using `FibonacciHeap`, ensure your comparator returns {@link Ordering.GT} for `null` left
+  operands so `delete` shortcuts remain valid.
+- Combine heaps with the [Tree](./trees.md) or [Queue](./queues.md) docs for hybrid data-structure strategies.

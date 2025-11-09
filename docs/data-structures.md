@@ -1,11 +1,12 @@
 # Data Structures Overview
 
-This package ships multiple families of data structures. Two notable additions:
+The shared package contains reusable lists, queues, stacks, heaps, trees, and math/comparator
+utilities. Two recent additions are highlighted below:
 
 - **BinaryHeap** – array-backed heap optimized for fast insert/extract and used by `PriorityQueue`.
 - **BinarySearchTree** – pointer-based search tree that keeps data ordered while enabling in-order traversal and range queries.
 
-## BinaryHeap vs BinarySearchTree
+## Complexity: BinaryHeap vs BinarySearchTree
 
 | Structure | Insert | Lookup | Extract min/max | Traversal | Notes |
 | --- | --- | --- | --- | --- | --- |
@@ -30,4 +31,7 @@ const ordered = tree.traverse() // in-order
 - **Sorting**: QuickSort/HeapSort utilities operating on `ICollection` implementations.
 - **Math & utils**: `Point`, `Ordering`, `createComparator`, `printHeap`, and core interfaces.
 
-Dive into the specific docs (lists, queues, heaps, trees, etc.) for API-level details.
+## Notes
+- Read more in [Heaps](./heaps.md) and [Trees](./trees.md).
+- Lists, queues, stacks, and sorting helpers each have dedicated pages linked from the sidebar.
+- All structures rely on the shared [Comparator helpers](./comparators.md) for deterministic ordering.

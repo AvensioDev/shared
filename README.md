@@ -70,6 +70,18 @@ const byTitleDesc = createComparator(item => item.title, 'desc')
 Each module has detailed usage notes inside the [`docs/`](docs/index.md) folder (served via VitePress).
 For a high-level comparison across structures, see [docs/data-structures.md](docs/data-structures.md).
 
+## Documentation
+Every exported member is documented with accurate complexity data, examples, and cross-links:
+
+- [Lists](docs/lists.md)
+- [Queues](docs/queues.md)
+- [Stacks](docs/stacks.md)
+- [Heaps](docs/heaps.md)
+- [Trees](docs/trees.md)
+- [Sorting](docs/sorting.md)
+- [Comparator helpers](docs/comparators.md)
+- [TypeDoc API reference](docs/api/README.md)
+
 ## Benchmarks & tests
 - Run the Vitest suite with coverage: `pnpm test`
 - Execute micro-benchmarks (lists/queues/stacks): `pnpm bench` — results per round are tracked in `test/benchmarks/README.md`

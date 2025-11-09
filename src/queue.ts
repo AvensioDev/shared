@@ -5,6 +5,7 @@ import {
   type Node,
   Ordering,
 } from './'
+import { BinaryHeap } from './heap'
 
 export interface IQueue<E> extends ICollection<E> {
   enqueue(e: E): void
@@ -367,181 +368,70 @@ export class LinkedQueue<E> implements IQueue<E> {
 }
 
 export class PriorityQueue<E> implements IQueue<E> {
-  private heap: E[] = []
-  size = 0
-  comparator: Comparator<E>
+  private heap: BinaryHeap<E>
 
   constructor(comparator: Comparator<E>, elements?: Iterable<E>) {
-    this.comparator = comparator
-    if (elements) {
-      for (const el of elements) {
-        this.enqueue(el)
-      }
-    }
+    this.heap = new BinaryHeap(comparator, elements)
   }
 
-  private parent(index: number) {
-    return Math.floor((index - 1) / 2)
+  get comparator(): Comparator<E> {
+    return this.heap.comparator
   }
 
-  private left(index: number) {
-    return index * 2 + 1
+  set comparator(value: Comparator<E>) {
+    this.heap.comparator = value
   }
 
-  private right(index: number) {
-    return index * 2 + 2
-  }
-
-  private swap(i: number, j: number) {
-    const tmp = this.heap[i]
-    this.heap[i] = this.heap[j]
-    this.heap[j] = tmp
-  }
-
-  private siftUp(index: number) {
-    let i = index
-    while (i > 0) {
-      const parentIndex = this.parent(i)
-      if (this.comparator(this.heap[i], this.heap[parentIndex]) !== Ordering.LT) break
-      this.swap(i, parentIndex)
-      i = parentIndex
-    }
-  }
-
-  private siftDown(index: number) {
-    let i = index
-    while (true) {
-      const left = this.left(i)
-      const right = this.right(i)
-      let smallest = i
-
-      if (left < this.size && this.comparator(this.heap[left], this.heap[smallest]) === Ordering.LT) {
-        smallest = left
-      }
-      if (right < this.size && this.comparator(this.heap[right], this.heap[smallest]) === Ordering.LT) {
-        smallest = right
-      }
-
-      if (smallest === i) break
-      this.swap(i, smallest)
-      i = smallest
-    }
+  get size(): number {
+    return this.heap.size
   }
 
   enqueue(e: E): void {
-    if (e === undefined) return
-    this.heap[this.size] = e
-    this.size++
-    this.siftUp(this.size - 1)
+    this.heap.insert(e)
   }
 
   add(e: E): void {
-    this.enqueue(e)
+    this.heap.add(e)
   }
 
   addAll(collection: ICollection<E>): void {
-    for (const e of collection) {
-      this.enqueue(e)
-    }
+    this.heap.addAll(collection)
   }
 
   dequeue(): E {
-    if (this.size === 0) throw new Error('no such element')
-    const min = this.heap[0]
-    const last = this.heap.pop()!
-    this.size--
-    if (this.size > 0) {
-      this.heap[0] = last
-      this.siftDown(0)
-    }
-    return min
+    return this.heap.extractMin()
   }
 
   head(): E {
-    if (this.size === 0) throw new Error('no such element')
-    return this.heap[0]
+    return this.heap.peek()
   }
 
   isEmpty(): boolean {
-    return this.size === 0
+    return this.heap.isEmpty()
   }
 
   clear(): void {
-    this.heap = []
-    this.size = 0
+    this.heap.clear()
   }
 
   contains(element: E): boolean {
-    if (this.comparator) {
-      for (let i = 0; i < this.size; i++) {
-        if (this.comparator(element, this.heap[i]) === Ordering.EQ) return true
-      }
-    } else {
-      for (let i = 0; i < this.size; i++) {
-        if (this.heap[i] === element) return true
-      }
-    }
-    return false
-  }
-
-  private snapshotSorted(): E[] {
-    const copy = this.heap.slice(0, this.size)
-    copy.sort((a, b) => this.comparator(a, b))
-    return copy
+    return this.heap.contains(element)
   }
 
   [Symbol.iterator](): Iterator<E> {
-    const values = this.snapshotSorted()
-    let index = 0
-    return {
-      next: () => {
-        if (index >= values.length) return { done: true, value: undefined as unknown as E }
-        return { done: false, value: values[index++] }
-      }
-    }
+    return this.heap[Symbol.iterator]()
   }
 
   *reverseIterator(): Generator<E> {
-    const values = this.snapshotSorted()
-    for (let i = values.length - 1; i >= 0; i--) {
-      yield values[i]
-    }
+    yield* this.heap.reverseIterator()
   }
 
   sort(cmp?: Comparator<E>): void {
-    const comparator = cmp || this.comparator
-    if (!comparator) throw new Error('comparator must be set before sorting')
-    const values = this.snapshotSorted().sort((a, b) => comparator(a, b))
-    if (cmp) {
-      this.comparator = comparator
-    }
-    this.heap = []
-    this.size = 0
-    for (const value of values) {
-      this.enqueue(value)
-    }
+    this.heap.sort(cmp)
   }
 
   remove(target: E | number, isIndex: boolean = true): E | number {
-    if (this.size === 0) throw new Error('no such element')
-    const values = this.snapshotSorted()
-    let index: number
-    if (isIndex) {
-      index = Number(target)
-    } else if (this.comparator) {
-      index = values.findIndex(value => this.comparator(value, target as E) === Ordering.EQ)
-    } else {
-      index = values.findIndex(value => value === target)
-    }
-    if (index < 0 || index >= values.length) throw new Error('no such element')
-    const [removed] = values.splice(index, 1)
-    if (removed === undefined) throw new Error('no such element')
-    this.heap = []
-    this.size = 0
-    for (const value of values) {
-      this.enqueue(value)
-    }
-    return isIndex ? removed : index
+    return this.heap.remove(target, isIndex)
   }
 }
 

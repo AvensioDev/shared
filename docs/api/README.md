@@ -56,6 +56,5 @@
 ## Functions
 
 - [createComparator](functions/createComparator.md)
-- [fibonacciHeapSort](functions/fibonacciHeapSort.md)
 - [heapSort](functions/heapSort.md)
 - [quicksort](functions/quicksort.md)

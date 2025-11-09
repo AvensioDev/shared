@@ -1,8 +1,7 @@
 import {describe, expect, it} from 'vitest'
 import {
-  DoublyLinkedList, fibonacciHeapSort,
+  DoublyLinkedList,
   heapSort,
-  LinkedList,
   LinkedQueue,
   numberComparatorASC,
   numberComparatorDESC,
@@ -17,7 +16,7 @@ function createList() {
   list.add(-4)
   list.add(1)
   list.add(0)
-  return list;
+  return list
 }
 
 function listChecksASC(l: number[]) {
@@ -90,20 +89,6 @@ describe('sorting algorithm tests', () => {
     it('should sort doubly linked list descending', () => {
       const list = createList()
       const l = [...heapSort(list, numberComparatorDESC)]
-      listChecksDESC(l)
-    })
-  })
-
-  describe('fibonacci heapsort', () => {
-    it('should sort doubly linked list ascending', () => {
-      const list = createList()
-      const l = [...fibonacciHeapSort(list, numberComparatorASC)]
-      listChecksASC(l)
-    })
-
-    it('should sort doubly linked list descending', () => {
-      const list = createList()
-      const l = [...fibonacciHeapSort(list, numberComparatorDESC)]
       listChecksDESC(l)
     })
   })

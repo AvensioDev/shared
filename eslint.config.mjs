@@ -15,7 +15,8 @@ export default defineConfig(
     'vite.config.ts',
     'vite.iife.config.ts',
     'eslint.config.mjs',
-    'docs/.vitepress/cache/**'
+    'docs/.vitepress/cache/**',
+    'scripts/hooks/**',
   ]),
   {
     files: [

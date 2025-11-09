@@ -6,11 +6,11 @@
 
 # Function: heapSort()
 
-> **heapSort**\<`V`\>(`A`, `comparator`): [`BinaryHeap`](../classes/BinaryHeap.md)\<`V`\>
+> **heapSort**\<`V`\>(`A`, `comparator`): [`FibonacciHeap`](../classes/FibonacciHeap.md)\<`V`\>
 
 Defined in: sort/index.ts:57
 
-Heapsort variant using a binary heap.
+Heapsort variant using a fibonacci heap.
 
 ## Type Parameters
 
@@ -30,4 +30,4 @@ Heapsort variant using a binary heap.
 
 ## Returns
 
-[`BinaryHeap`](../classes/BinaryHeap.md)\<`V`\>
+[`FibonacciHeap`](../classes/FibonacciHeap.md)\<`V`\>

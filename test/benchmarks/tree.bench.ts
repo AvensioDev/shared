@@ -22,12 +22,14 @@ function structureBenchmark<S>(
   operation: Operation<S>,
 ) {
   bench(label, function () {
+    // @ts-ignore
     const task = this as StructureTask<S>
     if (!task.structure) throw new Error('structure not initialized')
     operation(task.structure)
   }, {
     ...OPTIONS,
     setup(task) {
+      // @ts-ignore
       const instrumented = task as StructureTask<S>
       const ready = () => {
         const structure = factory()

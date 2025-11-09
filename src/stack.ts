@@ -5,40 +5,89 @@ import {
   Ordering,
 } from './'
 
+/**
+ * LIFO stack contract shared by array and linked implementations.
+ *
+ * @template E Value type.
+ */
 export interface IStack<E> extends ICollection<E> {
-  comparator: Comparator<E>
+  /**
+   * Push a value on top.
+   *
+   * @param e - Value to push.
+   * @remarks Complexity: O(1)
+   */
   push(e: E): void
+
+  /**
+   * Pop and return the top value.
+   *
+   * @returns Removed value.
+   * @throws {Error} When empty.
+   * @remarks Complexity: O(1)
+   */
   pop(): E
+
+  /**
+   * Peek the top value without removing it.
+   *
+   * @returns Top value.
+   * @throws {Error} When empty.
+   */
   top(): E
 }
 
+/**
+ * Array-backed stack optimized for traversal and random inspection.
+ *
+ * @template E Value type.
+ */
 export class Stack<E> implements IStack<E> {
   private arr: E[] = []
+  /**
+   * {@inheritDoc ICollection.size}
+   */
   size = 0
+  /**
+   * {@inheritDoc ICollection.comparator}
+   */
   comparator: Comparator<E> = null!
+
   constructor(elements?: Iterable<E>) {
     if (elements) {
-      for(const el of elements) {
+      for (const el of elements) {
         this.push(el)
       }
     }
   }
 
+  /**
+   * {@inheritDoc ICollection.clear}
+   */
   clear(): void {
     this.arr.splice(0, this.arr.length)
     this.size = 0
   }
 
+  /**
+   * {@inheritDoc ICollection.isEmpty}
+   */
   isEmpty(): boolean {
     return this.size === 0
   }
 
+  /**
+   * {@inheritDoc IStack.top}
+   */
   top(): E {
     const top = this.arr[this.size - 1]
     if (top === undefined) throw new Error('no such element')
     return top
   }
 
+  /**
+   * {@inheritDoc IStack.pop}
+   */
   pop(): E {
     const top = this.arr.pop()
     if (top === undefined) throw new Error('no such element')
@@ -46,6 +95,9 @@ export class Stack<E> implements IStack<E> {
     return top
   }
 
+  /**
+   * {@inheritDoc IStack.push}
+   */
   push(e: E): void {
     if (e !== undefined) {
       this.arr.push(e)
@@ -54,10 +106,7 @@ export class Stack<E> implements IStack<E> {
   }
 
   /**
-   * Checks if an element is contained in the Stack.
-   * For this function to work, a comparator must be set!
-   * O(size) amortized
-   * @param element
+   * {@inheritDoc ICollection.contains}
    */
   contains(element: E): boolean {
     if (this.comparator) {
@@ -72,6 +121,9 @@ export class Stack<E> implements IStack<E> {
     return false
   }
 
+  /**
+   * {@inheritDoc Iterable}
+   */
   [Symbol.iterator](): Iterator<E> {
     const stack = this
     let index = this.size - 1
@@ -87,16 +139,25 @@ export class Stack<E> implements IStack<E> {
     }
   }
 
+  /**
+   * {@inheritDoc ICollection.add}
+   */
   add(e: E): void {
     this.push(e)
   }
 
+  /**
+   * {@inheritDoc ICollection.addAll}
+   */
   addAll(collection: ICollection<E>) {
     for (const e of collection) {
       this.push(e)
     }
   }
 
+  /**
+   * {@inheritDoc ICollection.remove}
+   */
   remove(target: E | number, isIndex: boolean = true): E | number {
     if (this.size === 0) throw new Error('no such element')
     let indexFromTop: number
@@ -117,6 +178,9 @@ export class Stack<E> implements IStack<E> {
     return isIndex ? removed : indexFromTop
   }
 
+  /**
+   * {@inheritDoc IReverseIterable.reverseIterator}
+   */
   *reverseIterator(): Generator<E> {
     const tmp = []
     for (const e of this) {
@@ -128,26 +192,38 @@ export class Stack<E> implements IStack<E> {
     }
   }
 
+  /**
+   * {@inheritDoc ISortable.sort}
+   */
   sort(cmp?: Comparator<E>): void {
     this.arr.sort(cmp || this.comparator)
   }
 }
 
+/**
+ * Node-based stack with O(1) push/pop regardless of size.
+ */
 export class LinkedStack<E> implements IStack<E> {
   private _top: Node<E>
+  /**
+   * {@inheritDoc ICollection.size}
+   */
   size = 0
+  /**
+   * {@inheritDoc ICollection.comparator}
+   */
   comparator: Comparator<E> = null!
+
   constructor(elements?: Iterable<E>) {
     if (elements) {
-      for(const el of elements) {
+      for (const el of elements) {
         this.push(el)
       }
     }
   }
 
   /**
-   * O(1)
-   * @param e
+   * {@inheritDoc IStack.push}
    */
   push(e: E) {
     if (e !== undefined) {
@@ -160,7 +236,7 @@ export class LinkedStack<E> implements IStack<E> {
   }
 
   /**
-   * O(1)
+   * {@inheritDoc IStack.pop}
    */
   pop() {
     const node = this._top
@@ -173,14 +249,14 @@ export class LinkedStack<E> implements IStack<E> {
   }
 
   /**
-   * O(1)
+   * {@inheritDoc ICollection.isEmpty}
    */
   isEmpty() {
     return this.size === 0
   }
 
   /**
-   * O(1)
+   * {@inheritDoc IStack.top}
    */
   top() {
     if (this._top === undefined) throw new Error('no such element')
@@ -188,7 +264,7 @@ export class LinkedStack<E> implements IStack<E> {
   }
 
   /**
-   * O(1)
+   * {@inheritDoc ICollection.clear}
    */
   clear() {
     this._top = undefined
@@ -196,8 +272,7 @@ export class LinkedStack<E> implements IStack<E> {
   }
 
   /**
-   * To use this method, a comparator must be set
-   * @param e
+   * {@inheritDoc ICollection.contains}
    */
   contains(e: E): boolean {
     if (this.comparator) {
@@ -213,7 +288,7 @@ export class LinkedStack<E> implements IStack<E> {
   }
 
   /**
-   * O(size)
+   * {@inheritDoc Iterable}
    */
   [Symbol.iterator](): Iterator<E> {
     let top = this._top
@@ -229,10 +304,16 @@ export class LinkedStack<E> implements IStack<E> {
     }
   }
 
+  /**
+   * {@inheritDoc ICollection.add}
+   */
   add(e: E): void {
     this.push(e)
   }
 
+  /**
+   * {@inheritDoc ICollection.addAll}
+   */
   addAll(collection: ICollection<E>) {
     for (const e of collection) {
       this.push(e)
@@ -256,6 +337,9 @@ export class LinkedStack<E> implements IStack<E> {
     return value
   }
 
+  /**
+   * {@inheritDoc ICollection.remove}
+   */
   remove(target: E | number, isIndex: boolean = true): E | number {
     if (this.size === 0) throw new Error('no such element')
     let index: number
@@ -280,6 +364,9 @@ export class LinkedStack<E> implements IStack<E> {
     return isIndex ? removed : index
   }
 
+  /**
+   * {@inheritDoc IReverseIterable.reverseIterator}
+   */
   *reverseIterator(): Generator<E> {
     const tmp = []
     for (const e of this) {
@@ -291,6 +378,9 @@ export class LinkedStack<E> implements IStack<E> {
     }
   }
 
+  /**
+   * {@inheritDoc ISortable.sort}
+   */
   sort(cmp?: Comparator<E>): void {
     const comparator = cmp || this.comparator
     if (!comparator) throw new Error('comparator must be set before sorting')

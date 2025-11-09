@@ -93,8 +93,8 @@ function linkedListTests(list: ILinkedList<number>, listType: new (elements?: It
       expect(list.getFirst()).toBe(5)
       expect(list.getLast()).toBe(5)
       expect(list.removeFirst()).toBe(5)
-      expect(() => list.removeFirst()).toThrowError("no such element")
-      expect(() => list.removeLast()).toThrowError("no such element")
+      expect(() => list.removeFirst()).toThrowError('no such element')
+      expect(() => list.removeLast()).toThrowError('no such element')
       expect(() => list.getFirst()).toThrowError('no such element')
       expect(() => list.getLast()).toThrowError('no such element')
       expect(list.size).toBe(0)
@@ -117,8 +117,8 @@ function linkedListTests(list: ILinkedList<number>, listType: new (elements?: It
       expect(list.getLast()).toBe(2)
       expect(list.removeLast()).toBe(2)
       expect(list.removeLast()).toBe(1)
-      expect(() => list.removeLast()).toThrowError("no such element")
-      expect(() => list.removeFirst()).toThrowError("no such element")
+      expect(() => list.removeLast()).toThrowError('no such element')
+      expect(() => list.removeFirst()).toThrowError('no such element')
       expect(() => list.getFirst()).toThrowError('no such element')
       expect(() => list.getLast()).toThrowError('no such element')
       expect(list.size).toBe(0)
@@ -131,7 +131,7 @@ function linkedListTests(list: ILinkedList<number>, listType: new (elements?: It
       expect(list.size).toBe(1)
       expect(list.removeLast()).toBe(1)
       expect(list.size).toBe(0)
-      expect(() => list.removeLast()).toThrowError("no such element")
+      expect(() => list.removeLast()).toThrowError('no such element')
       list.clear()
 
       list.add(1)
@@ -141,7 +141,7 @@ function linkedListTests(list: ILinkedList<number>, listType: new (elements?: It
       expect(list.size).toBe(1)
       expect(list.removeFirst()).toBe(2)
       expect(list.size).toBe(0)
-      expect(() => list.removeFirst()).toThrowError("no such element")
+      expect(() => list.removeFirst()).toThrowError('no such element')
     })
     it('should construct new list from collections in reverse order', () => {
       let _list = new listType([1, 2, 3], true)
@@ -549,7 +549,7 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
         expect(list.size).toBe(2)
         expect(list.remove(0)).toBeTruthy()
         expect(list.remove(0)).toBeTruthy()
-        expect(() => list.remove(0)).toThrowError("no such element")
+        expect(() => list.remove(0)).toThrowError('no such element')
         expect(list.size).toBe(0)
 
         list.add(1)
@@ -2148,7 +2148,7 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
       expect(list.size).toBe(1)
       list.remove(0)
       expect(list.size).toBe(0)
-      expect(() => list.remove(0)).toThrowError("no such element")
+      expect(() => list.remove(0)).toThrowError('no such element')
 
       list.add(-1)
       list.add(0)
@@ -2266,7 +2266,7 @@ function commonListTests(list: IList<number>, listType: new (elements?: Iterable
         list.add(0)
         expect(list.every(() => true)).toBeTruthy()
       })
-      it("at least one element doesn't match the predicate", () => {
+      it('at least one element doesn\'t match the predicate', () => {
         list.add(0)
         expect(list.every(() => false)).toBeFalsy()
       })

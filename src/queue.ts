@@ -7,18 +7,69 @@ import {
 } from './'
 import { BinaryHeap } from './heap'
 
+/**
+ * FIFO queue contract shared by all queue implementations.
+ *
+ * @template E Value type.
+ */
 export interface IQueue<E> extends ICollection<E> {
+  /**
+   * Append an element to the tail.
+   *
+   * @param e - Value to enqueue.
+   * @remarks Complexity: O(1) amortized
+   */
   enqueue(e: E): void
+
+  /**
+   * Remove and return the head element.
+   *
+   * @returns Dequeued value.
+   * @throws {Error} When empty.
+   * @remarks Complexity: O(1) amortized
+   */
   dequeue(): E
+
+  /**
+   * Peek the head without removal.
+   *
+   * @returns Head value.
+   * @throws {Error} When empty.
+   */
   head(): E
 }
 
-export interface IDequeue<E> extends IQueue<E>, IStack<E> { }
+/**
+ * Hybrid queue/stack contract exposing push/pop on both ends.
+ */
+export interface IDequeue<E> extends IQueue<E>, IStack<E> {
+}
 
+/**
+ * Array-backed queue with amortized O(1) operations using a moving head index.
+ *
+ * @template E Value type.
+ * @example
+ * ```ts
+ * const queue = new Queue<string>()
+ * queue.enqueue('task')
+ * queue.dequeue()
+ * ```
+ */
 export class Queue<E> implements IQueue<E> {
   private arr: E[] = []
+  /**
+   * Current head index
+   * @private
+   */
   private headIndex = 0
+  /**
+   * {@inheritDoc ICollection.size}
+   */
   size = 0
+  /**
+   * {@inheritDoc ICollection.comparator}
+   */
   comparator: Comparator<E> = null!
 
   constructor(elements?: Iterable<E>, comparator?: Comparator<E>) {
@@ -46,12 +97,18 @@ export class Queue<E> implements IQueue<E> {
     return this.arr.slice(this.headIndex, this.headIndex + this.size)
   }
 
+  /**
+   * {@inheritDoc ICollection.clear}
+   */
   clear(): void {
     this.arr = []
     this.headIndex = 0
     this.size = 0
   }
 
+  /**
+   * {@inheritDoc IQueue.dequeue}
+   */
   dequeue(): E {
     if (this.size === 0) throw new Error('no such element')
     const value = this.arr[this.headIndex]
@@ -68,26 +125,41 @@ export class Queue<E> implements IQueue<E> {
     return value
   }
 
+  /**
+   * {@inheritDoc IQueue.enqueue}
+   */
   enqueue(e: E): void {
     if (e === undefined) return
     this.arr.push(e)
     this.size++
   }
 
+  /**
+   * {@inheritDoc ICollection.add}
+   */
   add(e: E): void {
     this.enqueue(e)
   }
 
+  /**
+   * {@inheritDoc ICollection.addAll}
+   */
   addAll(collection: ICollection<E>): void {
     for (const e of collection) {
       this.enqueue(e)
     }
   }
 
+  /**
+   * {@inheritDoc ICollection.isEmpty}
+   */
   isEmpty(): boolean {
     return this.size === 0
   }
 
+  /**
+   * {@inheritDoc IQueue.head}
+   */
   head(): E {
     if (this.size === 0) throw new Error('no such element')
     const value = this.arr[this.headIndex]
@@ -116,6 +188,11 @@ export class Queue<E> implements IQueue<E> {
     return false
   }
 
+  /**
+   * Iterates through the LinkedQueue.
+   * @returns Iterator for the LinkedQueue
+   * @remarks Complexity: O(n)
+   */
   [Symbol.iterator](): Iterator<E> {
     const queue = this
     let index = 0
@@ -135,12 +212,18 @@ export class Queue<E> implements IQueue<E> {
     }
   }
 
+  /**
+   * {@inheritDoc IReverseIterable.reverseIterator}
+   */
   *reverseIterator(): Generator<E> {
     for (let i = this.size - 1; i >= 0; i--) {
       yield this.arr[this.headIndex + i]
     }
   }
 
+  /**
+   * {@inheritDoc ISortable.sort}
+   */
   sort(cmp?: Comparator<E>): void {
     const comparator = cmp || this.comparator
     if (!comparator) throw new Error('comparator must be set before sorting')
@@ -153,6 +236,9 @@ export class Queue<E> implements IQueue<E> {
     }
   }
 
+  /**
+   * {@inheritDoc ICollection.remove}
+   */
   remove(target: E | number, isIndex: boolean = true): E | number {
     if (this.size === 0) throw new Error('no such element')
     let index: number
@@ -179,15 +265,24 @@ export class Queue<E> implements IQueue<E> {
   }
 }
 
+/**
+ * Linked-list queue optimized for consistent O(1) enqueues/dequeues regardless of size.
+ */
 export class LinkedQueue<E> implements IQueue<E> {
   private _head: Node<E>
   private tail: Node<E>
+  /**
+   * {@inheritDoc ICollection.size}
+   */
   size = 0
+  /**
+   * {@inheritDoc ICollection.comparator}
+   */
   comparator: Comparator<E> = null!
 
   constructor(elements?: Iterable<E>, comparator?: Comparator<E>) {
     if (elements) {
-      for(const el of elements) {
+      for (const el of elements) {
         this.enqueue(el)
       }
     }
@@ -197,8 +292,7 @@ export class LinkedQueue<E> implements IQueue<E> {
   }
 
   /**
-   * O(1)
-   * @param e
+   * {@inheritDoc IQueue.enqueue}
    */
   enqueue(e: E) {
     if (e === undefined) return
@@ -212,10 +306,16 @@ export class LinkedQueue<E> implements IQueue<E> {
     this.size++
   }
 
+  /**
+   * {@inheritDoc ICollection.add}
+   */
   add(e: E): void {
     this.enqueue(e)
   }
 
+  /**
+   * {@inheritDoc ICollection.addAll}
+   */
   addAll(collection: ICollection<E>): void {
     for (const e of collection) {
       this.enqueue(e)
@@ -223,7 +323,7 @@ export class LinkedQueue<E> implements IQueue<E> {
   }
 
   /**
-   * O(1)
+   * {@inheritDoc IQueue.dequeue}
    */
   dequeue() {
     const head = this._head
@@ -240,14 +340,14 @@ export class LinkedQueue<E> implements IQueue<E> {
   }
 
   /**
-   * O(1)
+   * {@inheritDoc ICollection.isEmpty}
    */
   isEmpty() {
     return this.size === 0
   }
 
   /**
-   * O(1)
+   * {@inheritDoc IQueue.head}
    */
   head() {
     if (this._head) return this._head.value
@@ -255,7 +355,7 @@ export class LinkedQueue<E> implements IQueue<E> {
   }
 
   /**
-   * O(1)
+   * {@inheritDoc ICollection.clear}
    */
   clear() {
     this._head = this.tail = undefined
@@ -265,8 +365,8 @@ export class LinkedQueue<E> implements IQueue<E> {
   /**
    * Checks if an element is contained in the LinkedQueue.
    * For this function to work, a comparator must be set!
-   * O(size) amortized
    * @param element
+   * @remarks Complexity: O(size) amortized
    */
   contains(element: E): boolean {
     if (this.comparator) {
@@ -282,7 +382,9 @@ export class LinkedQueue<E> implements IQueue<E> {
   }
 
   /**
-   * O(size)
+   * Iterates through the LinkedQueue.
+   * @returns Iterator for the LinkedQueue
+   * @remarks Complexity: O(n)
    */
   [Symbol.iterator](): Iterator<E> {
     let head = this._head
@@ -298,6 +400,9 @@ export class LinkedQueue<E> implements IQueue<E> {
     }
   }
 
+  /**
+   * {@inheritDoc IReverseIterable.reverseIterator}
+   */
   *reverseIterator(): Generator<E> {
     const tmp = []
     for (const e of this) {
@@ -309,6 +414,9 @@ export class LinkedQueue<E> implements IQueue<E> {
     }
   }
 
+  /**
+   * {@inheritDoc ICollection.sort}
+   */
   sort(cmp?: Comparator<E>): void {
     const comparator = cmp || this.comparator
     if (!comparator) throw new Error('comparator must be set before sorting')
@@ -342,6 +450,9 @@ export class LinkedQueue<E> implements IQueue<E> {
     return value
   }
 
+  /**
+   * {@inheritDoc ICollection.remove}
+   */
   remove(target: E | number, isIndex: boolean = true): E | number {
     if (this.size === 0) throw new Error('no such element')
     let index: number
@@ -367,6 +478,11 @@ export class LinkedQueue<E> implements IQueue<E> {
   }
 }
 
+/**
+ * Comparator-driven queue backed by {@link BinaryHeap}.
+ *
+ * @template E Value type.
+ */
 export class PriorityQueue<E> implements IQueue<E> {
   private heap: BinaryHeap<E>
 
@@ -374,84 +490,142 @@ export class PriorityQueue<E> implements IQueue<E> {
     this.heap = new BinaryHeap(comparator, elements)
   }
 
+  /**
+   * Retrieve the current comparator.
+   */
   get comparator(): Comparator<E> {
     return this.heap.comparator
   }
 
-  set comparator(value: Comparator<E>) {
-    this.heap.comparator = value
+  /**
+   * Sets a new Comparator.
+   * @param cmp new Comparator.
+   * @remarks creates a copy of the current heap and overwrites it.
+   */
+  set comparator(cmp: Comparator<E>) {
+    this.heap = new BinaryHeap(cmp, this.heap)
   }
 
+  /**
+   * {@inheritDoc BinaryHeap.size}
+   */
   get size(): number {
     return this.heap.size
   }
 
+  /**
+   * {@inheritDoc IQueue.enqueue}
+   */
   enqueue(e: E): void {
     this.heap.insert(e)
   }
 
+  /**
+   * {@inheritDoc ICollection.add}
+   */
   add(e: E): void {
     this.heap.add(e)
   }
 
+  /**
+   * {@inheritDoc ICollection.addAll}
+   */
   addAll(collection: ICollection<E>): void {
     this.heap.addAll(collection)
   }
 
+  /**
+   * {@inheritDoc IQueue.dequeue}
+   */
   dequeue(): E {
     return this.heap.extractMin()
   }
 
+  /**
+   * {@inheritDoc IQueue.head}
+   */
   head(): E {
     return this.heap.peek()
   }
 
+  /**
+   * {@inheritDoc ICollection.isEmpty}
+   */
   isEmpty(): boolean {
     return this.heap.isEmpty()
   }
 
+  /**
+   * {@inheritDoc ICollection.clear}
+   */
   clear(): void {
     this.heap.clear()
   }
 
+  /**
+   * {@inheritDoc ICollection.contains}
+   */
   contains(element: E): boolean {
     return this.heap.contains(element)
   }
 
+  /**
+   * Iterates through the PriorityQueue.
+   * @returns Iterator for the queue
+   */
   [Symbol.iterator](): Iterator<E> {
     return this.heap[Symbol.iterator]()
   }
 
+  /**
+   * {@inheritDoc IReverseIterable.reverseIterator}
+   */
   *reverseIterator(): Generator<E> {
     yield* this.heap.reverseIterator()
   }
 
+  /**
+   * {@inheritDoc BinaryHeap.sort}
+   */
   sort(cmp?: Comparator<E>): void {
     this.heap.sort(cmp)
   }
 
+  /**
+   * {@inheritDoc BinaryHeap.remove}
+   */
   remove(target: E | number, isIndex: boolean = true): E | number {
     return this.heap.remove(target, isIndex)
   }
 }
 
+/**
+ * Double-ended queue exposing push/pop operations on both ends.
+ *
+ * @template E Value type.
+ */
 export class Dequeue<E> implements IDequeue<E> {
+  /**
+   * {@inheritDoc ICollection.size}
+   */
   size = 0
   private _head: Node<E>
   private tail: Node<E>
+  /**
+   * {@inheritDoc ICollection.comparator}
+   */
   comparator: Comparator<E> = null!
 
   constructor(elements?: Iterable<E>) {
     if (elements) {
-      for(const el of elements) {
+      for (const el of elements) {
         this.enqueue(el)
       }
     }
   }
 
   /**
-   * O(1)
-   * @param e
+   * {@inheritDoc IQueue.enqueue}
    */
   enqueue(e: E): void {
     if (e === undefined) return
@@ -474,10 +648,16 @@ export class Dequeue<E> implements IDequeue<E> {
     this.size++
   }
 
+  /**
+   * {@inheritDoc ICollection.add}
+   */
   add(e: E): void {
     this.enqueue(e)
   }
 
+  /**
+   * {@inheritDoc ICollection.addAll}
+   */
   addAll(collection: ICollection<E>): void {
     for (const e of collection) {
       this.enqueue(e)
@@ -485,7 +665,7 @@ export class Dequeue<E> implements IDequeue<E> {
   }
 
   /**
-   * O(1)
+   * {@inheritDoc IQueue.dequeue}
    */
   dequeue(): E {
     if (this.size === 0) throw new Error('no such element')
@@ -498,8 +678,7 @@ export class Dequeue<E> implements IDequeue<E> {
   }
 
   /**
-   * O(1)
-   * @param e
+   * {@inheritDoc IStack.push}
    */
   push(e: E): void {
     if (e !== undefined) {
@@ -526,7 +705,7 @@ export class Dequeue<E> implements IDequeue<E> {
   }
 
   /**
-   * O(1)
+   * {@inheritDoc IStack.pop}
    */
   pop(): E {
     if (this.size === 0) throw new Error('no such element')
@@ -548,7 +727,7 @@ export class Dequeue<E> implements IDequeue<E> {
   }
 
   /**
-   * O(1)
+   * {@inheritDoc IStack.top}
    */
   top(): E {
     if (this.tail) return this.tail.value
@@ -557,7 +736,7 @@ export class Dequeue<E> implements IDequeue<E> {
   }
 
   /**
-   * O(1)
+   * {@inheritDoc IQueue.head}
    */
   head(): E {
     if (this._head) return this._head.value
@@ -565,14 +744,14 @@ export class Dequeue<E> implements IDequeue<E> {
   }
 
   /**
-   * O(1)
+   * {@inheritDoc ICollection.isEmpty}
    */
   isEmpty(): boolean {
     return this.size === 0
   }
 
   /**
-   * O(1)
+   * {@inheritDoc ICollection.clear}
    */
   clear() {
     this._head = this.tail = undefined
@@ -580,10 +759,7 @@ export class Dequeue<E> implements IDequeue<E> {
   }
 
   /**
-   * Checks if an element is contained in the Dequeue.
-   * For this function to work, a comparator must be set!
-   * O(size) amortized
-   * @param element
+   * {@inheritDoc ICollection.contains}
    */
   contains(element: E): boolean {
     if (this.comparator) {
@@ -599,7 +775,7 @@ export class Dequeue<E> implements IDequeue<E> {
   }
 
   /**
-   * O(size)
+   * {@inheritDoc Iterable}
    */
   [Symbol.iterator](): Iterator<E> {
     let head = this._head
@@ -616,7 +792,7 @@ export class Dequeue<E> implements IDequeue<E> {
   }
 
   /**
-   * O(size)
+   * {@inheritDoc IReverseIterable.reverseIterator}
    */
   *reverseIterator() {
     if (!this.tail && !this._head) return
@@ -632,6 +808,9 @@ export class Dequeue<E> implements IDequeue<E> {
     }
   }
 
+  /**
+   * {@inheritDoc ISortable.sort}
+   */
   sort(cmp?: Comparator<E>): void {
     const comparator = cmp || this.comparator
     if (!comparator) throw new Error('comparator must be set before sorting')
@@ -663,6 +842,9 @@ export class Dequeue<E> implements IDequeue<E> {
     return value
   }
 
+  /**
+   * {@inheritDoc ICollection.remove}
+   */
   remove(target: E | number, isIndex: boolean = true): E | number {
     if (this.size === 0) throw new Error('no such element')
     let index: number

@@ -1,20 +1,36 @@
 import {
-  BinaryHeap,
   type Comparator,
   FibonacciHeap,
   type ICollection,
 } from '../'
 
+/**
+ * Contract for structures that can be sorted in-place.
+ *
+ * @template V Value type.
+ */
 export interface ISortable<V> {
+  /**
+   * Sort the structure using the provided comparator.
+   *
+   * @param cmp - Optional comparator; falls back to the internal one.
+   */
   sort(cmp?: Comparator<V>): void
 }
 
 /**
- * Quicksort recursively splits a collection into two chunks
- * by a pivot element and sort both chunks on the way to the final result.
- * @param collection instance of an ICollection type for sorting
- * @param comparator
- * @param factory an ICollection type for splitting
+ * Sort a collection by recursively partitioning around a pivot.
+ *
+ * @template V Value type.
+ * @param collection - Target collection (mutated while sorting).
+ * @param comparator - Comparator used for ordering.
+ * @param factory - Factory used to allocate temporary collections.
+ * @returns Sorted collection instance from the factory.
+ * @example
+ * ```ts
+ * const sorted = quicksort(list, createComparator('score'), () => new List())
+ * ```
+ * @remarks Complexity: Average O(n log n), worst-case O(n²) when partitions are imbalanced.
  */
 export function quicksort<V>(
   collection: ICollection<V>,
@@ -47,13 +63,20 @@ export function quicksort<V>(
   return result
 }
 
-
 /**
- * Heapsort variant using a fibonacci heap.
+ * Build a Fibonacci heap from values which can then be drained in order.
  *
- * @param A
- * @param comparator
+ * @template V Value type.
+ * @param values - Iterable of values to heapify.
+ * @param comparator - Comparator controlling heap ordering.
+ * @returns Heap representation (call `extractMin` until empty to retrieve sorted order).
+ * @example
+ * ```ts
+ * const heap = heapSort(items, numberComparatorASC)
+ * heap.extractMin()
+ * ```
+ * @remarks Complexity: O(n) to build, O(log n) per extraction.
  */
-export function heapSort<V>(A: Iterable<V>, comparator: Comparator<V>) {
-  return new FibonacciHeap<V>(comparator, A)
+export function heapSort<V>(values: Iterable<V>, comparator: Comparator<V>) {
+  return new FibonacciHeap<V>(comparator, values)
 }

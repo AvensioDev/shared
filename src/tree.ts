@@ -6,12 +6,32 @@ type TreeNode<T> = {
   right?: TreeNode<T>
 }
 
+/**
+ * Traversal order used by {@link BinarySearchTree.traverse}.
+ */
 export type TraverseOrder = 'in' | 'pre' | 'post'
 
+/**
+ * Unbalanced binary search tree that keeps data ordered via a comparator.
+ *
+ * @template T Value type.
+ * @example
+ * ```ts
+ * const tree = new BinarySearchTree(createComparator('id'))
+ * tree.insert({ id: 2 })
+ * tree.insert({ id: 1 })
+ * tree.traverse() // -> ascending order
+ * ```
+ * @since 2.0.0
+ */
 export class BinarySearchTree<T> implements Iterable<T> {
   private root?: TreeNode<T>
   private _size = 0
 
+  /**
+   * @param comparator - Ordering strategy.
+   * @param elements - Optional seed data.
+   */
   constructor(public comparator: Comparator<T>, elements?: Iterable<T>) {
     if (elements) {
       for (const value of elements) {
@@ -20,10 +40,19 @@ export class BinarySearchTree<T> implements Iterable<T> {
     }
   }
 
+  /**
+   * Current number of stored nodes.
+   */
   get size(): number {
     return this._size
   }
 
+  /**
+   * Insert a value using the comparator for placement.
+   *
+   * @param value - Value to add.
+   * @remarks Complexity: Average O(log n), worst-case O(n).
+   */
   insert(value: T): void {
     if (value === undefined) return
     const node: TreeNode<T> = { value }
@@ -53,6 +82,13 @@ export class BinarySearchTree<T> implements Iterable<T> {
     this._size++
   }
 
+  /**
+   * Find a matching value.
+   *
+   * @param value - Value to search.
+   * @returns Stored value or `null`.
+   * @remarks Complexity: Average O(log n), worst-case O(n).
+   */
   find(value: T): T | null {
     let current = this.root
     while (current) {
@@ -63,6 +99,13 @@ export class BinarySearchTree<T> implements Iterable<T> {
     return null
   }
 
+  /**
+   * Delete a matching value.
+   *
+   * @param value - Value to remove.
+   * @returns `true` when a node was removed.
+   * @remarks Complexity: Average O(log n), worst-case O(n).
+   */
   delete(value: T): boolean {
     const result = this.deleteNode(this.root, value)
     this.root = result.node
@@ -72,12 +115,25 @@ export class BinarySearchTree<T> implements Iterable<T> {
     return result.removed
   }
 
+  /**
+   * Traverse the tree in the requested order.
+   *
+   * @param order - `'in' | 'pre' | 'post'` (defaults to in-order).
+   * @returns Array containing nodes in traversal order.
+   * @remarks Complexity: O(n)
+   */
   traverse(order: TraverseOrder = 'in'): T[] {
     const output: T[] = []
     this.traverseNode(this.root, order, output)
     return output
   }
 
+  /**
+   * Return the smallest value.
+   *
+   * @returns Minimum value or `null`.
+   * @remarks Complexity: Average O(log n), worst-case O(n).
+   */
   min(): T | null {
     let current = this.root
     if (!current) return null
@@ -87,6 +143,11 @@ export class BinarySearchTree<T> implements Iterable<T> {
     return current.value
   }
 
+  /**
+   * Return the largest value.
+   *
+   * @returns Maximum value or `null`.
+   */
   max(): T | null {
     let current = this.root
     if (!current) return null
@@ -96,6 +157,11 @@ export class BinarySearchTree<T> implements Iterable<T> {
     return current.value
   }
 
+  /**
+   * Report height and node count.
+   *
+   * @returns Metrics snapshot.
+   */
   metrics(): { height: number, nodeCount: number } {
     return {
       height: this.computeHeight(this.root),
@@ -103,6 +169,9 @@ export class BinarySearchTree<T> implements Iterable<T> {
     }
   }
 
+  /**
+   * Iterate values in in-order sequence.
+   */
   [Symbol.iterator](): Iterator<T> {
     const stack: TreeNode<T>[] = []
     let current = this.root

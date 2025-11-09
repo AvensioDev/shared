@@ -1,5 +1,5 @@
-import {describe, expect, it} from 'vitest'
-import {Point} from '../src'
+import { describe, expect, it } from 'vitest'
+import { Point } from '../src'
 
 describe('math tests', () => {
   it('should create a point', () => {

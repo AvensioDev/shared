@@ -6,11 +6,34 @@ import {
   Ordering,
 } from './'
 
+/**
+ * Maintains a binary heap that honors the supplied comparator (min- or max-heap).
+ *
+ * @template E Value type.
+ * @example
+ * ```ts
+ * const heap = new BinaryHeap(numberComparatorASC)
+ * heap.insert(3)
+ * heap.insert(1)
+ * heap.extractMin() // -> 1
+ * ```
+ * @since 2.0.0
+ */
 export class BinaryHeap<E> implements ICollection<E> {
   private heap: E[] = []
+  /**
+   * {@inheritDoc ICollection.size}
+   */
   size = 0
+  /**
+   * {@inheritDoc ICollection.comparator}
+   */
   comparator: Comparator<E>
 
+  /**
+   * @param comparator - Ordering strategy (ascending produces a min-heap).
+   * @param elements - Optional seed data; inserted in comparator order.
+   */
   constructor(comparator: Comparator<E>, elements?: Iterable<E>) {
     this.comparator = comparator
     if (elements) {
@@ -20,6 +43,12 @@ export class BinaryHeap<E> implements ICollection<E> {
     }
   }
 
+  /**
+   * Insert an element into the heap.
+   *
+   * @param element - Value to insert (ignored when `undefined`).
+   * @remarks Complexity: O(log n)
+   */
   insert(element: E): void {
     if (element === undefined) return
     this.heap[this.size] = element
@@ -27,6 +56,13 @@ export class BinaryHeap<E> implements ICollection<E> {
     this.siftUp(this.size - 1)
   }
 
+  /**
+   * Remove and return the top element according to the comparator.
+   *
+   * @returns Extracted value.
+   * @throws {Error} When the heap is empty.
+   * @remarks Complexity: O(log n)
+   */
   extractMin(): E {
     if (this.size === 0) throw new Error('no such element')
     const top = this.heap[0]
@@ -39,30 +75,52 @@ export class BinaryHeap<E> implements ICollection<E> {
     return top
   }
 
+  /**
+   * Read the current top element without removing it.
+   *
+   * @returns Heap front value.
+   * @throws {Error} When empty.
+   * @remarks Complexity: O(1)
+   */
   peek(): E {
     if (this.size === 0) throw new Error('no such element')
     return this.heap[0]
   }
 
+  /**
+   * Alias for {@link insert}.
+   */
   add(element: E): void {
     this.insert(element)
   }
 
+  /**
+   * {@inheritDoc ICollection.addAll}
+   */
   addAll(collection: ICollection<E>): void {
     for (const value of collection) {
       this.insert(value)
     }
   }
 
+  /**
+   * {@inheritDoc ICollection.clear}
+   */
   clear(): void {
     this.heap = []
     this.size = 0
   }
 
+  /**
+   * {@inheritDoc ICollection.isEmpty}
+   */
   isEmpty(): boolean {
     return this.size === 0
   }
 
+  /**
+   * {@inheritDoc ICollection.contains}
+   */
   contains(element: E): boolean {
     if (this.comparator) {
       for (let i = 0; i < this.size; i++) {
@@ -76,6 +134,13 @@ export class BinaryHeap<E> implements ICollection<E> {
     return false
   }
 
+  /**
+   * Rebuild the heap using a different comparator.
+   *
+   * @param cmp - Optional comparator override.
+   * @throws {Error} If neither argument nor existing comparator are set.
+   * @remarks Complexity: O(n log n)
+   */
   sort(cmp?: Comparator<E>): void {
     const comparator = cmp || this.comparator
     if (!comparator) throw new Error('comparator must be set before sorting')
@@ -90,6 +155,9 @@ export class BinaryHeap<E> implements ICollection<E> {
     }
   }
 
+  /**
+   * {@inheritDoc ICollection.remove}
+   */
   remove(target: E | number, isIndex: boolean = true): E | number {
     if (this.size === 0) throw new Error('no such element')
     const values = this.snapshotSorted()
@@ -112,6 +180,11 @@ export class BinaryHeap<E> implements ICollection<E> {
     return isIndex ? removed : index
   }
 
+  /**
+   * Iterate elements in ascending comparator order.
+   *
+   * @returns Iterator snapshot; future mutations do not affect ongoing iteration.
+   */
   [Symbol.iterator](): Iterator<E> {
     const values = this.snapshotSorted()
     let index = 0
@@ -123,6 +196,9 @@ export class BinaryHeap<E> implements ICollection<E> {
     }
   }
 
+  /**
+   * {@inheritDoc IReverseIterable.reverseIterator}
+   */
   *reverseIterator(): Generator<E> {
     const values = this.snapshotSorted()
     for (let i = values.length - 1; i >= 0; i--) {
@@ -185,6 +261,12 @@ export class BinaryHeap<E> implements ICollection<E> {
   }
 }
 
+/**
+ * Node container used internally by the Fibonacci heap.
+ *
+ * @template E Value type.
+ * @since 2.0.0
+ */
 export type FibonacciHeapNode<E> = {
   value: E
   degree: number
@@ -196,31 +278,64 @@ export type FibonacciHeapNode<E> = {
 }
 
 /**
- * FibonacciHeap Implementation
- * The Comparator has one requirement: When the "left" value is "null" the ordering must be Ordering.GT
- * This is needed for delete to function correctly
+ * Contract implemented by {@link FibonacciHeap}. The comparator must treat `null` on the
+ * left-hand side as greater-than to enable the deletion shortcut.
  */
 export interface IFibonacciHeap<E> extends ICollection<E> {
   rootList: FibonacciHeapNode<E>
   minNode: FibonacciHeapNode<E>
+
   insert(element: E): FibonacciHeapNode<E>
+
   contains(element: E): boolean
+
   delete(node: FibonacciHeapNode<E>): FibonacciHeapNode<E>
+
   decreaseKey(node: FibonacciHeapNode<E>, newValue: E): void
+
   minimum(): FibonacciHeapNode<E>
+
   extractMin(): FibonacciHeapNode<E>
+
   union(heap: IFibonacciHeap<E>): void
-  extractNeighbours(node: FibonacciHeapNode<E>, includeSelf?: boolean): CyclicDoublyLinkedList<FibonacciHeapNode<E>>
+
+  extractNeighbours(
+    node: FibonacciHeapNode<E>,
+    includeSelf?: boolean
+  ): CyclicDoublyLinkedList<FibonacciHeapNode<E>>
+
   extractChildren(node: FibonacciHeapNode<E>): CyclicDoublyLinkedList<FibonacciHeapNode<E>>
 }
 
+/**
+ * Amortized-efficient heap with `O(1)` insert/decrease-key and `O(log n)` extract-min.
+ *
+ * @template E Value type.
+ * @since 2.0.0
+ */
 export class FibonacciHeap<E> implements IFibonacciHeap<E> {
+  /**
+   * List of root nodes of the FibonacciHeap
+   */
   rootList!: FibonacciHeapNode<E>
+  /**
+   * Current minimum node
+   */
   minNode!: FibonacciHeapNode<E>
+  /**
+   * {@inheritDoc ICollection.size}
+   */
   size = 0
+  /**
+   * {@inheritDoc ICollection.comparator}
+   */
   comparator: Comparator<E>
   private readonly goldenCut = (1 + Math.sqrt(5)) / 2
 
+  /**
+   * @param comparator - Ordering strategy.
+   * @param elements - Optional seed data.
+   */
   constructor(comparator: Comparator<E>, elements?: Iterable<E>) {
     this.comparator = comparator
     if (elements) {
@@ -231,8 +346,11 @@ export class FibonacciHeap<E> implements IFibonacciHeap<E> {
   }
 
   /**
-   * O(1)
-   * @param element
+   * Insert a value and return its node handle.
+   *
+   * @param element - Value to insert.
+   * @returns Newly created node.
+   * @remarks Complexity: O(1)
    */
   insert(element: E): FibonacciHeapNode<E> {
     if (element === undefined) return undefined!
@@ -257,6 +375,9 @@ export class FibonacciHeap<E> implements IFibonacciHeap<E> {
     return node
   }
 
+  /**
+   * {@inheritDoc ICollection.contains}
+   */
   contains(element: E): boolean {
     if (this.isEmpty()) return false
     for (const node of this.traverseNodes()) {
@@ -267,10 +388,16 @@ export class FibonacciHeap<E> implements IFibonacciHeap<E> {
     return false
   }
 
+  /**
+   * {@inheritDoc ICollection.add}
+   */
   add(e: E): FibonacciHeapNode<E> {
     return this.insert(e)
   }
 
+  /**
+   * {@inheritDoc ICollection.addAll}
+   */
   addAll(collection: ICollection<E>): void {
     for (const e of collection) {
       this.insert(e)
@@ -278,9 +405,11 @@ export class FibonacciHeap<E> implements IFibonacciHeap<E> {
   }
 
   /**
-   * O(log(size)) (amortized)
+   * Delete a node using its handle.
    *
-   * @param e
+   * @param e - Node handle obtained from {@link insert}.
+   * @returns Removed node.
+   * @remarks Complexity: O(log n) amortized
    */
   delete(e: FibonacciHeapNode<E>): FibonacciHeapNode<E> {
     this.decreaseKey(e, null!)
@@ -288,12 +417,13 @@ export class FibonacciHeap<E> implements IFibonacciHeap<E> {
   }
 
   /**
-   * Decreases a nodes key. When the newValue is null or undefined, node will get the new minNode
+   * Decrease a node's key and bubble it up if necessary.
    *
-   * O(1) (amortized)
-   *
-   * @param node
-   * @param newValue
+   * @param node - Target node handle.
+   * @param newValue - New value (must compare <= old value). Pass `null`/`undefined` to
+   * mark the node as the next minimum.
+   * @throws {Error} When `newValue` is greater than the current value.
+   * @remarks Complexity: O(1) amortized
    */
   decreaseKey(node: FibonacciHeapNode<E>, newValue: E): void {
     if (!node) throw new Error('node to decrease is null!')
@@ -314,11 +444,22 @@ export class FibonacciHeap<E> implements IFibonacciHeap<E> {
     }
   }
 
+  /**
+   * Returns the current minimum node in the FibonacciHeap.
+   *
+   * @returns Current minimum node.
+   * @remarks Complexity: O(1)
+   */
   minimum(): FibonacciHeapNode<E> {
     if (this.isEmpty()) throw new Error('no such element')
     return this.minNode
   }
 
+  /**
+   * Returns and removes the minimum node from the FibonacciHeap.
+   * @returns Removed minimum node.
+   * @remarks Complexity: O(log n) amortized
+   */
   extractMin(): FibonacciHeapNode<E> {
     const min = this.minNode
     if (min) {
@@ -350,9 +491,9 @@ export class FibonacciHeap<E> implements IFibonacciHeap<E> {
   }
 
   /**
-   * O(1)
-   *
+   * Merge another heap into this one.
    * @param heap to merge in the current one
+   * @remarks Complexity: O(1)
    */
   union(heap: IFibonacciHeap<E>): void {
     if (!this.minNode) {
@@ -375,15 +516,33 @@ export class FibonacciHeap<E> implements IFibonacciHeap<E> {
     this.size = this.size + heap.size
   }
 
+  /**
+   * {@inheritDoc ICollection.isEmpty}
+   */
   isEmpty(): boolean {
     return this.size === 0
   }
 
+  /**
+   * Clears the FibonacciHeap, bei undefining the min node and rootList.
+   * @remarks Complexity: O(1)
+   */
   clear(): void {
     this.rootList = this.minNode = undefined!
     this.size = 0
   }
-  extractNeighbours(node: FibonacciHeapNode<E>, includeSelf: boolean = false): CyclicDoublyLinkedList<FibonacciHeapNode<E>> {
+
+  /**
+   * Collect sibling nodes adjacent to the provided node.
+   *
+   * @param node - Starting node.
+   * @param includeSelf - Whether to include `node` in the output.
+   * @returns Cyclic list of neighbour nodes.
+   */
+  extractNeighbours(
+    node: FibonacciHeapNode<E>,
+    includeSelf: boolean = false
+  ): CyclicDoublyLinkedList<FibonacciHeapNode<E>> {
     const list = new CyclicDoublyLinkedList<FibonacciHeapNode<E>>()
     if (!node) return list
     if (includeSelf) {
@@ -397,6 +556,12 @@ export class FibonacciHeap<E> implements IFibonacciHeap<E> {
     return list
   }
 
+  /**
+   * Return the child list of a node.
+   *
+   * @param node - Parent node.
+   * @returns Cyclic list of children.
+   */
   extractChildren(node: FibonacciHeapNode<E>): CyclicDoublyLinkedList<FibonacciHeapNode<E>> {
     const list = new CyclicDoublyLinkedList<FibonacciHeapNode<E>>()
     if (!node?.child) return list
@@ -529,7 +694,7 @@ export class FibonacciHeap<E> implements IFibonacciHeap<E> {
     return Math.log(x) / Math.log(base)
   }
 
-  private *iterateSiblings(start?: FibonacciHeapNode<E>): Generator<FibonacciHeapNode<E>> {
+  private* iterateSiblings(start?: FibonacciHeapNode<E>): Generator<FibonacciHeapNode<E>> {
     if (!start) return
     let current: FibonacciHeapNode<E> | undefined = start
     let first = true
@@ -540,7 +705,7 @@ export class FibonacciHeap<E> implements IFibonacciHeap<E> {
     }
   }
 
-  private *traverseNodes(): Generator<FibonacciHeapNode<E>> {
+  private* traverseNodes(): Generator<FibonacciHeapNode<E>> {
     if (this.isEmpty()) return
     const visited = new Set<FibonacciHeapNode<E>>()
     const stack: FibonacciHeapNode<E>[] = []
@@ -574,12 +739,18 @@ export class FibonacciHeap<E> implements IFibonacciHeap<E> {
     return this.snapshotSortedNodes().map(node => node.value)
   }
 
+  /**
+   * Iterator for iterating all FibonacciHeapNodes.
+   */
   *nodeIterator() {
     for (const node of this.snapshotSortedNodes()) {
       yield node
     }
   }
 
+  /**
+   * Iterator for iterating through the values of the FibonacciHeapNodes.
+   */
   [Symbol.iterator](): Iterator<E> {
     const values = this.snapshotSortedValues()
     let index = 0
@@ -596,6 +767,9 @@ export class FibonacciHeap<E> implements IFibonacciHeap<E> {
     }
   }
 
+  /**
+   * Reverse iterate through the values of the FibonacciHeap.
+   */
   *reverseIterator(): Generator<E> {
     const values = this.snapshotSortedValues()
     for (let i = values.length - 1; i >= 0; i--) {
@@ -604,7 +778,7 @@ export class FibonacciHeap<E> implements IFibonacciHeap<E> {
   }
 
   /**
-   * This sort function changes the comparator, if one is given as parameter!
+   * This sort function changes the comparator (!), if one is given as parameter.
    *
    * @param cmp
    */

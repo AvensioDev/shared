@@ -1,5 +1,5 @@
 /**
- * Lightweight 3D point used by graph and geometry utilities.
+ * @description Lightweight 3D point used by graph and geometry utilities.
  *
  * @example
  * ```ts

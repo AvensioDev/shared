@@ -1,16 +1,18 @@
-[**@avensio/shared**](../README.md)
+---
+description: Node container used internally by the Fibonacci heap.
+---
+
+[**Avensio Shared**](../README.md)
 
 ***
 
-[@avensio/shared](../README.md) / FibonacciHeapNode
+[Avensio Shared](../README.md) / FibonacciHeapNode
 
 # Type Alias: FibonacciHeapNode\<E\>
 
 > **FibonacciHeapNode**\<`E`\> = `object`
 
-Defined in: heap.ts:279
-
-Node container used internally by the Fibonacci heap.
+Defined in: heap.ts:270
 
 ## Since
 
@@ -30,7 +32,7 @@ Value type.
 
 > `optional` **child**: `FibonacciHeapNode`\<`E`\>
 
-Defined in: heap.ts:286
+Defined in: heap.ts:277
 
 ***
 
@@ -38,7 +40,7 @@ Defined in: heap.ts:286
 
 > **degree**: `number`
 
-Defined in: heap.ts:281
+Defined in: heap.ts:272
 
 ***
 
@@ -46,7 +48,7 @@ Defined in: heap.ts:281
 
 > **left**: `FibonacciHeapNode`\<`E`\>
 
-Defined in: heap.ts:283
+Defined in: heap.ts:274
 
 ***
 
@@ -54,7 +56,7 @@ Defined in: heap.ts:283
 
 > **marked**: `boolean`
 
-Defined in: heap.ts:282
+Defined in: heap.ts:273
 
 ***
 
@@ -62,7 +64,7 @@ Defined in: heap.ts:282
 
 > `optional` **parent**: `FibonacciHeapNode`\<`E`\>
 
-Defined in: heap.ts:285
+Defined in: heap.ts:276
 
 ***
 
@@ -70,7 +72,7 @@ Defined in: heap.ts:285
 
 > **right**: `FibonacciHeapNode`\<`E`\>
 
-Defined in: heap.ts:284
+Defined in: heap.ts:275
 
 ***
 
@@ -78,4 +80,4 @@ Defined in: heap.ts:284
 
 > **value**: `E`
 
-Defined in: heap.ts:280
+Defined in: heap.ts:271

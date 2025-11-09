@@ -1,16 +1,18 @@
-[**@avensio/shared**](../README.md)
+---
+description: Doubly linked node shared by list/queue implementations.
+---
+
+[**Avensio Shared**](../README.md)
 
 ***
 
-[@avensio/shared](../README.md) / Node
+[Avensio Shared](../README.md) / Node
 
 # Type Alias: Node\<E\>
 
 > **Node**\<`E`\> = `undefined` \| \{ `next?`: `Node`\<`E`\>; `prev?`: `Node`\<`E`\>; `value`: `E`; \}
 
 Defined in: index.ts:31
-
-Doubly linked node shared by list/queue implementations.
 
 ## Type Parameters
 

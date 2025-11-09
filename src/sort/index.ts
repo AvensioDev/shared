@@ -5,7 +5,7 @@ import {
 } from '../'
 
 /**
- * Contract for structures that can be sorted in-place.
+ * @description Contract for structures that can be sorted in-place.
  *
  * @template V Value type.
  */
@@ -19,7 +19,7 @@ export interface ISortable<V> {
 }
 
 /**
- * Sort a collection by recursively partitioning around a pivot.
+ * @description Sort a collection by recursively partitioning around a pivot.
  *
  * @template V Value type.
  * @param collection - Target collection (mutated while sorting).
@@ -64,7 +64,7 @@ export function quicksort<V>(
 }
 
 /**
- * Build a Fibonacci heap from values which can then be drained in order.
+ * @description Build a Fibonacci heap from values which can then be drained in order.
  *
  * @template V Value type.
  * @param values - Iterable of values to heapify.

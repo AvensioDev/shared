@@ -1,16 +1,20 @@
-[**@avensio/shared**](../README.md)
+---
+description: |-
+  Compares two values and returns an 
+  .
+---
+
+[**Avensio Shared**](../README.md)
 
 ***
 
-[@avensio/shared](../README.md) / Comparator
+[Avensio Shared](../README.md) / Comparator
 
 # Type Alias: Comparator()\<E\>
 
 > **Comparator**\<`E`\> = (`e1`, `e2`) => [`Ordering`](../enumerations/Ordering.md)
 
 Defined in: index.ts:23
-
-Compares two values and returns an [Ordering](../enumerations/Ordering.md).
 
 ## Type Parameters
 

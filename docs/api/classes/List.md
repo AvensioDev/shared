@@ -1,14 +1,18 @@
-[**@avensio/shared**](../README.md)
+---
+description: |-
+  Array-backed 
+   optimized for random access and iteration.
+---
+
+[**Avensio Shared**](../README.md)
 
 ***
 
-[@avensio/shared](../README.md) / List
+[Avensio Shared](../README.md) / List
 
 # Class: List\<E\>
 
-Defined in: list.ts:193
-
-Array-backed [IList](../interfaces/IList.md) optimized for random access and iteration.
+Defined in: list.ts:212
 
 ## Example
 
@@ -40,13 +44,13 @@ Value type.
 
 > **new List**\<`E`\>(`elements?`): `List`\<`E`\>
 
-Defined in: list.ts:198
+Defined in: list.ts:223
 
 #### Parameters
 
 ##### elements?
 
-`Iterable`\<`E`, `any`, `any`\>
+[`Iterable`](https://www.typescriptlang.org/docs/handbook/iterators-and-generators.html#iterable-interface)\<`E`, `any`, `any`\>
 
 #### Returns
 
@@ -58,7 +62,7 @@ Defined in: list.ts:198
 
 > **comparator**: [`Comparator`](../type-aliases/Comparator.md)\<`E`\>
 
-Defined in: list.ts:196
+Defined in: list.ts:221
 
 Comparator used for equality/sort checks.
 
@@ -72,7 +76,7 @@ Comparator used for equality/sort checks.
 
 > **size**: `number` = `0`
 
-Defined in: list.ts:195
+Defined in: list.ts:217
 
 Current element count.
 
@@ -84,13 +88,17 @@ Current element count.
 
 ### \[iterator\]()
 
-> **\[iterator\]**(): `Iterator`\<`E`\>
+> **\[iterator\]**(): [`Iterator`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Iterator)\<`E`\>
 
-Defined in: list.ts:452
+Defined in: list.ts:511
+
+Iterate through all elements in the List.
 
 #### Returns
 
-`Iterator`\<`E`\>
+[`Iterator`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Iterator)\<`E`\>
+
+Iterator for the List.
 
 #### Implementation of
 
@@ -102,11 +110,9 @@ Defined in: list.ts:452
 
 > **add**(`e`): `void`
 
-Defined in: list.ts:206
+Defined in: list.ts:234
 
 Append an element.
-
- Complexity: Amortized O(1) unless stated otherwise.
 
 #### Parameters
 
@@ -118,6 +124,10 @@ Append an element.
 
 `void`
 
+#### Remarks
+
+Complexity: Amortized O(1) unless stated otherwise.
+
 #### Implementation of
 
 [`IList`](../interfaces/IList.md).[`add`](../interfaces/IList.md#add)
@@ -128,19 +138,23 @@ Append an element.
 
 > **addAll**(`c`): `void`
 
-Defined in: list.ts:212
+Defined in: list.ts:244
 
-Append every value from an iterable.
+Append every element from another collection.
 
 #### Parameters
 
 ##### c
 
-`Iterable`\<`E`\>
+[`Iterable`](https://www.typescriptlang.org/docs/handbook/iterators-and-generators.html#iterable-interface)\<`E`\>
 
 #### Returns
 
 `void`
+
+#### Remarks
+
+Complexity: O(n + m) where m is `collection.size`.
 
 #### Implementation of
 
@@ -152,15 +166,17 @@ Append every value from an iterable.
 
 > **clear**(): `void`
 
-Defined in: list.ts:391
+Defined in: list.ts:437
 
 Remove all entries.
-
- Complexity: O(n)
 
 #### Returns
 
 `void`
+
+#### Remarks
+
+Complexity: O(n)
 
 #### Implementation of
 
@@ -172,11 +188,9 @@ Remove all entries.
 
 > **contains**(`element`): `boolean`
 
-Defined in: list.ts:414
+Defined in: list.ts:463
 
 Test membership using the comparator when available.
-
- Complexity: O(n)
 
 #### Parameters
 
@@ -188,6 +202,10 @@ Test membership using the comparator when available.
 
 `boolean`
 
+#### Remarks
+
+Complexity: O(n) worst case
+
 #### Implementation of
 
 [`IList`](../interfaces/IList.md).[`contains`](../interfaces/IList.md#contains)
@@ -198,7 +216,7 @@ Test membership using the comparator when available.
 
 > **equals**(`l`): `boolean`
 
-Defined in: list.ts:421
+Defined in: list.ts:470
 
 Compare equality value-by-value using the comparator.
 
@@ -226,7 +244,7 @@ List to compare.
 
 > **every**(`predicate`): `boolean`
 
-Defined in: list.ts:362
+Defined in: list.ts:401
 
 Test whether every element matches the predicate.
 
@@ -243,7 +261,10 @@ Match callback.
 `boolean`
 
 `true` when all elements satisfy the predicate.
- Complexity: O(n)
+
+#### Remarks
+
+Complexity: O(n)
 
 #### Implementation of
 
@@ -255,7 +276,7 @@ Match callback.
 
 > **filter**(`predicate`): `List`\<`E`\>
 
-Defined in: list.ts:349
+Defined in: list.ts:388
 
 Create a list containing values that satisfy the predicate.
 
@@ -272,7 +293,10 @@ Filter callback.
 `List`\<`E`\>
 
 Filtered list.
- Complexity: O(n)
+
+#### Remarks
+
+Complexity: O(n)
 
 #### Implementation of
 
@@ -284,7 +308,7 @@ Filtered list.
 
 > **get**(`index`): `E`
 
-Defined in: list.ts:217
+Defined in: list.ts:253
 
 Read the element at a given index.
 
@@ -301,7 +325,10 @@ Zero-based index.
 `E`
 
 Element at the index.
- Complexity: O(1) for List, O(n) for linked variants.
+
+#### Remarks
+
+Complexity: O(1) for List, O(n) for linked variants.
 
 #### Implementation of
 
@@ -313,7 +340,7 @@ Element at the index.
 
 > **indexOf**(`element`, `startIndex`): `number`
 
-Defined in: list.ts:433
+Defined in: list.ts:482
 
 Locate the first matching element starting at `startIndex`.
 
@@ -336,7 +363,10 @@ Optional search start.
 `number`
 
 Index or `-1`.
- Complexity: O(n)
+
+#### Remarks
+
+Complexity: O(n)
 
 #### Implementation of
 
@@ -348,7 +378,7 @@ Index or `-1`.
 
 > **isEmpty**(): `boolean`
 
-Defined in: list.ts:388
+Defined in: list.ts:430
 
 Check for emptiness.
 
@@ -368,7 +398,7 @@ Check for emptiness.
 
 > **map**\<`V`\>(`fn`): `List`\<`V`\>
 
-Defined in: list.ts:331
+Defined in: list.ts:370
 
 Transform each element.
 
@@ -393,7 +423,10 @@ Mapper invoked per element.
 `List`\<`V`\>
 
 New list containing mapped values.
- Complexity: O(n)
+
+#### Remarks
+
+Complexity: O(n)
 
 #### Implementation of
 
@@ -405,7 +438,7 @@ New list containing mapped values.
 
 > **reduce**\<`V`\>(`fn`, `initialValue?`): `V`
 
-Defined in: list.ts:342
+Defined in: list.ts:381
 
 Reduce the list to a single value.
 
@@ -436,7 +469,10 @@ Optional starting value.
 `V`
 
 Accumulated result.
- Complexity: O(n)
+
+#### Remarks
+
+Complexity: O(n)
 
 #### Implementation of
 
@@ -448,13 +484,15 @@ Accumulated result.
 
 > **remove**(`target`, `isIndex`): `number` \| `E`
 
-Defined in: list.ts:404
+Defined in: list.ts:453
 
 Remove by value or index.
 
 #### Parameters
 
 ##### target
+
+Element or index.
 
 `number` | `E`
 
@@ -469,7 +507,10 @@ When `true`, treat `e` as index.
 `number` \| `E`
 
 Removed element or index of removal.
- Complexity: O(n) worst case.
+
+#### Remarks
+
+Complexity: O(n) worst case.
 
 #### Implementation of
 
@@ -479,15 +520,15 @@ Removed element or index of removal.
 
 ### reverseIterator()
 
-> **reverseIterator**(): `Generator`\<`E`, `void`, `unknown`\>
+> **reverseIterator**(): [`Generator`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Generator)\<`E`, `void`, `unknown`\>
 
-Defined in: list.ts:446
+Defined in: list.ts:501
 
-Iterate backwards.
+Iterates elements from the most recently added to the earliest.
 
 #### Returns
 
-`Generator`\<`E`, `void`, `unknown`\>
+[`Generator`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Generator)\<`E`, `void`, `unknown`\>
 
 #### Implementation of
 
@@ -499,7 +540,7 @@ Iterate backwards.
 
 > **set**(`index`, `e`): `boolean`
 
-Defined in: list.ts:221
+Defined in: list.ts:260
 
 Replace the element at `index`.
 
@@ -514,6 +555,8 @@ Position to update.
 ##### e
 
 `E`
+
+New value.
 
 #### Returns
 
@@ -531,7 +574,7 @@ Position to update.
 
 > **slice**(`startIndex`, `endIndex`): `List`\<`E`\>
 
-Defined in: list.ts:235
+Defined in: list.ts:274
 
 Create a slice, treating indices modulo the current size.
 
@@ -554,7 +597,10 @@ End index (exclusive).
 `List`\<`E`\>
 
 New list containing the copied range.
- Complexity: O(k) where k is the number of elements copied.
+
+#### Remarks
+
+Complexity: O(k) where k is the number of elements copied.
 
 #### Implementation of
 
@@ -566,7 +612,7 @@ New list containing the copied range.
 
 > **slice2**(`startIndex`, `endIndex`): `List`\<`E`\>
 
-Defined in: list.ts:260
+Defined in: list.ts:299
 
 Slice the list while interpreting `endIndex` as a direction toggle.
 
@@ -589,7 +635,10 @@ Determines direction (negative => left).
 `List`\<`E`\>
 
 New list containing the copied path.
- Complexity: O(k)
+
+#### Remarks
+
+Complexity: O(k)
 
 #### Implementation of
 
@@ -601,7 +650,7 @@ New list containing the copied path.
 
 > **some**(`predicate`): `boolean`
 
-Defined in: list.ts:377
+Defined in: list.ts:416
 
 Test whether any element matches the predicate.
 
@@ -618,7 +667,10 @@ Match callback.
 `boolean`
 
 `true` when at least one element matches.
- Complexity: O(n)
+
+#### Remarks
+
+Complexity: O(n)
 
 #### Implementation of
 
@@ -630,7 +682,7 @@ Match callback.
 
 > **sort**(`cmp?`): `void`
 
-Defined in: list.ts:442
+Defined in: list.ts:494
 
 Sort the structure using the provided comparator.
 
@@ -656,7 +708,7 @@ Optional comparator; falls back to the internal one.
 
 > **splice**(`startIndex`, `deleteCount`): `List`\<`E`\>
 
-Defined in: list.ts:323
+Defined in: list.ts:362
 
 Remove a range and return it as a new list.
 
@@ -679,7 +731,10 @@ Number of elements to remove (negative => left).
 `List`\<`E`\>
 
 Removed elements as a new list.
- Complexity: O(n)
+
+#### Remarks
+
+Complexity: O(n)
 
 #### Implementation of
 

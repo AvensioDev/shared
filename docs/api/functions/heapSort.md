@@ -1,16 +1,14 @@
-[**@avensio/shared**](../README.md)
+[**Avensio Shared**](../README.md)
 
 ***
 
-[@avensio/shared](../README.md) / heapSort
+[Avensio Shared](../README.md) / heapSort
 
 # Function: heapSort()
 
 > **heapSort**\<`V`\>(`values`, `comparator`): [`FibonacciHeap`](../classes/FibonacciHeap.md)\<`V`\>
 
 Defined in: sort/index.ts:80
-
-Build a Fibonacci heap from values which can then be drained in order.
 
 ## Type Parameters
 
@@ -24,7 +22,7 @@ Value type.
 
 ### values
 
-`Iterable`\<`V`\>
+[`Iterable`](https://www.typescriptlang.org/docs/handbook/iterators-and-generators.html#iterable-interface)\<`V`\>
 
 Iterable of values to heapify.
 
@@ -40,10 +38,17 @@ Comparator controlling heap ordering.
 
 Heap representation (call `extractMin` until empty to retrieve sorted order).
 
+## Description
+
+Build a Fibonacci heap from values which can then be drained in order.
+
 ## Example
 
 ```ts
 const heap = heapSort(items, numberComparatorASC)
 heap.extractMin()
 ```
- Complexity: O(n) to build, O(log n) per extraction.
+
+## Remarks
+
+Complexity: O(n) to build, O(log n) per extraction.

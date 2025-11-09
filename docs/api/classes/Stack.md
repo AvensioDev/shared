@@ -1,14 +1,16 @@
-[**@avensio/shared**](../README.md)
+---
+description: Array-backed stack optimized for traversal and random inspection.
+---
+
+[**Avensio Shared**](../README.md)
 
 ***
 
-[@avensio/shared](../README.md) / Stack
+[Avensio Shared](../README.md) / Stack
 
 # Class: Stack\<E\>
 
-Defined in: stack.ts:47
-
-Array-backed stack optimized for traversal and random inspection.
+Defined in: stack.ts:45
 
 ## Type Parameters
 
@@ -28,13 +30,13 @@ Value type.
 
 > **new Stack**\<`E`\>(`elements?`): `Stack`\<`E`\>
 
-Defined in: stack.ts:51
+Defined in: stack.ts:56
 
 #### Parameters
 
 ##### elements?
 
-`Iterable`\<`E`, `any`, `any`\>
+[`Iterable`](https://www.typescriptlang.org/docs/handbook/iterators-and-generators.html#iterable-interface)\<`E`, `any`, `any`\>
 
 #### Returns
 
@@ -46,9 +48,9 @@ Defined in: stack.ts:51
 
 > **comparator**: [`Comparator`](../type-aliases/Comparator.md)\<`E`\>
 
-Defined in: stack.ts:50
+Defined in: stack.ts:54
 
-Comparator used for contains/sort checks.
+Comparator used for equality/sort checks.
 
 #### Implementation of
 
@@ -60,7 +62,7 @@ Comparator used for contains/sort checks.
 
 > **size**: `number` = `0`
 
-Defined in: stack.ts:49
+Defined in: stack.ts:50
 
 Current element count.
 
@@ -72,15 +74,15 @@ Current element count.
 
 ### \[iterator\]()
 
-> **\[iterator\]**(): `Iterator`\<`E`\>
+> **\[iterator\]**(): [`Iterator`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Iterator)\<`E`\>
 
-Defined in: stack.ts:122
+Defined in: stack.ts:127
 
-Iterable
+[Iterable](https://www.typescriptlang.org/docs/handbook/iterators-and-generators.html#iterable-interface)
 
 #### Returns
 
-`Iterator`\<`E`\>
+[`Iterator`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Iterator)\<`E`\>
 
 #### Implementation of
 
@@ -92,11 +94,9 @@ Iterable
 
 > **add**(`e`): `void`
 
-Defined in: stack.ts:137
+Defined in: stack.ts:145
 
 Append an element.
-
- Complexity: Amortized O(1) unless stated otherwise.
 
 #### Parameters
 
@@ -108,6 +108,10 @@ Append an element.
 
 `void`
 
+#### Remarks
+
+Complexity: Amortized O(1) unless stated otherwise.
+
 #### Implementation of
 
 [`IStack`](../interfaces/IStack.md).[`add`](../interfaces/IStack.md#add)
@@ -118,11 +122,9 @@ Append an element.
 
 > **addAll**(`collection`): `void`
 
-Defined in: stack.ts:141
+Defined in: stack.ts:152
 
 Append every element from another collection.
-
- Complexity: O(n + m) where m is `collection.size`.
 
 #### Parameters
 
@@ -134,6 +136,10 @@ Append every element from another collection.
 
 `void`
 
+#### Remarks
+
+Complexity: O(n + m) where m is `collection.size`.
+
 #### Implementation of
 
 [`IStack`](../interfaces/IStack.md).[`addAll`](../interfaces/IStack.md#addall)
@@ -144,15 +150,17 @@ Append every element from another collection.
 
 > **clear**(): `void`
 
-Defined in: stack.ts:62
+Defined in: stack.ts:67
 
 Remove all entries.
-
- Complexity: O(n)
 
 #### Returns
 
 `void`
+
+#### Remarks
+
+Complexity: O(n)
 
 #### Implementation of
 
@@ -164,11 +172,9 @@ Remove all entries.
 
 > **contains**(`element`): `boolean`
 
-Defined in: stack.ts:106
+Defined in: stack.ts:111
 
 Test membership using the comparator when available.
-
- Complexity: O(n)
 
 #### Parameters
 
@@ -180,6 +186,10 @@ Test membership using the comparator when available.
 
 `boolean`
 
+#### Remarks
+
+Complexity: O(n) worst case
+
 #### Implementation of
 
 [`IStack`](../interfaces/IStack.md).[`contains`](../interfaces/IStack.md#contains)
@@ -190,7 +200,7 @@ Test membership using the comparator when available.
 
 > **isEmpty**(): `boolean`
 
-Defined in: stack.ts:70
+Defined in: stack.ts:75
 
 Check for emptiness.
 
@@ -210,7 +220,7 @@ Check for emptiness.
 
 > **pop**(): `E`
 
-Defined in: stack.ts:86
+Defined in: stack.ts:91
 
 Pop and return the top value.
 
@@ -219,6 +229,10 @@ Pop and return the top value.
 `E`
 
 Removed value.
+
+#### Remarks
+
+Complexity: O(1)
 
 #### Implementation of
 
@@ -230,7 +244,7 @@ Removed value.
 
 > **push**(`e`): `void`
 
-Defined in: stack.ts:96
+Defined in: stack.ts:101
 
 Push a value on top.
 
@@ -241,11 +255,14 @@ Push a value on top.
 `E`
 
 Value to push.
- Complexity: O(1)
 
 #### Returns
 
 `void`
+
+#### Remarks
+
+Complexity: O(1)
 
 #### Implementation of
 
@@ -257,13 +274,15 @@ Value to push.
 
 > **remove**(`target`, `isIndex`): `number` \| `E`
 
-Defined in: stack.ts:147
+Defined in: stack.ts:161
 
 Remove by value or index.
 
 #### Parameters
 
 ##### target
+
+Element or index.
 
 `number` | `E`
 
@@ -278,7 +297,10 @@ When `true`, treat `e` as index.
 `number` \| `E`
 
 Removed element or index of removal.
- Complexity: O(n) worst case.
+
+#### Remarks
+
+Complexity: O(n) worst case.
 
 #### Implementation of
 
@@ -288,15 +310,15 @@ Removed element or index of removal.
 
 ### reverseIterator()
 
-> **reverseIterator**(): `Generator`\<`E`\>
+> **reverseIterator**(): [`Generator`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Generator)\<`E`\>
 
-Defined in: stack.ts:167
+Defined in: stack.ts:184
 
 Iterates elements from the most recently added to the earliest.
 
 #### Returns
 
-`Generator`\<`E`\>
+[`Generator`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Generator)\<`E`\>
 
 #### Implementation of
 
@@ -308,7 +330,7 @@ Iterates elements from the most recently added to the earliest.
 
 > **sort**(`cmp?`): `void`
 
-Defined in: stack.ts:178
+Defined in: stack.ts:198
 
 Sort the structure using the provided comparator.
 
@@ -334,7 +356,7 @@ Optional comparator; falls back to the internal one.
 
 > **top**(): `E`
 
-Defined in: stack.ts:77
+Defined in: stack.ts:82
 
 Peek the top value without removing it.
 

@@ -1,15 +1,20 @@
-[**@avensio/shared**](../README.md)
+---
+description: |-
+  Contract implemented by 
+  . The comparator must treat 
+   on the
+  left-hand side as greater-than to enable the deletion shortcut.
+---
+
+[**Avensio Shared**](../README.md)
 
 ***
 
-[@avensio/shared](../README.md) / IFibonacciHeap
+[Avensio Shared](../README.md) / IFibonacciHeap
 
 # Interface: IFibonacciHeap\<E\>
 
-Defined in: heap.ts:293
-
-Contract implemented by [FibonacciHeap](../classes/FibonacciHeap.md). The comparator must treat `null` on the
-left-hand side as greater-than to enable the deletion shortcut.
+Defined in: heap.ts:284
 
 ## Extends
 
@@ -41,7 +46,7 @@ Comparator used for equality/sort checks.
 
 > **minNode**: [`FibonacciHeapNode`](../type-aliases/FibonacciHeapNode.md)\<`E`\>
 
-Defined in: heap.ts:295
+Defined in: heap.ts:286
 
 ***
 
@@ -49,7 +54,7 @@ Defined in: heap.ts:295
 
 > **rootList**: [`FibonacciHeapNode`](../type-aliases/FibonacciHeapNode.md)\<`E`\>
 
-Defined in: heap.ts:294
+Defined in: heap.ts:285
 
 ***
 
@@ -71,11 +76,9 @@ Current element count.
 
 > **add**(`element`): `void`
 
-Defined in: index.ts:152
+Defined in: index.ts:153
 
 Append an element.
-
- Complexity: Amortized O(1) unless stated otherwise.
 
 #### Parameters
 
@@ -86,6 +89,10 @@ Append an element.
 #### Returns
 
 `void`
+
+#### Remarks
+
+Complexity: Amortized O(1) unless stated otherwise.
 
 #### Inherited from
 
@@ -97,11 +104,9 @@ Append an element.
 
 > **addAll**(`collection`): `void`
 
-Defined in: index.ts:158
+Defined in: index.ts:160
 
 Append every element from another collection.
-
- Complexity: O(n + m) where m is `collection.size`.
 
 #### Parameters
 
@@ -113,6 +118,10 @@ Append every element from another collection.
 
 `void`
 
+#### Remarks
+
+Complexity: O(n + m) where m is `collection.size`.
+
 #### Inherited from
 
 [`ICollection`](ICollection.md).[`addAll`](ICollection.md#addall)
@@ -123,15 +132,17 @@ Append every element from another collection.
 
 > **clear**(): `void`
 
-Defined in: index.ts:173
+Defined in: index.ts:178
 
 Remove all entries.
-
- Complexity: O(n)
 
 #### Returns
 
 `void`
+
+#### Remarks
+
+Complexity: O(n)
 
 #### Inherited from
 
@@ -143,11 +154,9 @@ Remove all entries.
 
 > **contains**(`element`): `boolean`
 
-Defined in: heap.ts:297
+Defined in: heap.ts:290
 
 Test membership using the comparator when available.
-
- Complexity: O(n)
 
 #### Parameters
 
@@ -159,6 +168,10 @@ Test membership using the comparator when available.
 
 `boolean`
 
+#### Remarks
+
+Complexity: O(n) worst case
+
 #### Overrides
 
 [`ICollection`](ICollection.md).[`contains`](ICollection.md#contains)
@@ -169,7 +182,7 @@ Test membership using the comparator when available.
 
 > **decreaseKey**(`node`, `newValue`): `void`
 
-Defined in: heap.ts:299
+Defined in: heap.ts:294
 
 #### Parameters
 
@@ -191,7 +204,7 @@ Defined in: heap.ts:299
 
 > **delete**(`node`): [`FibonacciHeapNode`](../type-aliases/FibonacciHeapNode.md)\<`E`\>
 
-Defined in: heap.ts:298
+Defined in: heap.ts:292
 
 #### Parameters
 
@@ -227,7 +240,7 @@ Defined in: heap.ts:307
 
 > **extractMin**(): [`FibonacciHeapNode`](../type-aliases/FibonacciHeapNode.md)\<`E`\>
 
-Defined in: heap.ts:301
+Defined in: heap.ts:298
 
 #### Returns
 
@@ -239,7 +252,7 @@ Defined in: heap.ts:301
 
 > **extractNeighbours**(`node`, `includeSelf?`): [`CyclicDoublyLinkedList`](../classes/CyclicDoublyLinkedList.md)\<[`FibonacciHeapNode`](../type-aliases/FibonacciHeapNode.md)\<`E`\>\>
 
-Defined in: heap.ts:303
+Defined in: heap.ts:302
 
 #### Parameters
 
@@ -261,7 +274,7 @@ Defined in: heap.ts:303
 
 > **insert**(`element`): [`FibonacciHeapNode`](../type-aliases/FibonacciHeapNode.md)\<`E`\>
 
-Defined in: heap.ts:296
+Defined in: heap.ts:288
 
 #### Parameters
 
@@ -279,7 +292,7 @@ Defined in: heap.ts:296
 
 > **isEmpty**(): `boolean`
 
-Defined in: index.ts:179
+Defined in: index.ts:185
 
 Check for emptiness.
 
@@ -299,7 +312,7 @@ Check for emptiness.
 
 > **minimum**(): [`FibonacciHeapNode`](../type-aliases/FibonacciHeapNode.md)\<`E`\>
 
-Defined in: heap.ts:300
+Defined in: heap.ts:296
 
 #### Returns
 
@@ -311,7 +324,7 @@ Defined in: heap.ts:300
 
 > **remove**(`e`, `isIndex?`): `number` \| `E`
 
-Defined in: index.ts:167
+Defined in: index.ts:171
 
 Remove by value or index.
 
@@ -334,7 +347,14 @@ When `true`, treat `e` as index.
 `number` \| `E`
 
 Removed element or index of removal.
- Complexity: O(n) worst case.
+
+#### Throws
+
+If neither argument nor existing comparator are set.
+
+#### Remarks
+
+Complexity: O(n) worst case.
 
 #### Inherited from
 
@@ -344,7 +364,7 @@ Removed element or index of removal.
 
 ### reverseIterator()
 
-> **reverseIterator**(): `Generator`\<`E`\>
+> **reverseIterator**(): [`Generator`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Generator)\<`E`\>
 
 Defined in: index.ts:129
 
@@ -352,7 +372,7 @@ Iterates elements from the most recently added to the earliest.
 
 #### Returns
 
-`Generator`\<`E`\>
+[`Generator`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Generator)\<`E`\>
 
 #### Inherited from
 
@@ -364,7 +384,7 @@ Iterates elements from the most recently added to the earliest.
 
 > **sort**(`cmp?`): `void`
 
-Defined in: sort/index.ts:19
+Defined in: sort/index.ts:18
 
 Sort the structure using the provided comparator.
 
@@ -390,7 +410,7 @@ Optional comparator; falls back to the internal one.
 
 > **union**(`heap`): `void`
 
-Defined in: heap.ts:302
+Defined in: heap.ts:300
 
 #### Parameters
 

@@ -1,14 +1,16 @@
-[**@avensio/shared**](../README.md)
+---
+description: FIFO queue contract shared by all queue implementations.
+---
+
+[**Avensio Shared**](../README.md)
 
 ***
 
-[@avensio/shared](../README.md) / IQueue
+[Avensio Shared](../README.md) / IQueue
 
 # Interface: IQueue\<E\>
 
 Defined in: queue.ts:15
-
-FIFO queue contract shared by all queue implementations.
 
 ## Extends
 
@@ -60,11 +62,9 @@ Current element count.
 
 > **add**(`element`): `void`
 
-Defined in: index.ts:152
+Defined in: index.ts:153
 
 Append an element.
-
- Complexity: Amortized O(1) unless stated otherwise.
 
 #### Parameters
 
@@ -75,6 +75,10 @@ Append an element.
 #### Returns
 
 `void`
+
+#### Remarks
+
+Complexity: Amortized O(1) unless stated otherwise.
 
 #### Inherited from
 
@@ -86,11 +90,9 @@ Append an element.
 
 > **addAll**(`collection`): `void`
 
-Defined in: index.ts:158
+Defined in: index.ts:160
 
 Append every element from another collection.
-
- Complexity: O(n + m) where m is `collection.size`.
 
 #### Parameters
 
@@ -102,6 +104,10 @@ Append every element from another collection.
 
 `void`
 
+#### Remarks
+
+Complexity: O(n + m) where m is `collection.size`.
+
 #### Inherited from
 
 [`ICollection`](ICollection.md).[`addAll`](ICollection.md#addall)
@@ -112,15 +118,17 @@ Append every element from another collection.
 
 > **clear**(): `void`
 
-Defined in: index.ts:173
+Defined in: index.ts:178
 
 Remove all entries.
-
- Complexity: O(n)
 
 #### Returns
 
 `void`
+
+#### Remarks
+
+Complexity: O(n)
 
 #### Inherited from
 
@@ -132,11 +140,9 @@ Remove all entries.
 
 > **contains**(`element`): `boolean`
 
-Defined in: index.ts:185
+Defined in: index.ts:192
 
 Test membership using the comparator when available.
-
- Complexity: O(n)
 
 #### Parameters
 
@@ -148,6 +154,10 @@ Test membership using the comparator when available.
 
 `boolean`
 
+#### Remarks
+
+Complexity: O(n) worst case
+
 #### Inherited from
 
 [`ICollection`](ICollection.md).[`contains`](ICollection.md#contains)
@@ -158,7 +168,7 @@ Test membership using the comparator when available.
 
 > **dequeue**(): `E`
 
-Defined in: queue.ts:30
+Defined in: queue.ts:31
 
 Remove and return the head element.
 
@@ -171,7 +181,10 @@ Dequeued value.
 #### Throws
 
 When empty.
- Complexity: O(1) amortized
+
+#### Remarks
+
+Complexity: O(1) amortized
 
 ***
 
@@ -190,11 +203,14 @@ Append an element to the tail.
 `E`
 
 Value to enqueue.
- Complexity: O(1) amortized
 
 #### Returns
 
 `void`
+
+#### Remarks
+
+Complexity: O(1) amortized
 
 ***
 
@@ -202,7 +218,7 @@ Value to enqueue.
 
 > **head**(): `E`
 
-Defined in: queue.ts:37
+Defined in: queue.ts:39
 
 Peek the head without removal.
 
@@ -222,7 +238,7 @@ When empty.
 
 > **isEmpty**(): `boolean`
 
-Defined in: index.ts:179
+Defined in: index.ts:185
 
 Check for emptiness.
 
@@ -242,7 +258,7 @@ Check for emptiness.
 
 > **remove**(`e`, `isIndex?`): `number` \| `E`
 
-Defined in: index.ts:167
+Defined in: index.ts:171
 
 Remove by value or index.
 
@@ -265,7 +281,14 @@ When `true`, treat `e` as index.
 `number` \| `E`
 
 Removed element or index of removal.
- Complexity: O(n) worst case.
+
+#### Throws
+
+If neither argument nor existing comparator are set.
+
+#### Remarks
+
+Complexity: O(n) worst case.
 
 #### Inherited from
 
@@ -275,7 +298,7 @@ Removed element or index of removal.
 
 ### reverseIterator()
 
-> **reverseIterator**(): `Generator`\<`E`\>
+> **reverseIterator**(): [`Generator`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Generator)\<`E`\>
 
 Defined in: index.ts:129
 
@@ -283,7 +306,7 @@ Iterates elements from the most recently added to the earliest.
 
 #### Returns
 
-`Generator`\<`E`\>
+[`Generator`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Generator)\<`E`\>
 
 #### Inherited from
 
@@ -295,7 +318,7 @@ Iterates elements from the most recently added to the earliest.
 
 > **sort**(`cmp?`): `void`
 
-Defined in: sort/index.ts:19
+Defined in: sort/index.ts:18
 
 Sort the structure using the provided comparator.
 

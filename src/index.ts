@@ -1,7 +1,7 @@
 import { ISortable } from './sort'
 
 /**
- * Defines the relative ordering results used throughout the collections.
+ * @description Defines the relative ordering results used throughout the collections.
  *
  * @since 2.0.0
  */
@@ -12,7 +12,7 @@ export enum Ordering {
 }
 
 /**
- * Compares two values and returns an {@link Ordering}.
+ * @description Compares two values and returns an {@link Ordering}.
  *
  * @template E Value type.
  * @param e1 - First element.
@@ -23,7 +23,7 @@ export enum Ordering {
 export type Comparator<E> = (e1: E, e2: E) => Ordering
 
 /**
- * Doubly linked node shared by list/queue implementations.
+ * @description Doubly linked node shared by list/queue implementations.
  *
  * @template E Stored value type.
  * @since 2.0.0
@@ -45,7 +45,7 @@ export function createComparator<T>(
 ): Comparator<T>
 
 /**
- * Creates a comparator from a property key or extractor function.
+ * @description Creates a comparator from a property key or extractor function.
  *
  * @template T Value type.
  * @param extractorOrKey - Property key or extractor returning a sortable value.
@@ -82,42 +82,42 @@ export function createComparator<T>(
 const identityExtractor = (e: any) => e
 
 /**
- * Comparator sorting numbers ascending (min-first).
+ * @description Comparator sorting numbers ascending (min-first).
  *
  * @since 2.0.0
  */
 export const numberComparatorASC = createComparator<number>(identityExtractor)
 
 /**
- * Comparator sorting numbers descending (max-first).
+ * @description Comparator sorting numbers descending (max-first).
  *
  * @since 2.0.0
  */
 export const numberComparatorDESC = createComparator<number>(identityExtractor, 'desc')
 
 /**
- * Comparator sorting strings ascending (lexicographical).
+ * @description Comparator sorting strings ascending (lexicographical).
  *
  * @since 2.0.0
  */
 export const stringComparatorASC = createComparator<string>(identityExtractor)
 
 /**
- * Comparator sorting strings descending.
+ * @description Comparator sorting strings descending.
  *
  * @since 2.0.0
  */
 export const stringComparatorDESC = createComparator<string>(identityExtractor, 'desc')
 
 /**
- * Backward-compatible string comparator alias (ascending).
+ * @description Backward-compatible string comparator alias (ascending).
  *
  * @since 2.0.0
  */
 export const stringComparator = stringComparatorASC
 
 /**
- * Allows iterating from tail to head.
+ * @description Allows iterating from tail to head.
  *
  * @template E Value type.
  * @since 2.0.0
@@ -130,7 +130,7 @@ export interface IReverseIterable<E> {
 }
 
 /**
- * Base contract shared by all collections.
+ * @description Base contract shared by all collections.
  *
  * @template E Value type.
  * @since 2.0.0

@@ -7,12 +7,12 @@ type TreeNode<T> = {
 }
 
 /**
- * Traversal order used by {@link BinarySearchTree.traverse}.
+ * @description Traversal order used by {@link BinarySearchTree.traverse}.
  */
 export type TraverseOrder = 'in' | 'pre' | 'post'
 
 /**
- * Unbalanced binary search tree that keeps data ordered via a comparator.
+ * @description Unbalanced binary search tree that keeps data ordered via a comparator.
  *
  * @template T Value type.
  * @example

@@ -8,7 +8,7 @@ import {
 import { BinaryHeap } from './heap'
 
 /**
- * FIFO queue contract shared by all queue implementations.
+ * @description FIFO queue contract shared by all queue implementations.
  *
  * @template E Value type.
  */
@@ -40,13 +40,13 @@ export interface IQueue<E> extends ICollection<E> {
 }
 
 /**
- * Hybrid queue/stack contract exposing push/pop on both ends.
+ * @description Hybrid queue/stack contract exposing push/pop on both ends.
  */
 export interface IDequeue<E> extends IQueue<E>, IStack<E> {
 }
 
 /**
- * Array-backed queue with amortized O(1) operations using a moving head index.
+ * @description Array-backed queue with amortized O(1) operations using a moving head index.
  *
  * @template E Value type.
  * @example
@@ -266,7 +266,7 @@ export class Queue<E> implements IQueue<E> {
 }
 
 /**
- * Linked-list queue optimized for consistent O(1) enqueues/dequeues regardless of size.
+ * @description Linked-list queue optimized for consistent O(1) enqueues/dequeues regardless of size.
  */
 export class LinkedQueue<E> implements IQueue<E> {
   private _head: Node<E>
@@ -479,7 +479,7 @@ export class LinkedQueue<E> implements IQueue<E> {
 }
 
 /**
- * Comparator-driven queue backed by {@link BinaryHeap}.
+ * @description Comparator-driven queue backed by {@link BinaryHeap}.
  *
  * @template E Value type.
  */
@@ -600,7 +600,7 @@ export class PriorityQueue<E> implements IQueue<E> {
 }
 
 /**
- * Double-ended queue exposing push/pop operations on both ends.
+ * @description Double-ended queue exposing push/pop operations on both ends.
  *
  * @template E Value type.
  */
@@ -775,7 +775,7 @@ export class Dequeue<E> implements IDequeue<E> {
   }
 
   /**
-   * {@inheritDoc Iterable}
+   * {@link Iterable}
    */
   [Symbol.iterator](): Iterator<E> {
     let head = this._head

@@ -1,14 +1,16 @@
-[**@avensio/shared**](../README.md)
+---
+description: Defines the relative ordering results used throughout the collections.
+---
+
+[**Avensio Shared**](../README.md)
 
 ***
 
-[@avensio/shared](../README.md) / Ordering
+[Avensio Shared](../README.md) / Ordering
 
 # Enumeration: Ordering
 
 Defined in: index.ts:8
-
-Defines the relative ordering results used throughout the collections.
 
 ## Since
 

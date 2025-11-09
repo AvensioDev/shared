@@ -1,16 +1,14 @@
-[**@avensio/shared**](../README.md)
+[**Avensio Shared**](../README.md)
 
 ***
 
-[@avensio/shared](../README.md) / quicksort
+[Avensio Shared](../README.md) / quicksort
 
 # Function: quicksort()
 
 > **quicksort**\<`V`\>(`collection`, `comparator`, `factory`): [`ICollection`](../interfaces/ICollection.md)\<`V`\>
 
-Defined in: sort/index.ts:36
-
-Sort a collection by recursively partitioning around a pivot.
+Defined in: sort/index.ts:35
 
 ## Type Parameters
 
@@ -46,9 +44,16 @@ Factory used to allocate temporary collections.
 
 Sorted collection instance from the factory.
 
+## Description
+
+Sort a collection by recursively partitioning around a pivot.
+
 ## Example
 
 ```ts
 const sorted = quicksort(list, createComparator('score'), () => new List())
 ```
- Complexity: Average O(n log n), worst-case O(n²) when partitions are imbalanced.
+
+## Remarks
+
+Complexity: Average O(n log n), worst-case O(n²) when partitions are imbalanced.

@@ -1,16 +1,18 @@
-[**@avensio/shared**](../README.md)
+---
+description: Comparator sorting numbers descending (max-first).
+---
+
+[**Avensio Shared**](../README.md)
 
 ***
 
-[@avensio/shared](../README.md) / numberComparatorDESC
+[Avensio Shared](../README.md) / numberComparatorDESC
 
 # Variable: numberComparatorDESC
 
 > `const` **numberComparatorDESC**: [`Comparator`](../type-aliases/Comparator.md)\<`number`\>
 
 Defined in: index.ts:96
-
-Comparator sorting numbers descending (max-first).
 
 ## Since
 

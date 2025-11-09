@@ -2,7 +2,7 @@ import { CyclicDoublyLinkedList } from './list'
 import { FibonacciHeapNode, IFibonacciHeap } from './heap'
 
 /**
- * Log a level-by-level visualization of a Fibonacci heap.
+ * @description Log a level-by-level visualization of a Fibonacci heap.
  *
  * @template E Value type.
  * @param heap - Heap to inspect.

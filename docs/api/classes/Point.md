@@ -1,14 +1,16 @@
-[**@avensio/shared**](../README.md)
+---
+description: Lightweight 3D point used by graph and geometry utilities.
+---
+
+[**Avensio Shared**](../README.md)
 
 ***
 
-[@avensio/shared](../README.md) / Point
+[Avensio Shared](../README.md) / Point
 
 # Class: Point
 
 Defined in: math/point.ts:9
-
-Lightweight 3D point used by graph and geometry utilities.
 
 ## Example
 

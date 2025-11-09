@@ -1,14 +1,16 @@
-[**@avensio/shared**](../README.md)
+---
+description: Doubly linked list supporting bidirectional traversal with O(1) inserts at both ends.
+---
+
+[**Avensio Shared**](../README.md)
 
 ***
 
-[@avensio/shared](../README.md) / DoublyLinkedList
+[Avensio Shared](../README.md) / DoublyLinkedList
 
 # Class: DoublyLinkedList\<E\>
 
-Defined in: list.ts:959
-
-Doubly linked list supporting bidirectional traversal with O(1) inserts at both ends.
+Defined in: list.ts:1030
 
 ## Type Parameters
 
@@ -26,13 +28,13 @@ Doubly linked list supporting bidirectional traversal with O(1) inserts at both 
 
 > **new DoublyLinkedList**\<`E`\>(`elements?`, `reverse?`): `DoublyLinkedList`\<`E`\>
 
-Defined in: list.ts:965
+Defined in: list.ts:1048
 
 #### Parameters
 
 ##### elements?
 
-`Iterable`\<`E`, `any`, `any`\>
+[`Iterable`](https://www.typescriptlang.org/docs/handbook/iterators-and-generators.html#iterable-interface)\<`E`, `any`, `any`\>
 
 ##### reverse?
 
@@ -48,7 +50,7 @@ Defined in: list.ts:965
 
 > **comparator**: [`Comparator`](../type-aliases/Comparator.md)\<`E`\>
 
-Defined in: list.ts:963
+Defined in: list.ts:1046
 
 Comparator used for equality/sort checks.
 
@@ -62,7 +64,7 @@ Comparator used for equality/sort checks.
 
 > **first**: [`Node`](../type-aliases/Node.md)\<`E`\>
 
-Defined in: list.ts:960
+Defined in: list.ts:1034
 
 Head node reference.
 
@@ -76,7 +78,7 @@ Head node reference.
 
 > **last**: [`Node`](../type-aliases/Node.md)\<`E`\>
 
-Defined in: list.ts:961
+Defined in: list.ts:1038
 
 Tail node reference.
 
@@ -90,7 +92,7 @@ Tail node reference.
 
 > **size**: `number` = `0`
 
-Defined in: list.ts:962
+Defined in: list.ts:1042
 
 Current element count.
 
@@ -102,15 +104,19 @@ Current element count.
 
 ### \[iterator\]()
 
-> **\[iterator\]**(): `Iterator`\<`E`\>
+> **\[iterator\]**(): [`Iterator`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Iterator)\<`E`\>
 
-Defined in: list.ts:1382
+Defined in: list.ts:1482
 
-O(size)
+Iterates through the whole DoublyLinkedList.
 
 #### Returns
 
-`Iterator`\<`E`\>
+[`Iterator`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Iterator)\<`E`\>
+
+#### Remarks
+
+Complexity: O(size)
 
 #### Implementation of
 
@@ -122,9 +128,9 @@ O(size)
 
 > **add**(`e`): `void`
 
-Defined in: list.ts:978
+Defined in: list.ts:1060
 
-O(1)
+Append an element.
 
 #### Parameters
 
@@ -135,6 +141,10 @@ O(1)
 #### Returns
 
 `void`
+
+#### Remarks
+
+Complexity: Amortized O(1) unless stated otherwise.
 
 #### Implementation of
 
@@ -146,19 +156,23 @@ O(1)
 
 > **addAll**(`c`): `void`
 
-Defined in: list.ts:982
+Defined in: list.ts:1067
 
-Append every value from an iterable.
+Append every element from another collection.
 
 #### Parameters
 
 ##### c
 
-`Iterable`\<`E`\>
+[`Iterable`](https://www.typescriptlang.org/docs/handbook/iterators-and-generators.html#iterable-interface)\<`E`\>
 
 #### Returns
 
 `void`
+
+#### Remarks
+
+Complexity: O(n + m) where m is `collection.size`.
 
 #### Implementation of
 
@@ -170,9 +184,9 @@ Append every value from an iterable.
 
 > **addFirst**(`e`): `void`
 
-Defined in: list.ts:992
+Defined in: list.ts:1076
 
-O(1)
+Insert at the beginning.
 
 #### Parameters
 
@@ -183,6 +197,10 @@ O(1)
 #### Returns
 
 `void`
+
+#### Remarks
+
+Complexity: O(1)
 
 #### Implementation of
 
@@ -194,9 +212,9 @@ O(1)
 
 > **addLast**(`e`): `void`
 
-Defined in: list.ts:1014
+Defined in: list.ts:1097
 
-O(1)
+Insert at the end.
 
 #### Parameters
 
@@ -208,6 +226,10 @@ O(1)
 
 `void`
 
+#### Remarks
+
+Complexity: O(1)
+
 #### Implementation of
 
 [`ILinkedList`](../interfaces/ILinkedList.md).[`addLast`](../interfaces/ILinkedList.md#addlast)
@@ -218,13 +240,17 @@ O(1)
 
 > **clear**(): `void`
 
-Defined in: list.ts:1036
+Defined in: list.ts:1119
 
-O(1)
+Remove all entries.
 
 #### Returns
 
 `void`
+
+#### Remarks
+
+Complexity: O(n)
 
 #### Implementation of
 
@@ -236,11 +262,9 @@ O(1)
 
 > **contains**(`element`): `boolean`
 
-Defined in: list.ts:1324
+Defined in: list.ts:1425
 
-Checks if an element is contained in the DoublyLinkedList.
-For this function to work, a comparator must be set!
-O(size) amortized
+Test membership using the comparator when available.
 
 #### Parameters
 
@@ -252,6 +276,10 @@ O(size) amortized
 
 `boolean`
 
+#### Remarks
+
+Complexity: O(n) worst case
+
 #### Implementation of
 
 [`ILinkedList`](../interfaces/ILinkedList.md).[`contains`](../interfaces/ILinkedList.md#contains)
@@ -262,9 +290,9 @@ O(size) amortized
 
 > **equals**(`l`): `boolean`
 
-Defined in: list.ts:1332
+Defined in: list.ts:1432
 
-For this method to work, a comparator must be set
+Compare equality value-by-value using the comparator.
 
 #### Parameters
 
@@ -272,9 +300,13 @@ For this method to work, a comparator must be set
 
 [`IList`](../interfaces/IList.md)\<`E`\>
 
+List to compare.
+
 #### Returns
 
 `boolean`
+
+`true` when lengths match and all elements compare equal.
 
 #### Implementation of
 
@@ -286,7 +318,7 @@ For this method to work, a comparator must be set
 
 > **every**(`predicate`): `boolean`
 
-Defined in: list.ts:1159
+Defined in: list.ts:1259
 
 Test whether every element matches the predicate.
 
@@ -303,7 +335,10 @@ Match callback.
 `boolean`
 
 `true` when all elements satisfy the predicate.
- Complexity: O(n)
+
+#### Remarks
+
+Complexity: O(n)
 
 #### Implementation of
 
@@ -315,7 +350,7 @@ Match callback.
 
 > **filter**(`predicate`): `DoublyLinkedList`\<`E`\>
 
-Defined in: list.ts:1149
+Defined in: list.ts:1246
 
 Create a list containing values that satisfy the predicate.
 
@@ -332,7 +367,10 @@ Filter callback.
 `DoublyLinkedList`\<`E`\>
 
 Filtered list.
- Complexity: O(n)
+
+#### Remarks
+
+Complexity: O(n)
 
 #### Implementation of
 
@@ -344,10 +382,9 @@ Filtered list.
 
 > **get**(`index`): `E`
 
-Defined in: list.ts:1046
+Defined in: list.ts:1127
 
-O(size / 2)<br>
-Ω(1)
+Read the element at a given index.
 
 #### Parameters
 
@@ -355,9 +392,17 @@ O(size / 2)<br>
 
 `number`
 
+Zero-based index.
+
 #### Returns
 
 `E`
+
+Element at the index.
+
+#### Remarks
+
+Complexity: O(1) for [List](List.md), O(n) for linked variants.
 
 #### Implementation of
 
@@ -369,9 +414,9 @@ O(size / 2)<br>
 
 > **getFirst**(): `E`
 
-Defined in: list.ts:1185
+Defined in: list.ts:1288
 
-O(1)
+Read the first element.
 
 #### Returns
 
@@ -387,9 +432,9 @@ O(1)
 
 > **getLast**(): `E`
 
-Defined in: list.ts:1193
+Defined in: list.ts:1296
 
-O(1)
+Read the last element.
 
 #### Returns
 
@@ -405,10 +450,9 @@ O(1)
 
 > **getNode**(`index`): [`Node`](../type-aliases/Node.md)\<`E`\>
 
-Defined in: list.ts:1299
+Defined in: list.ts:1403
 
-O(size / 2)<br>
-Ω(1)
+Retrieve the internal node at `index`.
 
 #### Parameters
 
@@ -420,6 +464,10 @@ O(size / 2)<br>
 
 [`Node`](../type-aliases/Node.md)\<`E`\>
 
+#### Remarks
+
+Complexity: O(n)
+
 #### Implementation of
 
 [`ILinkedList`](../interfaces/ILinkedList.md).[`getNode`](../interfaces/ILinkedList.md#getnode)
@@ -430,10 +478,9 @@ O(size / 2)<br>
 
 > **indexOf**(`element`): `number`
 
-Defined in: list.ts:1346
+Defined in: list.ts:1444
 
-Finds the first index of the element
-O(size) amortized
+Locate the first matching element starting at `startIndex`.
 
 #### Parameters
 
@@ -441,9 +488,17 @@ O(size) amortized
 
 `E`
 
+Needle value.
+
 #### Returns
 
 `number`
+
+Index or `-1`.
+
+#### Remarks
+
+Complexity: O(n)
 
 #### Implementation of
 
@@ -455,13 +510,15 @@ O(size) amortized
 
 > **isEmpty**(): `boolean`
 
-Defined in: list.ts:1202
+Defined in: list.ts:1305
 
-O(1)
+Check for emptiness.
 
 #### Returns
 
 `boolean`
+
+`true` when `size === 0`.
 
 #### Implementation of
 
@@ -473,7 +530,7 @@ O(1)
 
 > **map**\<`V`\>(`fn`): `DoublyLinkedList`\<`V`\>
 
-Defined in: list.ts:1133
+Defined in: list.ts:1224
 
 Transform each element.
 
@@ -498,7 +555,10 @@ Mapper invoked per element.
 `DoublyLinkedList`\<`V`\>
 
 New list containing mapped values.
- Complexity: O(n)
+
+#### Remarks
+
+Complexity: O(n)
 
 #### Implementation of
 
@@ -510,7 +570,7 @@ New list containing mapped values.
 
 > **reduce**\<`V`\>(`fn`, `initialValue?`): `V`
 
-Defined in: list.ts:1141
+Defined in: list.ts:1235
 
 Reduce the list to a single value.
 
@@ -541,7 +601,10 @@ Optional starting value.
 `V`
 
 Accumulated result.
- Complexity: O(n)
+
+#### Remarks
+
+Complexity: O(n)
 
 #### Implementation of
 
@@ -553,13 +616,15 @@ Accumulated result.
 
 > **remove**(`target`, `isIndex`): `number` \| `E`
 
-Defined in: list.ts:1225
+Defined in: list.ts:1331
 
 Remove by value or index.
 
 #### Parameters
 
 ##### target
+
+Element or index.
 
 `number` | `E`
 
@@ -574,7 +639,10 @@ When `true`, treat `e` as index.
 `number` \| `E`
 
 Removed element or index of removal.
- Complexity: O(n) worst case.
+
+#### Remarks
+
+Complexity: O(n) worst case.
 
 #### Implementation of
 
@@ -586,13 +654,17 @@ Removed element or index of removal.
 
 > **removeFirst**(): `E`
 
-Defined in: list.ts:1235
+Defined in: list.ts:1341
 
-O(1)
+Remove and return the head value.
 
 #### Returns
 
 `E`
+
+#### Remarks
+
+Complexity: O(1)
 
 #### Implementation of
 
@@ -604,13 +676,17 @@ O(1)
 
 > **removeLast**(): `E`
 
-Defined in: list.ts:1271
+Defined in: list.ts:1377
 
-O(1)
+Remove and return the tail value.
 
 #### Returns
 
 `E`
+
+#### Remarks
+
+Complexity: O(1)
 
 #### Implementation of
 
@@ -620,17 +696,15 @@ O(1)
 
 ### reverseIterator()
 
-> **reverseIterator**(): `Generator`\<`E`, `void`, `unknown`\>
+> **reverseIterator**(): [`Generator`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Generator)\<`E`, `void`, `unknown`\>
 
-Defined in: list.ts:1373
+Defined in: list.ts:1472
 
-In even cases: O(∑ i=1 to &lfloor;size&divide;2&rfloor; (i*2))<br>
-In odd cases: O((∑ i=1 to &lfloor;size&divide;2&rfloor; (i*2)) + &lceil;size&divide;2&rceil;)<br>
-Ω(1)
+Iterates elements from the most recently added to the earliest.
 
 #### Returns
 
-`Generator`\<`E`, `void`, `unknown`\>
+[`Generator`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Generator)\<`E`, `void`, `unknown`\>
 
 #### Implementation of
 
@@ -642,10 +716,9 @@ In odd cases: O((∑ i=1 to &lfloor;size&divide;2&rfloor; (i*2)) + &lceil;size&d
 
 > **set**(`index`, `e`): `boolean`
 
-Defined in: list.ts:1062
+Defined in: list.ts:1141
 
-O(size / 2)<br>
-Ω(1)
+Replace the element at `index`.
 
 #### Parameters
 
@@ -653,13 +726,19 @@ O(size / 2)<br>
 
 `number`
 
+Position to update.
+
 ##### e
 
 `E`
 
+New value.
+
 #### Returns
 
 `boolean`
+
+`true` when successful.
 
 #### Implementation of
 
@@ -671,7 +750,7 @@ O(size / 2)<br>
 
 > **slice**(`startIndex`, `endIndex`): `DoublyLinkedList`\<`E`\>
 
-Defined in: list.ts:1068
+Defined in: list.ts:1150
 
 Take a slice using modulo arithmetic for wrap-around indices.
 
@@ -694,7 +773,10 @@ Ending index.
 `DoublyLinkedList`\<`E`\>
 
 New list with copied range.
- Complexity: O(k) where k is slice length.
+
+#### Remarks
+
+Complexity: O(k) where k is slice length.
 
 #### Implementation of
 
@@ -706,7 +788,7 @@ New list with copied range.
 
 > **slice2**(`startIndex`, `endIndex`): `DoublyLinkedList`\<`E`\>
 
-Defined in: list.ts:1073
+Defined in: list.ts:1158
 
 Variant of [slice](../interfaces/IListFunctions.md#slice) where the sign of `endIndex` decides direction.
 
@@ -725,7 +807,10 @@ Variant of [slice](../interfaces/IListFunctions.md#slice) where the sign of `end
 `DoublyLinkedList`\<`E`\>
 
 New list containing copied range.
- Complexity: O(k)
+
+#### Remarks
+
+Complexity: O(k)
 
 #### Implementation of
 
@@ -737,7 +822,7 @@ New list containing copied range.
 
 > **some**(`predicate`): `boolean`
 
-Defined in: list.ts:1171
+Defined in: list.ts:1274
 
 Test whether any element matches the predicate.
 
@@ -754,7 +839,10 @@ Match callback.
 `boolean`
 
 `true` when at least one element matches.
- Complexity: O(n)
+
+#### Remarks
+
+Complexity: O(n)
 
 #### Implementation of
 
@@ -766,7 +854,7 @@ Match callback.
 
 > **sort**(`cmp?`): `void`
 
-Defined in: list.ts:1354
+Defined in: list.ts:1455
 
 Sort the structure using the provided comparator.
 
@@ -792,7 +880,7 @@ Optional comparator; falls back to the internal one.
 
 > **splice**(`startIndex`, `deleteCount`): `DoublyLinkedList`\<`E`\>
 
-Defined in: list.ts:1128
+Defined in: list.ts:1216
 
 Remove and return a consecutive range.
 
@@ -815,7 +903,10 @@ Number of items to remove (negative => left).
 `DoublyLinkedList`\<`E`\>
 
 List containing removed elements.
- Complexity: O(n)
+
+#### Remarks
+
+Complexity: O(n)
 
 #### Implementation of
 

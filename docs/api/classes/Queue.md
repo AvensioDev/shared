@@ -1,14 +1,16 @@
-[**@avensio/shared**](../README.md)
+---
+description: Array-backed queue with amortized O(1) operations using a moving head index.
+---
+
+[**Avensio Shared**](../README.md)
 
 ***
 
-[@avensio/shared](../README.md) / Queue
+[Avensio Shared](../README.md) / Queue
 
 # Class: Queue\<E\>
 
-Defined in: queue.ts:56
-
-Array-backed queue with amortized O(1) operations using a moving head index.
+Defined in: queue.ts:59
 
 ## Example
 
@@ -36,13 +38,13 @@ Value type.
 
 > **new Queue**\<`E`\>(`elements?`, `comparator?`): `Queue`\<`E`\>
 
-Defined in: queue.ts:62
+Defined in: queue.ts:75
 
 #### Parameters
 
 ##### elements?
 
-`Iterable`\<`E`, `any`, `any`\>
+[`Iterable`](https://www.typescriptlang.org/docs/handbook/iterators-and-generators.html#iterable-interface)\<`E`, `any`, `any`\>
 
 ##### comparator?
 
@@ -58,7 +60,7 @@ Defined in: queue.ts:62
 
 > **comparator**: [`Comparator`](../type-aliases/Comparator.md)\<`E`\>
 
-Defined in: queue.ts:60
+Defined in: queue.ts:73
 
 Comparator used for equality/sort checks.
 
@@ -72,7 +74,7 @@ Comparator used for equality/sort checks.
 
 > **size**: `number` = `0`
 
-Defined in: queue.ts:59
+Defined in: queue.ts:69
 
 Current element count.
 
@@ -84,13 +86,21 @@ Current element count.
 
 ### \[iterator\]()
 
-> **\[iterator\]**(): `Iterator`\<`E`\>
+> **\[iterator\]**(): [`Iterator`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Iterator)\<`E`\>
 
-Defined in: queue.ts:166
+Defined in: queue.ts:196
+
+Iterates through the LinkedQueue.
 
 #### Returns
 
-`Iterator`\<`E`\>
+[`Iterator`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Iterator)\<`E`\>
+
+Iterator for the LinkedQueue
+
+#### Remarks
+
+Complexity: O(n)
 
 #### Implementation of
 
@@ -102,11 +112,9 @@ Defined in: queue.ts:166
 
 > **add**(`e`): `void`
 
-Defined in: queue.ts:124
+Defined in: queue.ts:140
 
 Append an element.
-
- Complexity: Amortized O(1) unless stated otherwise.
 
 #### Parameters
 
@@ -118,6 +126,10 @@ Append an element.
 
 `void`
 
+#### Remarks
+
+Complexity: Amortized O(1) unless stated otherwise.
+
 #### Implementation of
 
 [`IQueue`](../interfaces/IQueue.md).[`add`](../interfaces/IQueue.md#add)
@@ -128,11 +140,9 @@ Append an element.
 
 > **addAll**(`collection`): `void`
 
-Defined in: queue.ts:128
+Defined in: queue.ts:147
 
 Append every element from another collection.
-
- Complexity: O(n + m) where m is `collection.size`.
 
 #### Parameters
 
@@ -144,6 +154,10 @@ Append every element from another collection.
 
 `void`
 
+#### Remarks
+
+Complexity: O(n + m) where m is `collection.size`.
+
 #### Implementation of
 
 [`IQueue`](../interfaces/IQueue.md).[`addAll`](../interfaces/IQueue.md#addall)
@@ -154,15 +168,17 @@ Append every element from another collection.
 
 > **clear**(): `void`
 
-Defined in: queue.ts:87
+Defined in: queue.ts:103
 
 Remove all entries.
-
- Complexity: O(n)
 
 #### Returns
 
 `void`
+
+#### Remarks
+
+Complexity: O(n)
 
 #### Implementation of
 
@@ -174,7 +190,7 @@ Remove all entries.
 
 > **contains**(`element`): `boolean`
 
-Defined in: queue.ts:151
+Defined in: queue.ts:176
 
 Checks if an element is contained in the Queue.
 For this function to work, a comparator must be set!
@@ -200,7 +216,7 @@ O(size) amortized
 
 > **dequeue**(): `E`
 
-Defined in: queue.ts:93
+Defined in: queue.ts:112
 
 Remove and return the head element.
 
@@ -210,10 +226,9 @@ Remove and return the head element.
 
 Dequeued value.
 
-#### Throws
+#### Remarks
 
-When empty.
- Complexity: O(1) amortized
+Complexity: O(1) amortized
 
 #### Implementation of
 
@@ -225,7 +240,7 @@ When empty.
 
 > **enqueue**(`e`): `void`
 
-Defined in: queue.ts:118
+Defined in: queue.ts:131
 
 Append an element to the tail.
 
@@ -236,11 +251,14 @@ Append an element to the tail.
 `E`
 
 Value to enqueue.
- Complexity: O(1) amortized
 
 #### Returns
 
 `void`
+
+#### Remarks
+
+Complexity: O(1) amortized
 
 #### Implementation of
 
@@ -252,7 +270,7 @@ Value to enqueue.
 
 > **head**(): `E`
 
-Defined in: queue.ts:138
+Defined in: queue.ts:163
 
 Peek the head without removal.
 
@@ -261,10 +279,6 @@ Peek the head without removal.
 `E`
 
 Head value.
-
-#### Throws
-
-When empty.
 
 #### Implementation of
 
@@ -276,7 +290,7 @@ When empty.
 
 > **isEmpty**(): `boolean`
 
-Defined in: queue.ts:134
+Defined in: queue.ts:156
 
 Check for emptiness.
 
@@ -296,13 +310,15 @@ Check for emptiness.
 
 > **remove**(`target`, `isIndex`): `number` \| `E`
 
-Defined in: queue.ts:203
+Defined in: queue.ts:242
 
 Remove by value or index.
 
 #### Parameters
 
 ##### target
+
+Element or index.
 
 `number` | `E`
 
@@ -317,7 +333,10 @@ When `true`, treat `e` as index.
 `number` \| `E`
 
 Removed element or index of removal.
- Complexity: O(n) worst case.
+
+#### Remarks
+
+Complexity: O(n) worst case.
 
 #### Implementation of
 
@@ -327,15 +346,15 @@ Removed element or index of removal.
 
 ### reverseIterator()
 
-> **reverseIterator**(): `Generator`\<`E`\>
+> **reverseIterator**(): [`Generator`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Generator)\<`E`\>
 
-Defined in: queue.ts:185
+Defined in: queue.ts:218
 
 Iterates elements from the most recently added to the earliest.
 
 #### Returns
 
-`Generator`\<`E`\>
+[`Generator`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Generator)\<`E`\>
 
 #### Implementation of
 
@@ -347,7 +366,7 @@ Iterates elements from the most recently added to the earliest.
 
 > **sort**(`cmp?`): `void`
 
-Defined in: queue.ts:191
+Defined in: queue.ts:227
 
 Sort the structure using the provided comparator.
 

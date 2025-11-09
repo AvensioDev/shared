@@ -1,12 +1,14 @@
-[**@avensio/shared**](../README.md)
+---
+description: Creates a comparator from a property key or extractor function.
+---
+
+[**Avensio Shared**](../README.md)
 
 ***
 
-[@avensio/shared](../README.md) / createComparator
+[Avensio Shared](../README.md) / createComparator
 
 # Function: createComparator()
-
-Creates a comparator from a property key or extractor function.
 
 ## Template
 
@@ -25,7 +27,10 @@ Sort direction (defaults to ascending).
 ```ts
 const byIdDesc = createComparator<{ id: number }>('id', 'desc')
 ```
- Complexity: O(1) per comparison.
+
+## Remarks
+
+Complexity: O(1) per comparison.
 
 ## Since
 

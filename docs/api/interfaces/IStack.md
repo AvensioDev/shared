@@ -1,14 +1,16 @@
-[**@avensio/shared**](../README.md)
+---
+description: LIFO stack contract shared by array and linked implementations.
+---
+
+[**Avensio Shared**](../README.md)
 
 ***
 
-[@avensio/shared](../README.md) / IStack
+[Avensio Shared](../README.md) / IStack
 
 # Interface: IStack\<E\>
 
 Defined in: stack.ts:13
-
-LIFO stack contract shared by array and linked implementations.
 
 ## Extends
 
@@ -32,11 +34,11 @@ Value type.
 
 > **comparator**: [`Comparator`](../type-aliases/Comparator.md)\<`E`\>
 
-Defined in: stack.ts:17
+Defined in: index.ts:142
 
-Comparator used for contains/sort checks.
+Comparator used for equality/sort checks.
 
-#### Overrides
+#### Inherited from
 
 [`ICollection`](ICollection.md).[`comparator`](ICollection.md#comparator)
 
@@ -60,11 +62,9 @@ Current element count.
 
 > **add**(`element`): `void`
 
-Defined in: index.ts:152
+Defined in: index.ts:153
 
 Append an element.
-
- Complexity: Amortized O(1) unless stated otherwise.
 
 #### Parameters
 
@@ -75,6 +75,10 @@ Append an element.
 #### Returns
 
 `void`
+
+#### Remarks
+
+Complexity: Amortized O(1) unless stated otherwise.
 
 #### Inherited from
 
@@ -86,11 +90,9 @@ Append an element.
 
 > **addAll**(`collection`): `void`
 
-Defined in: index.ts:158
+Defined in: index.ts:160
 
 Append every element from another collection.
-
- Complexity: O(n + m) where m is `collection.size`.
 
 #### Parameters
 
@@ -102,6 +104,10 @@ Append every element from another collection.
 
 `void`
 
+#### Remarks
+
+Complexity: O(n + m) where m is `collection.size`.
+
 #### Inherited from
 
 [`ICollection`](ICollection.md).[`addAll`](ICollection.md#addall)
@@ -112,15 +118,17 @@ Append every element from another collection.
 
 > **clear**(): `void`
 
-Defined in: index.ts:173
+Defined in: index.ts:178
 
 Remove all entries.
-
- Complexity: O(n)
 
 #### Returns
 
 `void`
+
+#### Remarks
+
+Complexity: O(n)
 
 #### Inherited from
 
@@ -132,11 +140,9 @@ Remove all entries.
 
 > **contains**(`element`): `boolean`
 
-Defined in: index.ts:185
+Defined in: index.ts:192
 
 Test membership using the comparator when available.
-
- Complexity: O(n)
 
 #### Parameters
 
@@ -148,6 +154,10 @@ Test membership using the comparator when available.
 
 `boolean`
 
+#### Remarks
+
+Complexity: O(n) worst case
+
 #### Inherited from
 
 [`ICollection`](ICollection.md).[`contains`](ICollection.md#contains)
@@ -158,7 +168,7 @@ Test membership using the comparator when available.
 
 > **isEmpty**(): `boolean`
 
-Defined in: index.ts:179
+Defined in: index.ts:185
 
 Check for emptiness.
 
@@ -178,7 +188,7 @@ Check for emptiness.
 
 > **pop**(): `E`
 
-Defined in: stack.ts:32
+Defined in: stack.ts:29
 
 Pop and return the top value.
 
@@ -191,7 +201,10 @@ Removed value.
 #### Throws
 
 When empty.
- Complexity: O(1)
+
+#### Remarks
+
+Complexity: O(1)
 
 ***
 
@@ -199,7 +212,7 @@ When empty.
 
 > **push**(`e`): `void`
 
-Defined in: stack.ts:24
+Defined in: stack.ts:20
 
 Push a value on top.
 
@@ -210,11 +223,14 @@ Push a value on top.
 `E`
 
 Value to push.
- Complexity: O(1)
 
 #### Returns
 
 `void`
+
+#### Remarks
+
+Complexity: O(1)
 
 ***
 
@@ -222,7 +238,7 @@ Value to push.
 
 > **remove**(`e`, `isIndex?`): `number` \| `E`
 
-Defined in: index.ts:167
+Defined in: index.ts:171
 
 Remove by value or index.
 
@@ -245,7 +261,14 @@ When `true`, treat `e` as index.
 `number` \| `E`
 
 Removed element or index of removal.
- Complexity: O(n) worst case.
+
+#### Throws
+
+If neither argument nor existing comparator are set.
+
+#### Remarks
+
+Complexity: O(n) worst case.
 
 #### Inherited from
 
@@ -255,7 +278,7 @@ Removed element or index of removal.
 
 ### reverseIterator()
 
-> **reverseIterator**(): `Generator`\<`E`\>
+> **reverseIterator**(): [`Generator`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Generator)\<`E`\>
 
 Defined in: index.ts:129
 
@@ -263,7 +286,7 @@ Iterates elements from the most recently added to the earliest.
 
 #### Returns
 
-`Generator`\<`E`\>
+[`Generator`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Generator)\<`E`\>
 
 #### Inherited from
 
@@ -275,7 +298,7 @@ Iterates elements from the most recently added to the earliest.
 
 > **sort**(`cmp?`): `void`
 
-Defined in: sort/index.ts:19
+Defined in: sort/index.ts:18
 
 Sort the structure using the provided comparator.
 
@@ -301,7 +324,7 @@ Optional comparator; falls back to the internal one.
 
 > **top**(): `E`
 
-Defined in: stack.ts:39
+Defined in: stack.ts:37
 
 Peek the top value without removing it.
 

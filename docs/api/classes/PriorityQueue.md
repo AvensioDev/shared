@@ -1,14 +1,18 @@
-[**@avensio/shared**](../README.md)
+---
+description: |-
+  Comparator-driven queue backed by 
+  .
+---
+
+[**Avensio Shared**](../README.md)
 
 ***
 
-[@avensio/shared](../README.md) / PriorityQueue
+[Avensio Shared](../README.md) / PriorityQueue
 
 # Class: PriorityQueue\<E\>
 
-Defined in: queue.ts:425
-
-Comparator-driven queue backed by [BinaryHeap](BinaryHeap.md).
+Defined in: queue.ts:486
 
 ## Type Parameters
 
@@ -28,7 +32,7 @@ Value type.
 
 > **new PriorityQueue**\<`E`\>(`comparator`, `elements?`): `PriorityQueue`\<`E`\>
 
-Defined in: queue.ts:428
+Defined in: queue.ts:489
 
 #### Parameters
 
@@ -38,7 +42,7 @@ Defined in: queue.ts:428
 
 ##### elements?
 
-`Iterable`\<`E`, `any`, `any`\>
+[`Iterable`](https://www.typescriptlang.org/docs/handbook/iterators-and-generators.html#iterable-interface)\<`E`, `any`, `any`\>
 
 #### Returns
 
@@ -52,9 +56,9 @@ Defined in: queue.ts:428
 
 > **get** **comparator**(): [`Comparator`](../type-aliases/Comparator.md)\<`E`\>
 
-Defined in: queue.ts:432
+Defined in: queue.ts:496
 
-Comparator used for equality/sort checks.
+Retrieve the current comparator.
 
 ##### Returns
 
@@ -62,17 +66,23 @@ Comparator used for equality/sort checks.
 
 #### Set Signature
 
-> **set** **comparator**(`value`): `void`
+> **set** **comparator**(`cmp`): `void`
 
-Defined in: queue.ts:436
+Defined in: queue.ts:505
 
-Comparator used for equality/sort checks.
+Sets a new Comparator.
+
+##### Remarks
+
+creates a copy of the current heap and overwrites it.
 
 ##### Parameters
 
-###### value
+###### cmp
 
 [`Comparator`](../type-aliases/Comparator.md)\<`E`\>
+
+new Comparator.
 
 ##### Returns
 
@@ -92,7 +102,7 @@ Comparator used for equality/sort checks.
 
 > **get** **size**(): `number`
 
-Defined in: queue.ts:440
+Defined in: queue.ts:512
 
 Current element count.
 
@@ -110,13 +120,17 @@ Current element count.
 
 ### \[iterator\]()
 
-> **\[iterator\]**(): `Iterator`\<`E`\>
+> **\[iterator\]**(): [`Iterator`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Iterator)\<`E`\>
 
-Defined in: queue.ts:491
+Defined in: queue.ts:576
+
+Iterates through the PriorityQueue.
 
 #### Returns
 
-`Iterator`\<`E`\>
+[`Iterator`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Iterator)\<`E`\>
+
+Iterator for the queue
 
 #### Implementation of
 
@@ -128,11 +142,9 @@ Defined in: queue.ts:491
 
 > **add**(`e`): `void`
 
-Defined in: queue.ts:451
+Defined in: queue.ts:526
 
 Append an element.
-
- Complexity: Amortized O(1) unless stated otherwise.
 
 #### Parameters
 
@@ -143,6 +155,10 @@ Append an element.
 #### Returns
 
 `void`
+
+#### Remarks
+
+Complexity: Amortized O(1) unless stated otherwise.
 
 #### Implementation of
 
@@ -154,11 +170,9 @@ Append an element.
 
 > **addAll**(`collection`): `void`
 
-Defined in: queue.ts:455
+Defined in: queue.ts:533
 
 Append every element from another collection.
-
- Complexity: O(n + m) where m is `collection.size`.
 
 #### Parameters
 
@@ -170,6 +184,10 @@ Append every element from another collection.
 
 `void`
 
+#### Remarks
+
+Complexity: O(n + m) where m is `collection.size`.
+
 #### Implementation of
 
 [`IQueue`](../interfaces/IQueue.md).[`addAll`](../interfaces/IQueue.md#addall)
@@ -180,15 +198,17 @@ Append every element from another collection.
 
 > **clear**(): `void`
 
-Defined in: queue.ts:480
+Defined in: queue.ts:561
 
 Remove all entries.
-
- Complexity: O(n)
 
 #### Returns
 
 `void`
+
+#### Remarks
+
+Complexity: O(n)
 
 #### Implementation of
 
@@ -200,11 +220,9 @@ Remove all entries.
 
 > **contains**(`element`): `boolean`
 
-Defined in: queue.ts:487
+Defined in: queue.ts:568
 
 Test membership using the comparator when available.
-
- Complexity: O(n)
 
 #### Parameters
 
@@ -216,6 +234,10 @@ Test membership using the comparator when available.
 
 `boolean`
 
+#### Remarks
+
+Complexity: O(n) worst case
+
 #### Implementation of
 
 [`IQueue`](../interfaces/IQueue.md).[`contains`](../interfaces/IQueue.md#contains)
@@ -226,7 +248,7 @@ Test membership using the comparator when available.
 
 > **dequeue**(): `E`
 
-Defined in: queue.ts:465
+Defined in: queue.ts:540
 
 Remove and return the head element.
 
@@ -235,6 +257,10 @@ Remove and return the head element.
 `E`
 
 Dequeued value.
+
+#### Remarks
+
+Complexity: O(1) amortized
 
 #### Implementation of
 
@@ -246,7 +272,7 @@ Dequeued value.
 
 > **enqueue**(`e`): `void`
 
-Defined in: queue.ts:447
+Defined in: queue.ts:519
 
 Append an element to the tail.
 
@@ -257,11 +283,14 @@ Append an element to the tail.
 `E`
 
 Value to enqueue.
- Complexity: O(1) amortized
 
 #### Returns
 
 `void`
+
+#### Remarks
+
+Complexity: O(1) amortized
 
 #### Implementation of
 
@@ -273,7 +302,7 @@ Value to enqueue.
 
 > **head**(): `E`
 
-Defined in: queue.ts:472
+Defined in: queue.ts:547
 
 Peek the head without removal.
 
@@ -293,7 +322,7 @@ Head value.
 
 > **isEmpty**(): `boolean`
 
-Defined in: queue.ts:476
+Defined in: queue.ts:554
 
 Check for emptiness.
 
@@ -313,7 +342,7 @@ Check for emptiness.
 
 > **remove**(`target`, `isIndex`): `number` \| `E`
 
-Defined in: queue.ts:509
+Defined in: queue.ts:597
 
 Remove by value or index.
 
@@ -336,7 +365,10 @@ When `true`, treat `e` as index.
 `number` \| `E`
 
 Removed element or index of removal.
- Complexity: O(n) worst case.
+
+#### Remarks
+
+Complexity: O(n) worst case.
 
 #### Implementation of
 
@@ -346,15 +378,15 @@ Removed element or index of removal.
 
 ### reverseIterator()
 
-> **reverseIterator**(): `Generator`\<`E`\>
+> **reverseIterator**(): [`Generator`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Generator)\<`E`\>
 
-Defined in: queue.ts:495
+Defined in: queue.ts:583
 
 Iterates elements from the most recently added to the earliest.
 
 #### Returns
 
-`Generator`\<`E`\>
+[`Generator`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Generator)\<`E`\>
 
 #### Implementation of
 
@@ -366,9 +398,9 @@ Iterates elements from the most recently added to the earliest.
 
 > **sort**(`cmp?`): `void`
 
-Defined in: queue.ts:502
+Defined in: queue.ts:590
 
-Sort the structure using the provided comparator.
+Rebuild the heap using a different comparator.
 
 #### Parameters
 
@@ -376,11 +408,15 @@ Sort the structure using the provided comparator.
 
 [`Comparator`](../type-aliases/Comparator.md)\<`E`\>
 
-Optional comparator; falls back to the internal one.
+Optional comparator override.
 
 #### Returns
 
 `void`
+
+#### Remarks
+
+Complexity: O(n log n)
 
 #### Implementation of
 

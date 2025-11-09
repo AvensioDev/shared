@@ -7,7 +7,7 @@ import {
 } from './'
 
 /**
- * Maintains a binary heap that honors the supplied comparator (min- or max-heap).
+ * @description Maintains a binary heap that honors the supplied comparator (min- or max-heap).
  *
  * @template E Value type.
  * @example
@@ -262,7 +262,7 @@ export class BinaryHeap<E> implements ICollection<E> {
 }
 
 /**
- * Node container used internally by the Fibonacci heap.
+ * @description Node container used internally by the Fibonacci heap.
  *
  * @template E Value type.
  * @since 2.0.0
@@ -278,7 +278,7 @@ export type FibonacciHeapNode<E> = {
 }
 
 /**
- * Contract implemented by {@link FibonacciHeap}. The comparator must treat `null` on the
+ * @description Contract implemented by {@link FibonacciHeap}. The comparator must treat `null` on the
  * left-hand side as greater-than to enable the deletion shortcut.
  */
 export interface IFibonacciHeap<E> extends ICollection<E> {
@@ -308,8 +308,7 @@ export interface IFibonacciHeap<E> extends ICollection<E> {
 }
 
 /**
- * Amortized-efficient heap with `O(1)` insert/decrease-key and `O(log n)` extract-min.
- *
+ * @description Amortized-efficient heap with `O(1)` insert/decrease-key and `O(log n)` extract-min.
  * @template E Value type.
  * @since 2.0.0
  */

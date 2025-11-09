@@ -1,14 +1,16 @@
-[**@avensio/shared**](../README.md)
+---
+description: Maintains a binary heap that honors the supplied comparator (min- or max-heap).
+---
+
+[**Avensio Shared**](../README.md)
 
 ***
 
-[@avensio/shared](../README.md) / BinaryHeap
+[Avensio Shared](../README.md) / BinaryHeap
 
 # Class: BinaryHeap\<E\>
 
 Defined in: heap.ts:22
-
-Maintains a binary heap that honors the supplied comparator (min- or max-heap).
 
 ## Example
 
@@ -41,7 +43,7 @@ Value type.
 
 > **new BinaryHeap**\<`E`\>(`comparator`, `elements?`): `BinaryHeap`\<`E`\>
 
-Defined in: heap.ts:31
+Defined in: heap.ts:37
 
 #### Parameters
 
@@ -53,7 +55,7 @@ Ordering strategy (ascending produces a min-heap).
 
 ##### elements?
 
-`Iterable`\<`E`, `any`, `any`\>
+[`Iterable`](https://www.typescriptlang.org/docs/handbook/iterators-and-generators.html#iterable-interface)\<`E`, `any`, `any`\>
 
 Optional seed data; inserted in comparator order.
 
@@ -67,7 +69,7 @@ Optional seed data; inserted in comparator order.
 
 > **comparator**: [`Comparator`](../type-aliases/Comparator.md)\<`E`\>
 
-Defined in: heap.ts:25
+Defined in: heap.ts:31
 
 Comparator used for equality/sort checks.
 
@@ -81,7 +83,7 @@ Comparator used for equality/sort checks.
 
 > **size**: `number` = `0`
 
-Defined in: heap.ts:24
+Defined in: heap.ts:27
 
 Current element count.
 
@@ -93,15 +95,15 @@ Current element count.
 
 ### \[iterator\]()
 
-> **\[iterator\]**(): `Iterator`\<`E`\>
+> **\[iterator\]**(): [`Iterator`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Iterator)\<`E`\>
 
-Defined in: heap.ts:197
+Defined in: heap.ts:188
 
 Iterate elements in ascending comparator order.
 
 #### Returns
 
-`Iterator`\<`E`\>
+[`Iterator`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Iterator)\<`E`\>
 
 Iterator snapshot; future mutations do not affect ongoing iteration.
 
@@ -115,7 +117,7 @@ Iterator snapshot; future mutations do not affect ongoing iteration.
 
 > **add**(`element`): `void`
 
-Defined in: heap.ts:87
+Defined in: heap.ts:93
 
 Alias for [insert](#insert).
 
@@ -139,9 +141,9 @@ Alias for [insert](#insert).
 
 > **addAll**(`collection`): `void`
 
-Defined in: heap.ts:97
+Defined in: heap.ts:100
 
-Insert every element from another collection.
+Append every element from another collection.
 
 #### Parameters
 
@@ -149,12 +151,13 @@ Insert every element from another collection.
 
 [`ICollection`](../interfaces/ICollection.md)\<`E`\>
 
-Source collection.
- Complexity: O(n log n) where n is `collection.size`.
-
 #### Returns
 
 `void`
+
+#### Remarks
+
+Complexity: O(n + m) where m is `collection.size`.
 
 #### Implementation of
 
@@ -166,15 +169,17 @@ Source collection.
 
 > **clear**(): `void`
 
-Defined in: heap.ts:108
+Defined in: heap.ts:109
 
-Remove every element.
-
- Complexity: O(1)
+Remove all entries.
 
 #### Returns
 
 `void`
+
+#### Remarks
+
+Complexity: O(n)
 
 #### Implementation of
 
@@ -186,9 +191,9 @@ Remove every element.
 
 > **contains**(`element`): `boolean`
 
-Defined in: heap.ts:127
+Defined in: heap.ts:124
 
-Test whether an element exists using the comparator when available.
+Test membership using the comparator when available.
 
 #### Parameters
 
@@ -196,14 +201,13 @@ Test whether an element exists using the comparator when available.
 
 `E`
 
-Value to search for.
-
 #### Returns
 
 `boolean`
 
-`true` when present.
- Complexity: O(n)
+#### Remarks
+
+Complexity: O(n) worst case
 
 #### Implementation of
 
@@ -215,7 +219,7 @@ Value to search for.
 
 > **extractMin**(): `E`
 
-Defined in: heap.ts:60
+Defined in: heap.ts:66
 
 Remove and return the top element according to the comparator.
 
@@ -228,7 +232,10 @@ Extracted value.
 #### Throws
 
 When the heap is empty.
- Complexity: O(log n)
+
+#### Remarks
+
+Complexity: O(log n)
 
 ***
 
@@ -236,7 +243,7 @@ When the heap is empty.
 
 > **insert**(`element`): `void`
 
-Defined in: heap.ts:46
+Defined in: heap.ts:52
 
 Insert an element into the heap.
 
@@ -247,11 +254,14 @@ Insert an element into the heap.
 `E`
 
 Value to insert (ignored when `undefined`).
- Complexity: O(log n)
 
 #### Returns
 
 `void`
+
+#### Remarks
+
+Complexity: O(log n)
 
 ***
 
@@ -259,13 +269,15 @@ Value to insert (ignored when `undefined`).
 
 > **isEmpty**(): `boolean`
 
-Defined in: heap.ts:116
+Defined in: heap.ts:117
 
-Check whether the heap contains no elements.
+Check for emptiness.
 
 #### Returns
 
 `boolean`
+
+`true` when `size === 0`.
 
 #### Implementation of
 
@@ -277,7 +289,7 @@ Check whether the heap contains no elements.
 
 > **peek**(): `E`
 
-Defined in: heap.ts:79
+Defined in: heap.ts:85
 
 Read the current top element without removing it.
 
@@ -290,7 +302,10 @@ Heap front value.
 #### Throws
 
 When empty.
- Complexity: O(1)
+
+#### Remarks
+
+Complexity: O(1)
 
 ***
 
@@ -298,15 +313,15 @@ When empty.
 
 > **remove**(`target`, `isIndex`): `number` \| `E`
 
-Defined in: heap.ts:170
+Defined in: heap.ts:161
 
-Remove by index or value.
+Remove by value or index.
 
 #### Parameters
 
 ##### target
 
-Index or value depending on `isIndex`.
+Element or index.
 
 `number` | `E`
 
@@ -314,18 +329,17 @@ Index or value depending on `isIndex`.
 
 `boolean` = `true`
 
-Interpret `target` as index when `true`.
+When `true`, treat `e` as index.
 
 #### Returns
 
 `number` \| `E`
 
-Removed element (index mode) or the removed index (value mode).
+Removed element or index of removal.
 
-#### Throws
+#### Remarks
 
-When the heap is empty or the index is invalid.
- Complexity: O(n log n) due to rebuild.
+Complexity: O(n) worst case.
 
 #### Implementation of
 
@@ -335,15 +349,15 @@ When the heap is empty or the index is invalid.
 
 ### reverseIterator()
 
-> **reverseIterator**(): `Generator`\<`E`\>
+> **reverseIterator**(): [`Generator`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Generator)\<`E`\>
 
-Defined in: heap.ts:211
+Defined in: heap.ts:202
 
-Iterate elements in descending comparator order.
+Iterates elements from the most recently added to the earliest.
 
 #### Returns
 
-`Generator`\<`E`\>
+[`Generator`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Generator)\<`E`\>
 
 #### Implementation of
 
@@ -355,7 +369,7 @@ Iterate elements in descending comparator order.
 
 > **sort**(`cmp?`): `void`
 
-Defined in: heap.ts:147
+Defined in: heap.ts:144
 
 Rebuild the heap using a different comparator.
 
@@ -374,7 +388,10 @@ Optional comparator override.
 #### Throws
 
 If neither argument nor existing comparator are set.
- Complexity: O(n log n)
+
+#### Remarks
+
+Complexity: O(n log n)
 
 #### Implementation of
 

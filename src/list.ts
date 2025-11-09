@@ -6,7 +6,7 @@ import {
 } from './'
 
 /**
- * Functional helpers shared by array- and node-based lists.
+ * @description Functional helpers shared by array- and node-based lists.
  *
  * @template E Value type.
  */
@@ -198,7 +198,7 @@ export interface ILinkedList<E> extends IList<E> {
 }
 
 /**
- * Array-backed {@link IList} optimized for random access and iteration.
+ * @description Array-backed {@link IList} optimized for random access and iteration.
  *
  * @template E Value type.
  * @example
@@ -527,7 +527,7 @@ export class List<E> implements IList<E> {
 }
 
 /**
- * Singly linked list with O(1) head/tail insertions.
+ * @description Singly linked list with O(1) head/tail insertions.
  *
  * @template E Value type.
  * @since 2.0.0
@@ -1025,7 +1025,7 @@ export class LinkedList<E> implements ILinkedList<E> {
 }
 
 /**
- * Doubly linked list supporting bidirectional traversal with O(1) inserts at both ends.
+ * @description Doubly linked list supporting bidirectional traversal with O(1) inserts at both ends.
  */
 export class DoublyLinkedList<E> implements ILinkedList<E> {
   /**
@@ -1500,7 +1500,7 @@ export class DoublyLinkedList<E> implements ILinkedList<E> {
 }
 
 /**
- * Circular doubly linked list used by Fibonacci heap internals.
+ * @description Circular doubly linked list used by Fibonacci heap internals.
  */
 export class CyclicDoublyLinkedList<E> implements ILinkedList<E> {
   /**

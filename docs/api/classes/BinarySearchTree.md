@@ -1,14 +1,16 @@
-[**@avensio/shared**](../README.md)
+---
+description: Unbalanced binary search tree that keeps data ordered via a comparator.
+---
+
+[**Avensio Shared**](../README.md)
 
 ***
 
-[@avensio/shared](../README.md) / BinarySearchTree
+[Avensio Shared](../README.md) / BinarySearchTree
 
 # Class: BinarySearchTree\<T\>
 
 Defined in: tree.ts:27
-
-Unbalanced binary search tree that keeps data ordered via a comparator.
 
 ## Example
 
@@ -33,7 +35,7 @@ Value type.
 
 ## Implements
 
-- `Iterable`\<`T`\>
+- [`Iterable`](https://www.typescriptlang.org/docs/handbook/iterators-and-generators.html#iterable-interface)\<`T`\>
 
 ## Constructors
 
@@ -53,7 +55,7 @@ Ordering strategy.
 
 ##### elements?
 
-`Iterable`\<`T`, `any`, `any`\>
+[`Iterable`](https://www.typescriptlang.org/docs/handbook/iterators-and-generators.html#iterable-interface)\<`T`, `any`, `any`\>
 
 Optional seed data.
 
@@ -91,7 +93,7 @@ Current number of stored nodes.
 
 ### \[iterator\]()
 
-> **\[iterator\]**(): `Iterator`\<`T`\>
+> **\[iterator\]**(): [`Iterator`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Iterator)\<`T`\>
 
 Defined in: tree.ts:175
 
@@ -99,7 +101,7 @@ Iterate values in in-order sequence.
 
 #### Returns
 
-`Iterator`\<`T`\>
+[`Iterator`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Iterator)\<`T`\>
 
 #### Implementation of
 
@@ -128,7 +130,10 @@ Value to remove.
 `boolean`
 
 `true` when a node was removed.
- Complexity: Average O(log n), worst-case O(n).
+
+#### Remarks
+
+Complexity: Average O(log n), worst-case O(n).
 
 ***
 
@@ -153,7 +158,10 @@ Value to search.
 `T` \| `null`
 
 Stored value or `null`.
- Complexity: Average O(log n), worst-case O(n).
+
+#### Remarks
+
+Complexity: Average O(log n), worst-case O(n).
 
 ***
 
@@ -172,11 +180,14 @@ Insert a value using the comparator for placement.
 `T`
 
 Value to add.
- Complexity: Average O(log n), worst-case O(n).
 
 #### Returns
 
 `void`
+
+#### Remarks
+
+Complexity: Average O(log n), worst-case O(n).
 
 ***
 
@@ -233,7 +244,10 @@ Return the smallest value.
 `T` \| `null`
 
 Minimum value or `null`.
- Complexity: Average O(log n), worst-case O(n).
+
+#### Remarks
+
+Complexity: Average O(log n), worst-case O(n).
 
 ***
 
@@ -258,4 +272,7 @@ Traverse the tree in the requested order.
 `T`[]
 
 Array containing nodes in traversal order.
- Complexity: O(n)
+
+#### Remarks
+
+Complexity: O(n)

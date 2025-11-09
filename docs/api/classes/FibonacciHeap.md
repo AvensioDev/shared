@@ -1,14 +1,19 @@
-[**@avensio/shared**](../README.md)
+---
+description: |-
+  Amortized-efficient heap with 
+   insert/decrease-key and 
+   extract-min.
+---
+
+[**Avensio Shared**](../README.md)
 
 ***
 
-[@avensio/shared](../README.md) / FibonacciHeap
+[Avensio Shared](../README.md) / FibonacciHeap
 
 # Class: FibonacciHeap\<E\>
 
-Defined in: heap.ts:316
-
-Amortized-efficient heap with `O(1)` insert/decrease-key and `O(log n)` extract-min.
+Defined in: heap.ts:315
 
 ## Since
 
@@ -32,7 +37,7 @@ Value type.
 
 > **new FibonacciHeap**\<`E`\>(`comparator`, `elements?`): `FibonacciHeap`\<`E`\>
 
-Defined in: heap.ts:327
+Defined in: heap.ts:338
 
 #### Parameters
 
@@ -44,7 +49,7 @@ Ordering strategy.
 
 ##### elements?
 
-`Iterable`\<`E`, `any`, `any`\>
+[`Iterable`](https://www.typescriptlang.org/docs/handbook/iterators-and-generators.html#iterable-interface)\<`E`, `any`, `any`\>
 
 Optional seed data.
 
@@ -58,7 +63,7 @@ Optional seed data.
 
 > **comparator**: [`Comparator`](../type-aliases/Comparator.md)\<`E`\>
 
-Defined in: heap.ts:320
+Defined in: heap.ts:331
 
 Comparator used for equality/sort checks.
 
@@ -72,7 +77,9 @@ Comparator used for equality/sort checks.
 
 > **minNode**: [`FibonacciHeapNode`](../type-aliases/FibonacciHeapNode.md)\<`E`\>
 
-Defined in: heap.ts:318
+Defined in: heap.ts:323
+
+Current minimum node
 
 #### Implementation of
 
@@ -84,7 +91,9 @@ Defined in: heap.ts:318
 
 > **rootList**: [`FibonacciHeapNode`](../type-aliases/FibonacciHeapNode.md)\<`E`\>
 
-Defined in: heap.ts:317
+Defined in: heap.ts:319
+
+List of root nodes of the FibonacciHeap
 
 #### Implementation of
 
@@ -96,7 +105,7 @@ Defined in: heap.ts:317
 
 > **size**: `number` = `0`
 
-Defined in: heap.ts:319
+Defined in: heap.ts:327
 
 Current element count.
 
@@ -108,13 +117,15 @@ Current element count.
 
 ### \[iterator\]()
 
-> **\[iterator\]**(): `Iterator`\<`E`\>
+> **\[iterator\]**(): [`Iterator`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Iterator)\<`E`\>
 
 Defined in: heap.ts:753
 
+Iterator for iterating through the values of the FibonacciHeapNodes.
+
 #### Returns
 
-`Iterator`\<`E`\>
+[`Iterator`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Iterator)\<`E`\>
 
 #### Implementation of
 
@@ -126,11 +137,9 @@ Defined in: heap.ts:753
 
 > **add**(`e`): [`FibonacciHeapNode`](../type-aliases/FibonacciHeapNode.md)\<`E`\>
 
-Defined in: heap.ts:384
+Defined in: heap.ts:393
 
 Append an element.
-
- Complexity: Amortized O(1) unless stated otherwise.
 
 #### Parameters
 
@@ -142,6 +151,10 @@ Append an element.
 
 [`FibonacciHeapNode`](../type-aliases/FibonacciHeapNode.md)\<`E`\>
 
+#### Remarks
+
+Complexity: Amortized O(1) unless stated otherwise.
+
 #### Implementation of
 
 [`IFibonacciHeap`](../interfaces/IFibonacciHeap.md).[`add`](../interfaces/IFibonacciHeap.md#add)
@@ -152,11 +165,9 @@ Append an element.
 
 > **addAll**(`collection`): `void`
 
-Defined in: heap.ts:393
+Defined in: heap.ts:400
 
 Append every element from another collection.
-
- Complexity: O(n + m) where m is `collection.size`.
 
 #### Parameters
 
@@ -168,6 +179,10 @@ Append every element from another collection.
 
 `void`
 
+#### Remarks
+
+Complexity: O(n + m) where m is `collection.size`.
+
 #### Implementation of
 
 [`IFibonacciHeap`](../interfaces/IFibonacciHeap.md).[`addAll`](../interfaces/IFibonacciHeap.md#addall)
@@ -178,15 +193,17 @@ Append every element from another collection.
 
 > **clear**(): `void`
 
-Defined in: heap.ts:535
+Defined in: heap.ts:529
 
-Remove all entries.
-
- Complexity: O(n)
+Clears the FibonacciHeap, bei undefining the min node and rootList.
 
 #### Returns
 
 `void`
+
+#### Remarks
+
+Complexity: O(1)
 
 #### Implementation of
 
@@ -198,11 +215,9 @@ Remove all entries.
 
 > **contains**(`element`): `boolean`
 
-Defined in: heap.ts:371
+Defined in: heap.ts:380
 
 Test membership using the comparator when available.
-
- Complexity: O(n)
 
 #### Parameters
 
@@ -214,6 +229,10 @@ Test membership using the comparator when available.
 
 `boolean`
 
+#### Remarks
+
+Complexity: O(n) worst case
+
 #### Implementation of
 
 [`IFibonacciHeap`](../interfaces/IFibonacciHeap.md).[`contains`](../interfaces/IFibonacciHeap.md#contains)
@@ -224,7 +243,7 @@ Test membership using the comparator when available.
 
 > **decreaseKey**(`node`, `newValue`): `void`
 
-Defined in: heap.ts:420
+Defined in: heap.ts:427
 
 Decrease a node's key and bubble it up if necessary.
 
@@ -250,7 +269,10 @@ mark the node as the next minimum.
 #### Throws
 
 When `newValue` is greater than the current value.
- Complexity: O(1) amortized
+
+#### Remarks
+
+Complexity: O(1) amortized
 
 #### Implementation of
 
@@ -262,7 +284,7 @@ When `newValue` is greater than the current value.
 
 > **delete**(`e`): [`FibonacciHeapNode`](../type-aliases/FibonacciHeapNode.md)\<`E`\>
 
-Defined in: heap.ts:406
+Defined in: heap.ts:413
 
 Delete a node using its handle.
 
@@ -279,7 +301,10 @@ Node handle obtained from [insert](#insert).
 [`FibonacciHeapNode`](../type-aliases/FibonacciHeapNode.md)\<`E`\>
 
 Removed node.
- Complexity: O(log n) amortized
+
+#### Remarks
+
+Complexity: O(log n) amortized
 
 #### Implementation of
 
@@ -291,7 +316,7 @@ Removed node.
 
 > **extractChildren**(`node`): [`CyclicDoublyLinkedList`](CyclicDoublyLinkedList.md)\<[`FibonacciHeapNode`](../type-aliases/FibonacciHeapNode.md)\<`E`\>\>
 
-Defined in: heap.ts:570
+Defined in: heap.ts:564
 
 Return the child list of a node.
 
@@ -319,16 +344,19 @@ Cyclic list of children.
 
 > **extractMin**(): [`FibonacciHeapNode`](../type-aliases/FibonacciHeapNode.md)\<`E`\>
 
-Defined in: heap.ts:456
+Defined in: heap.ts:462
 
-IFibonacciHeap.extractMin
+Returns and removes the minimum node from the FibonacciHeap.
 
 #### Returns
 
 [`FibonacciHeapNode`](../type-aliases/FibonacciHeapNode.md)\<`E`\>
 
 Removed minimum node.
- Complexity: O(log n) amortized
+
+#### Remarks
+
+Complexity: O(log n) amortized
 
 #### Implementation of
 
@@ -340,7 +368,7 @@ Removed minimum node.
 
 > **extractNeighbours**(`node`, `includeSelf`): [`CyclicDoublyLinkedList`](CyclicDoublyLinkedList.md)\<[`FibonacciHeapNode`](../type-aliases/FibonacciHeapNode.md)\<`E`\>\>
 
-Defined in: heap.ts:547
+Defined in: heap.ts:541
 
 Collect sibling nodes adjacent to the provided node.
 
@@ -374,7 +402,7 @@ Cyclic list of neighbour nodes.
 
 > **insert**(`element`): [`FibonacciHeapNode`](../type-aliases/FibonacciHeapNode.md)\<`E`\>
 
-Defined in: heap.ts:343
+Defined in: heap.ts:354
 
 Insert a value and return its node handle.
 
@@ -391,7 +419,10 @@ Value to insert.
 [`FibonacciHeapNode`](../type-aliases/FibonacciHeapNode.md)\<`E`\>
 
 Newly created node.
- Complexity: O(1)
+
+#### Remarks
+
+Complexity: O(1)
 
 #### Implementation of
 
@@ -403,7 +434,7 @@ Newly created node.
 
 > **isEmpty**(): `boolean`
 
-Defined in: heap.ts:526
+Defined in: heap.ts:521
 
 Check for emptiness.
 
@@ -423,16 +454,19 @@ Check for emptiness.
 
 > **minimum**(): [`FibonacciHeapNode`](../type-aliases/FibonacciHeapNode.md)\<`E`\>
 
-Defined in: heap.ts:445
+Defined in: heap.ts:452
 
-IFibonacciHeap.minimum
+Returns the current minimum node in the FibonacciHeap.
 
 #### Returns
 
 [`FibonacciHeapNode`](../type-aliases/FibonacciHeapNode.md)\<`E`\>
 
 Current minimum node.
- Complexity: O(1)
+
+#### Remarks
+
+Complexity: O(1)
 
 #### Implementation of
 
@@ -442,13 +476,15 @@ Current minimum node.
 
 ### nodeIterator()
 
-> **nodeIterator**(): `Generator`\<[`FibonacciHeapNode`](../type-aliases/FibonacciHeapNode.md)\<`E`\>, `void`, `unknown`\>
+> **nodeIterator**(): [`Generator`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Generator)\<[`FibonacciHeapNode`](../type-aliases/FibonacciHeapNode.md)\<`E`\>, `void`, `unknown`\>
 
-Defined in: heap.ts:747
+Defined in: heap.ts:744
+
+Iterator for iterating all FibonacciHeapNodes.
 
 #### Returns
 
-`Generator`\<[`FibonacciHeapNode`](../type-aliases/FibonacciHeapNode.md)\<`E`\>, `void`, `unknown`\>
+[`Generator`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Generator)\<[`FibonacciHeapNode`](../type-aliases/FibonacciHeapNode.md)\<`E`\>, `void`, `unknown`\>
 
 ***
 
@@ -456,7 +492,7 @@ Defined in: heap.ts:747
 
 > **remove**(`target`, `isIndex`): `number` \| `E`
 
-Defined in: heap.ts:792
+Defined in: heap.ts:795
 
 Remove by value or index.
 
@@ -477,7 +513,14 @@ When `true`, treat `e` as index.
 `number` \| `E`
 
 Removed element or index of removal.
- Complexity: O(n) worst case.
+
+#### Throws
+
+If neither argument nor existing comparator are set.
+
+#### Remarks
+
+Complexity: O(n) worst case.
 
 #### Implementation of
 
@@ -487,15 +530,15 @@ Removed element or index of removal.
 
 ### reverseIterator()
 
-> **reverseIterator**(): `Generator`\<`E`\>
+> **reverseIterator**(): [`Generator`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Generator)\<`E`\>
 
-Defined in: heap.ts:769
+Defined in: heap.ts:772
 
-Iterates elements from the most recently added to the earliest.
+Reverse iterate through the values of the FibonacciHeap.
 
 #### Returns
 
-`Generator`\<`E`\>
+[`Generator`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Generator)\<`E`\>
 
 #### Implementation of
 
@@ -507,9 +550,9 @@ Iterates elements from the most recently added to the earliest.
 
 > **sort**(`cmp?`): `void`
 
-Defined in: heap.ts:781
+Defined in: heap.ts:784
 
-This sort function changes the comparator, if one is given as parameter!
+This sort function changes the comparator (!), if one is given as parameter.
 
 #### Parameters
 
@@ -531,7 +574,7 @@ This sort function changes the comparator, if one is given as parameter!
 
 > **union**(`heap`): `void`
 
-Defined in: heap.ts:502
+Defined in: heap.ts:497
 
 Merge another heap into this one.
 
@@ -541,12 +584,15 @@ Merge another heap into this one.
 
 [`IFibonacciHeap`](../interfaces/IFibonacciHeap.md)\<`E`\>
 
-Heap to absorb.
- Complexity: O(1)
+to merge in the current one
 
 #### Returns
 
 `void`
+
+#### Remarks
+
+Complexity: O(1)
 
 #### Implementation of
 

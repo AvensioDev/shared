@@ -1,16 +1,18 @@
-[**@avensio/shared**](../README.md)
+---
+description: Backward-compatible string comparator alias (ascending).
+---
+
+[**Avensio Shared**](../README.md)
 
 ***
 
-[@avensio/shared](../README.md) / stringComparator
+[Avensio Shared](../README.md) / stringComparator
 
 # Variable: stringComparator
 
 > `const` **stringComparator**: [`Comparator`](../type-aliases/Comparator.md)\<`string`\> = `stringComparatorASC`
 
 Defined in: index.ts:117
-
-Backward-compatible string comparator alias (ascending).
 
 ## Since
 

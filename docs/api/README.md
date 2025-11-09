@@ -1,8 +1,8 @@
-**@avensio/shared**
+**Avensio Shared**
 
 ***
 
-# @avensio/shared
+# Avensio Shared
 
 ## Enumerations
 

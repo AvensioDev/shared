@@ -1,14 +1,16 @@
-[**@avensio/shared**](../README.md)
+---
+description: Allows iterating from tail to head.
+---
+
+[**Avensio Shared**](../README.md)
 
 ***
 
-[@avensio/shared](../README.md) / IReverseIterable
+[Avensio Shared](../README.md) / IReverseIterable
 
 # Interface: IReverseIterable\<E\>
 
 Defined in: index.ts:125
-
-Allows iterating from tail to head.
 
 ## Since
 
@@ -30,7 +32,7 @@ Value type.
 
 ### reverseIterator()
 
-> **reverseIterator**(): `Generator`\<`E`\>
+> **reverseIterator**(): [`Generator`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Generator)\<`E`\>
 
 Defined in: index.ts:129
 
@@ -38,4 +40,4 @@ Iterates elements from the most recently added to the earliest.
 
 #### Returns
 
-`Generator`\<`E`\>
+[`Generator`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Generator)\<`E`\>

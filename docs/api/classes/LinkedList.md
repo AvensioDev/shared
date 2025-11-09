@@ -1,14 +1,16 @@
-[**@avensio/shared**](../README.md)
+---
+description: Singly linked list with O(1) head/tail insertions.
+---
+
+[**Avensio Shared**](../README.md)
 
 ***
 
-[@avensio/shared](../README.md) / LinkedList
+[Avensio Shared](../README.md) / LinkedList
 
 # Class: LinkedList\<E\>
 
-Defined in: list.ts:475
-
-Singly linked list with O(1) head/tail insertions.
+Defined in: list.ts:535
 
 ## Since
 
@@ -32,13 +34,13 @@ Value type.
 
 > **new LinkedList**\<`E`\>(`elements?`, `reverse?`): `LinkedList`\<`E`\>
 
-Defined in: list.ts:483
+Defined in: list.ts:555
 
 #### Parameters
 
 ##### elements?
 
-`Iterable`\<`E`, `any`, `any`\>
+[`Iterable`](https://www.typescriptlang.org/docs/handbook/iterators-and-generators.html#iterable-interface)\<`E`, `any`, `any`\>
 
 ##### reverse?
 
@@ -54,7 +56,7 @@ Defined in: list.ts:483
 
 > **comparator**: [`Comparator`](../type-aliases/Comparator.md)\<`E`\>
 
-Defined in: list.ts:479
+Defined in: list.ts:551
 
 Comparator used for equality/sort checks.
 
@@ -68,7 +70,7 @@ Comparator used for equality/sort checks.
 
 > **first**: [`Node`](../type-aliases/Node.md)\<`E`\>
 
-Defined in: list.ts:476
+Defined in: list.ts:539
 
 Head node reference.
 
@@ -82,7 +84,7 @@ Head node reference.
 
 > **last**: [`Node`](../type-aliases/Node.md)\<`E`\>
 
-Defined in: list.ts:477
+Defined in: list.ts:543
 
 Tail node reference.
 
@@ -96,7 +98,7 @@ Tail node reference.
 
 > **size**: `number` = `0`
 
-Defined in: list.ts:478
+Defined in: list.ts:547
 
 Current element count.
 
@@ -108,15 +110,21 @@ Current element count.
 
 ### \[iterator\]()
 
-> **\[iterator\]**(): `Iterator`\<`E`\>
+> **\[iterator\]**(): [`Iterator`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Iterator)\<`E`\>
 
-Defined in: list.ts:936
+Defined in: list.ts:1007
 
-O(size)
+Iterates through the LinkedList.
 
 #### Returns
 
-`Iterator`\<`E`\>
+[`Iterator`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Iterator)\<`E`\>
+
+Iterator for iterating.
+
+#### Remarks
+
+Complexity: O(size)
 
 #### Implementation of
 
@@ -128,11 +136,9 @@ O(size)
 
 > **add**(`e`): `void`
 
-Defined in: list.ts:500
+Defined in: list.ts:572
 
 Append an element.
-
- Complexity: Amortized O(1) unless stated otherwise.
 
 #### Parameters
 
@@ -143,6 +149,10 @@ Append an element.
 #### Returns
 
 `void`
+
+#### Remarks
+
+Complexity: Amortized O(1) unless stated otherwise.
 
 #### Implementation of
 
@@ -154,21 +164,23 @@ Append an element.
 
 > **addAll**(`c`): `void`
 
-Defined in: list.ts:507
+Defined in: list.ts:579
 
 Append every element from another collection.
-
- Complexity: O(n + m) where m is `collection.size`.
 
 #### Parameters
 
 ##### c
 
-`Iterable`\<`E`\>
+[`Iterable`](https://www.typescriptlang.org/docs/handbook/iterators-and-generators.html#iterable-interface)\<`E`\>
 
 #### Returns
 
 `void`
+
+#### Remarks
+
+Complexity: O(n + m) where m is `collection.size`.
 
 #### Implementation of
 
@@ -180,11 +192,9 @@ Append every element from another collection.
 
 > **addFirst**(`e`): `void`
 
-Defined in: list.ts:516
+Defined in: list.ts:588
 
 Insert at the beginning.
-
- Complexity: O(1)
 
 #### Parameters
 
@@ -195,6 +205,10 @@ Insert at the beginning.
 #### Returns
 
 `void`
+
+#### Remarks
+
+Complexity: O(1)
 
 #### Implementation of
 
@@ -206,11 +220,9 @@ Insert at the beginning.
 
 > **addLast**(`e`): `void`
 
-Defined in: list.ts:532
+Defined in: list.ts:604
 
 Insert at the end.
-
- Complexity: O(1)
 
 #### Parameters
 
@@ -222,6 +234,10 @@ Insert at the end.
 
 `void`
 
+#### Remarks
+
+Complexity: O(1)
+
 #### Implementation of
 
 [`ILinkedList`](../interfaces/ILinkedList.md).[`addLast`](../interfaces/ILinkedList.md#addlast)
@@ -232,15 +248,17 @@ Insert at the end.
 
 > **clear**(): `void`
 
-Defined in: list.ts:551
+Defined in: list.ts:623
 
 Remove all entries.
-
- Complexity: O(n)
 
 #### Returns
 
 `void`
+
+#### Remarks
+
+Complexity: O(n)
 
 #### Implementation of
 
@@ -252,11 +270,9 @@ Remove all entries.
 
 > **contains**(`element`): `boolean`
 
-Defined in: list.ts:878
+Defined in: list.ts:948
 
-Checks if an element is contained in the LinkedList.
-For this function to work, a comparator must be set!
-O(size) amortized
+Test membership using the comparator when available.
 
 #### Parameters
 
@@ -268,6 +284,10 @@ O(size) amortized
 
 `boolean`
 
+#### Remarks
+
+Complexity: O(n) worst case
+
 #### Implementation of
 
 [`ILinkedList`](../interfaces/ILinkedList.md).[`contains`](../interfaces/ILinkedList.md#contains)
@@ -278,9 +298,9 @@ O(size) amortized
 
 > **equals**(`l`): `boolean`
 
-Defined in: list.ts:886
+Defined in: list.ts:955
 
-For this method to work, a comparator must be set
+Compare equality value-by-value using the comparator.
 
 #### Parameters
 
@@ -288,9 +308,13 @@ For this method to work, a comparator must be set
 
 [`IList`](../interfaces/IList.md)\<`E`\>
 
+List to compare.
+
 #### Returns
 
 `boolean`
+
+`true` when lengths match and all elements compare equal.
 
 #### Implementation of
 
@@ -302,7 +326,7 @@ For this method to work, a comparator must be set
 
 > **every**(`predicate`): `boolean`
 
-Defined in: list.ts:699
+Defined in: list.ts:772
 
 Test whether every element matches the predicate.
 
@@ -319,7 +343,10 @@ Match callback.
 `boolean`
 
 `true` when all elements satisfy the predicate.
- Complexity: O(n)
+
+#### Remarks
+
+Complexity: O(n)
 
 #### Implementation of
 
@@ -331,7 +358,7 @@ Match callback.
 
 > **filter**(`predicate`): `LinkedList`\<`E`\>
 
-Defined in: list.ts:686
+Defined in: list.ts:759
 
 Create a list containing values that satisfy the predicate.
 
@@ -348,7 +375,10 @@ Filter callback.
 `LinkedList`\<`E`\>
 
 Filtered list.
- Complexity: O(n)
+
+#### Remarks
+
+Complexity: O(n)
 
 #### Implementation of
 
@@ -360,7 +390,7 @@ Filtered list.
 
 > **get**(`index`): `E`
 
-Defined in: list.ts:561
+Defined in: list.ts:633
 
 O(size)<br>
 Ω(1)
@@ -385,7 +415,7 @@ O(size)<br>
 
 > **getFirst**(): `E`
 
-Defined in: list.ts:728
+Defined in: list.ts:801
 
 Read the first element.
 
@@ -403,7 +433,7 @@ Read the first element.
 
 > **getLast**(): `E`
 
-Defined in: list.ts:736
+Defined in: list.ts:809
 
 Read the last element.
 
@@ -421,10 +451,9 @@ Read the last element.
 
 > **getNode**(`index`): [`Node`](../type-aliases/Node.md)\<`E`\>
 
-Defined in: list.ts:851
+Defined in: list.ts:924
 
-O(index + 1)<br>
-Ω(1)
+Retrieve the internal node at `index`.
 
 #### Parameters
 
@@ -436,6 +465,10 @@ O(index + 1)<br>
 
 [`Node`](../type-aliases/Node.md)\<`E`\>
 
+#### Remarks
+
+Complexity: O(n)
+
 #### Implementation of
 
 [`ILinkedList`](../interfaces/ILinkedList.md).[`getNode`](../interfaces/ILinkedList.md#getnode)
@@ -446,10 +479,9 @@ O(index + 1)<br>
 
 > **indexOf**(`element`): `number`
 
-Defined in: list.ts:900
+Defined in: list.ts:967
 
-Finds the first index of the element
-O(size) amortized
+Locate the first matching element starting at `startIndex`.
 
 #### Parameters
 
@@ -457,9 +489,17 @@ O(size) amortized
 
 `E`
 
+Needle value.
+
 #### Returns
 
 `number`
+
+Index or `-1`.
+
+#### Remarks
+
+Complexity: O(n)
 
 #### Implementation of
 
@@ -471,7 +511,7 @@ O(size) amortized
 
 > **isEmpty**(): `boolean`
 
-Defined in: list.ts:745
+Defined in: list.ts:818
 
 Check for emptiness.
 
@@ -491,7 +531,7 @@ Check for emptiness.
 
 > **map**\<`V`\>(`fn`): `LinkedList`\<`V`\>
 
-Defined in: list.ts:664
+Defined in: list.ts:737
 
 Transform each element.
 
@@ -516,7 +556,10 @@ Mapper invoked per element.
 `LinkedList`\<`V`\>
 
 New list containing mapped values.
- Complexity: O(n)
+
+#### Remarks
+
+Complexity: O(n)
 
 #### Implementation of
 
@@ -528,7 +571,7 @@ New list containing mapped values.
 
 > **reduce**\<`V`\>(`fn`, `initialValue?`): `V`
 
-Defined in: list.ts:675
+Defined in: list.ts:748
 
 Reduce the list to a single value.
 
@@ -559,7 +602,10 @@ Optional starting value.
 `V`
 
 Accumulated result.
- Complexity: O(n)
+
+#### Remarks
+
+Complexity: O(n)
 
 #### Implementation of
 
@@ -571,13 +617,15 @@ Accumulated result.
 
 > **remove**(`target`, `isIndex`): `number` \| `E`
 
-Defined in: list.ts:770
+Defined in: list.ts:846
 
 Remove by value or index.
 
 #### Parameters
 
 ##### target
+
+Element or index.
 
 `number` | `E`
 
@@ -592,7 +640,10 @@ When `true`, treat `e` as index.
 `number` \| `E`
 
 Removed element or index of removal.
- Complexity: O(n) worst case.
+
+#### Remarks
+
+Complexity: O(n) worst case.
 
 #### Implementation of
 
@@ -604,13 +655,17 @@ Removed element or index of removal.
 
 > **removeFirst**(): `E`
 
-Defined in: list.ts:780
+Defined in: list.ts:856
 
-O(1)
+Remove and return the head value.
 
 #### Returns
 
 `E`
+
+#### Remarks
+
+Complexity: O(1)
 
 #### Implementation of
 
@@ -622,14 +677,17 @@ O(1)
 
 > **removeLast**(): `E`
 
-Defined in: list.ts:816
+Defined in: list.ts:891
 
-O(size)<br>
-Ω(1)
+Remove and return the tail value.
 
 #### Returns
 
 `E`
+
+#### Remarks
+
+Complexity: O(1)
 
 #### Implementation of
 
@@ -639,16 +697,15 @@ O(size)<br>
 
 ### reverseIterator()
 
-> **reverseIterator**(): `Generator`\<`E`, `void`, `unknown`\>
+> **reverseIterator**(): [`Generator`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Generator)\<`E`, `void`, `unknown`\>
 
-Defined in: list.ts:927
+Defined in: list.ts:996
 
-O(∑ i=1 to size (i))
-Ω(1)
+Iterates elements from the most recently added to the earliest.
 
 #### Returns
 
-`Generator`\<`E`, `void`, `unknown`\>
+[`Generator`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Generator)\<`E`, `void`, `unknown`\>
 
 #### Implementation of
 
@@ -660,7 +717,7 @@ O(∑ i=1 to size (i))
 
 > **set**(`index`, `e`): `boolean`
 
-Defined in: list.ts:574
+Defined in: list.ts:647
 
 Replace the element at `index`.
 
@@ -694,7 +751,7 @@ New value.
 
 > **slice**(`startIndex`, `endIndex`): `LinkedList`\<`E`\>
 
-Defined in: list.ts:583
+Defined in: list.ts:656
 
 Take a slice using modulo arithmetic for wrap-around indices.
 
@@ -717,7 +774,10 @@ Ending index.
 `LinkedList`\<`E`\>
 
 New list with copied range.
- Complexity: O(k) where k is slice length.
+
+#### Remarks
+
+Complexity: O(k) where k is slice length.
 
 #### Implementation of
 
@@ -729,7 +789,7 @@ New list with copied range.
 
 > **slice2**(`startIndex`, `endIndex`): `LinkedList`\<`E`\>
 
-Defined in: list.ts:591
+Defined in: list.ts:664
 
 Variant of [slice](../interfaces/IListFunctions.md#slice) where the sign of `endIndex` decides direction.
 
@@ -748,7 +808,10 @@ Variant of [slice](../interfaces/IListFunctions.md#slice) where the sign of `end
 `LinkedList`\<`E`\>
 
 New list containing copied range.
- Complexity: O(k)
+
+#### Remarks
+
+Complexity: O(k)
 
 #### Implementation of
 
@@ -760,7 +823,7 @@ New list containing copied range.
 
 > **some**(`predicate`): `boolean`
 
-Defined in: list.ts:714
+Defined in: list.ts:787
 
 Test whether any element matches the predicate.
 
@@ -777,7 +840,10 @@ Match callback.
 `boolean`
 
 `true` when at least one element matches.
- Complexity: O(n)
+
+#### Remarks
+
+Complexity: O(n)
 
 #### Implementation of
 
@@ -789,7 +855,7 @@ Match callback.
 
 > **sort**(`cmp?`): `void`
 
-Defined in: list.ts:908
+Defined in: list.ts:978
 
 Sort the structure using the provided comparator.
 
@@ -815,7 +881,7 @@ Optional comparator; falls back to the internal one.
 
 > **splice**(`startIndex`, `deleteCount`): `LinkedList`\<`E`\>
 
-Defined in: list.ts:654
+Defined in: list.ts:727
 
 Remove and return a consecutive range.
 
@@ -838,7 +904,10 @@ Number of items to remove (negative => left).
 `LinkedList`\<`E`\>
 
 List containing removed elements.
- Complexity: O(n)
+
+#### Remarks
+
+Complexity: O(n)
 
 #### Implementation of
 

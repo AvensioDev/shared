@@ -1,14 +1,16 @@
-[**@avensio/shared**](../README.md)
+---
+description: Functional helpers shared by array- and node-based lists.
+---
+
+[**Avensio Shared**](../README.md)
 
 ***
 
-[@avensio/shared](../README.md) / IListFunctions
+[Avensio Shared](../README.md) / IListFunctions
 
 # Interface: IListFunctions\<E\>
 
 Defined in: list.ts:13
-
-Functional helpers shared by array- and node-based lists.
 
 ## Extended by
 
@@ -28,7 +30,7 @@ Value type.
 
 > **every**(`predicate`): `boolean`
 
-Defined in: list.ts:48
+Defined in: list.ts:51
 
 Test whether every element matches the predicate.
 
@@ -45,7 +47,10 @@ Match callback.
 `boolean`
 
 `true` when all elements satisfy the predicate.
- Complexity: O(n)
+
+#### Remarks
+
+Complexity: O(n)
 
 ***
 
@@ -53,7 +58,7 @@ Match callback.
 
 > **filter**(`predicate`): [`IList`](IList.md)\<`E`\>
 
-Defined in: list.ts:40
+Defined in: list.ts:42
 
 Create a list containing values that satisfy the predicate.
 
@@ -70,7 +75,10 @@ Filter callback.
 [`IList`](IList.md)\<`E`\>
 
 Filtered list.
- Complexity: O(n)
+
+#### Remarks
+
+Complexity: O(n)
 
 ***
 
@@ -103,7 +111,10 @@ Mapper invoked per element.
 [`IList`](IList.md)\<`V`\>
 
 New list containing mapped values.
- Complexity: O(n)
+
+#### Remarks
+
+Complexity: O(n)
 
 ***
 
@@ -111,7 +122,7 @@ New list containing mapped values.
 
 > **reduce**\<`V`\>(`fn`, `initialValue?`): `V`
 
-Defined in: list.ts:32
+Defined in: list.ts:33
 
 Reduce the list to a single value.
 
@@ -142,7 +153,10 @@ Optional starting value.
 `V`
 
 Accumulated result.
- Complexity: O(n)
+
+#### Remarks
+
+Complexity: O(n)
 
 ***
 
@@ -150,7 +164,7 @@ Accumulated result.
 
 > **slice**(`startIndex`, `endIndex`): [`IList`](IList.md)\<`E`\>
 
-Defined in: list.ts:65
+Defined in: list.ts:70
 
 Take a slice using modulo arithmetic for wrap-around indices.
 
@@ -173,7 +187,10 @@ Ending index.
 [`IList`](IList.md)\<`E`\>
 
 New list with copied range.
- Complexity: O(k) where k is slice length.
+
+#### Remarks
+
+Complexity: O(k) where k is slice length.
 
 ***
 
@@ -181,7 +198,7 @@ New list with copied range.
 
 > **slice2**(`startIndex`, `endIndex`): [`IList`](IList.md)\<`E`\>
 
-Defined in: list.ts:72
+Defined in: list.ts:78
 
 Variant of [slice](#slice) where the sign of `endIndex` decides direction.
 
@@ -200,7 +217,10 @@ Variant of [slice](#slice) where the sign of `endIndex` decides direction.
 [`IList`](IList.md)\<`E`\>
 
 New list containing copied range.
- Complexity: O(k)
+
+#### Remarks
+
+Complexity: O(k)
 
 ***
 
@@ -208,7 +228,7 @@ New list containing copied range.
 
 > **some**(`predicate`): `boolean`
 
-Defined in: list.ts:56
+Defined in: list.ts:60
 
 Test whether any element matches the predicate.
 
@@ -225,7 +245,10 @@ Match callback.
 `boolean`
 
 `true` when at least one element matches.
- Complexity: O(n)
+
+#### Remarks
+
+Complexity: O(n)
 
 ***
 
@@ -233,7 +256,7 @@ Match callback.
 
 > **splice**(`startIndex`, `deleteCount`): [`IList`](IList.md)\<`E`\>
 
-Defined in: list.ts:81
+Defined in: list.ts:88
 
 Remove and return a consecutive range.
 
@@ -256,4 +279,7 @@ Number of items to remove (negative => left).
 [`IList`](IList.md)\<`E`\>
 
 List containing removed elements.
- Complexity: O(n)
+
+#### Remarks
+
+Complexity: O(n)

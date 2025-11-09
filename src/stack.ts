@@ -6,7 +6,7 @@ import {
 } from './'
 
 /**
- * LIFO stack contract shared by array and linked implementations.
+ * @description LIFO stack contract shared by array and linked implementations.
  *
  * @template E Value type.
  */
@@ -38,7 +38,7 @@ export interface IStack<E> extends ICollection<E> {
 }
 
 /**
- * Array-backed stack optimized for traversal and random inspection.
+ * @description Array-backed stack optimized for traversal and random inspection.
  *
  * @template E Value type.
  */
@@ -122,7 +122,7 @@ export class Stack<E> implements IStack<E> {
   }
 
   /**
-   * {@inheritDoc Iterable}
+   * {@link Iterable}
    */
   [Symbol.iterator](): Iterator<E> {
     const stack = this
@@ -201,7 +201,7 @@ export class Stack<E> implements IStack<E> {
 }
 
 /**
- * Node-based stack with O(1) push/pop regardless of size.
+ * @description Node-based stack with O(1) push/pop regardless of size.
  */
 export class LinkedStack<E> implements IStack<E> {
   private _top: Node<E>
@@ -288,7 +288,7 @@ export class LinkedStack<E> implements IStack<E> {
   }
 
   /**
-   * {@inheritDoc Iterable}
+   * {@link Iterable}
    */
   [Symbol.iterator](): Iterator<E> {
     let top = this._top

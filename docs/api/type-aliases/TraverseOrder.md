@@ -1,13 +1,17 @@
-[**@avensio/shared**](../README.md)
+---
+description: |-
+  Traversal order used by 
+  .
+---
+
+[**Avensio Shared**](../README.md)
 
 ***
 
-[@avensio/shared](../README.md) / TraverseOrder
+[Avensio Shared](../README.md) / TraverseOrder
 
 # Type Alias: TraverseOrder
 
 > **TraverseOrder** = `"in"` \| `"pre"` \| `"post"`
 
 Defined in: tree.ts:12
-
-Traversal order used by [BinarySearchTree.traverse](../classes/BinarySearchTree.md#traverse).

@@ -1,14 +1,16 @@
-[**@avensio/shared**](../README.md)
+---
+description: Contract for structures that can be sorted in-place.
+---
+
+[**Avensio Shared**](../README.md)
 
 ***
 
-[@avensio/shared](../README.md) / ISortable
+[Avensio Shared](../README.md) / ISortable
 
 # Interface: ISortable\<V\>
 
-Defined in: sort/index.ts:13
-
-Contract for structures that can be sorted in-place.
+Defined in: sort/index.ts:12
 
 ## Extended by
 
@@ -28,7 +30,7 @@ Value type.
 
 > **sort**(`cmp?`): `void`
 
-Defined in: sort/index.ts:19
+Defined in: sort/index.ts:18
 
 Sort the structure using the provided comparator.
 

@@ -1,5 +1,5 @@
 import { beforeAll, beforeEach, describe, expect, it } from 'vitest'
-import {FibonacciHeap, numberComparatorASC, numberComparatorDESC, Ordering, stringComparator} from '../src'
+import { BinaryHeap, FibonacciHeap, numberComparatorASC, numberComparatorDESC, Ordering, stringComparator } from '../src'
 
 // A bunch of tests of this test file are taken from "ts-fibonacci-heap" which is under the MIT license
 // Copyright (c) 2014 Daniel Imms, http://www.growingwiththeweb.com
@@ -755,6 +755,58 @@ describe('fibonacci heap', () => {
     expect([...heap.reverseIterator()]).toEqual([3,2,1])
     heap.sort(numberComparatorDESC)
     expect([...heap.reverseIterator()]).toEqual([1,2,3])
+  })
+})
+
+describe('binary heap', () => {
+  it('maintains min-heap ordering', () => {
+    const heap = new BinaryHeap<number>(numberComparatorASC)
+    heap.insert(5)
+    heap.insert(1)
+    heap.insert(3)
+    expect(heap.extractMin()).toBe(1)
+    expect(heap.extractMin()).toBe(3)
+    expect(heap.extractMin()).toBe(5)
+  })
+
+  it('supports max-heap ordering via comparator', () => {
+    const heap = new BinaryHeap<number>(numberComparatorDESC)
+    heap.insert(5)
+    heap.insert(1)
+    heap.insert(3)
+    expect(heap.extractMin()).toBe(5)
+    expect(heap.extractMin()).toBe(3)
+    expect(heap.extractMin()).toBe(1)
+  })
+
+  it('peek and clear behave as expected', () => {
+    const heap = new BinaryHeap<number>(numberComparatorASC)
+    heap.insert(10)
+    heap.insert(2)
+    expect(heap.peek()).toBe(2)
+    expect([...heap]).toEqual([2, 10])
+    expect([...heap.reverseIterator()]).toEqual([10, 2])
+    heap.clear()
+    expect(heap.size).toBe(0)
+    expect(heap.isEmpty()).toBe(true)
+  })
+
+  it('supports contains, remove, and sort', () => {
+    const heap = new BinaryHeap<number>(numberComparatorASC)
+    heap.add(3)
+    heap.add(1)
+    heap.add(2)
+    expect(heap.contains(2)).toBe(true)
+    expect(heap.contains(4)).toBe(false)
+    heap.sort(numberComparatorDESC)
+    expect(heap.extractMin()).toBe(3)
+    heap.add(4)
+    heap.add(5)
+    const removedValue = heap.remove(0) as number
+    expect(removedValue).toBe(5)
+    const removedIndex = heap.remove(4, false) as number
+    expect(removedIndex).toBeGreaterThanOrEqual(0)
+    expect(heap.contains(4)).toBe(false)
   })
 })
 

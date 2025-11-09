@@ -1,6 +1,6 @@
 import {describe, expect, it} from 'vitest'
 import {
-  DoublyLinkedList,
+  DoublyLinkedList, fibonacciHeapSort,
   heapSort,
   LinkedList,
   LinkedQueue,
@@ -9,6 +9,32 @@ import {
   Queue,
   quicksort
 } from '../src'
+
+function createList() {
+  const list = new DoublyLinkedList<number>()
+  list.add(-1)
+  list.add(2)
+  list.add(-4)
+  list.add(1)
+  list.add(0)
+  return list;
+}
+
+function listChecksASC(l: number[]) {
+  expect(l[0]).toBe(-4)
+  expect(l[1]).toBe(-1)
+  expect(l[2]).toBe(0)
+  expect(l[3]).toBe(1)
+  expect(l[4]).toBe(2)
+}
+
+function listChecksDESC(l: number[]) {
+  expect(l[0]).toBe(2)
+  expect(l[1]).toBe(1)
+  expect(l[2]).toBe(0)
+  expect(l[3]).toBe(-1)
+  expect(l[4]).toBe(-4)
+}
 
 describe('sorting algorithm tests', () => {
   describe('quicksort', () => {
@@ -55,62 +81,31 @@ describe('sorting algorithm tests', () => {
     })
   })
 
-  describe('fibonacci heapsort', () => {
-    describe('through sort()', () => {
-      it('should sort a number doubly linked list', () => {
-        const doublyLinkedList = new DoublyLinkedList<number>()
-        doublyLinkedList.add(1)
-        doublyLinkedList.add(3)
-        doublyLinkedList.add(5)
-        doublyLinkedList.add(-1)
-        doublyLinkedList.add(2)
-        doublyLinkedList.add(4)
-        doublyLinkedList.comparator = numberComparatorASC
-        doublyLinkedList.sort()
-
-        expect(doublyLinkedList.size).toBe(6)
-        expect(doublyLinkedList.get(0)).toBe(-1)
-        expect(doublyLinkedList.get(1)).toBe(1)
-        expect(doublyLinkedList.get(2)).toBe(2)
-        expect(doublyLinkedList.get(3)).toBe(3)
-        expect(doublyLinkedList.get(4)).toBe(4)
-        expect(doublyLinkedList.get(5)).toBe(5)
-      })
-      it('should sort a number linked list', () => {
-        const linkedList = new LinkedList<number>()
-        linkedList.add(1)
-        linkedList.add(3)
-        linkedList.add(5)
-        linkedList.add(-1)
-        linkedList.add(2)
-        linkedList.add(4)
-        linkedList.sort(numberComparatorASC)
-        expect(linkedList.size).toBe(6)
-        expect(linkedList.get(0)).toBe(-1)
-        expect(linkedList.get(1)).toBe(1)
-        expect(linkedList.get(2)).toBe(2)
-        expect(linkedList.get(3)).toBe(3)
-        expect(linkedList.get(4)).toBe(4)
-        expect(linkedList.get(5)).toBe(5)
-      })
+  describe('heapsort', () => {
+    it('should sort doubly linked list ascending', () => {
+      const list = createList()
+      const l = [...heapSort(list, numberComparatorASC)]
+      listChecksASC(l)
     })
-    it('should sort a number doubly linked list', () => {
-      const list = new DoublyLinkedList<number>()
-      list.add(1)
-      list.add(3)
-      list.add(5)
-      list.add(-1)
-      list.add(2)
-      list.add(4)
-      list.comparator = numberComparatorASC
-      const heap = heapSort(list, list.comparator)
-      expect(heap.size).toBe(6)
-      expect(heap.extractMin().value).toBe(-1)
-      expect(heap.extractMin().value).toBe(1)
-      expect(heap.extractMin().value).toBe(2)
-      expect(heap.extractMin().value).toBe(3)
-      expect(heap.extractMin().value).toBe(4)
-      expect(heap.extractMin().value).toBe(5)
+    it('should sort doubly linked list descending', () => {
+      const list = createList()
+      const l = [...heapSort(list, numberComparatorDESC)]
+      listChecksDESC(l)
     })
   })
+
+  describe('fibonacci heapsort', () => {
+    it('should sort doubly linked list ascending', () => {
+      const list = createList()
+      const l = [...fibonacciHeapSort(list, numberComparatorASC)]
+      listChecksASC(l)
+    })
+
+    it('should sort doubly linked list descending', () => {
+      const list = createList()
+      const l = [...fibonacciHeapSort(list, numberComparatorDESC)]
+      listChecksDESC(l)
+    })
+  })
+
 })

@@ -14,7 +14,8 @@ export default defineConfig(
     'coverage/**',
     'vite.config.ts',
     'vite.iife.config.ts',
-    'eslint.config.mjs'
+    'eslint.config.mjs',
+    'docs/.vitepress/cache/**'
   ]),
   {
     files: [

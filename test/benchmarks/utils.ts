@@ -15,7 +15,7 @@ import {
   Dequeue,
   IStack,
   IQueue,
-  IList,
+  IList, BinaryHeap,
 } from '../../src'
 
 export const OPTIONS = {
@@ -99,6 +99,7 @@ export const DATA_STRUCTURES_MAP: Record<string, CollectionFactory<number>> = {
   'Stack': () => new Stack(),
   'LinkedStack': () => new LinkedStack(),
   'Dequeue': () => new Dequeue(),
+  'BinaryHeap': () => new BinaryHeap(numberComparatorASC),
 }
 
 export const LIST_MAP: Record<string, CollectionFactory<number, IList<number>>> = {

@@ -77,11 +77,13 @@ export class List<E> implements IList<E> {
    */
   slice(startIndex: number, endIndex: number): List<E> {
     const slice = new List<E>()
-    const calc = calculateStartAndEnd.call(this, startIndex, endIndex)
+    const cse = calculateStartAndEnd<E>
+    const calc = cse.call(this, startIndex, endIndex)
     let { start } = calc
     const { end } = calc
 
-    const count = calculateCount.call(this, start, end, true)
+    const cc = calculateCount<E>
+    const count = cc.call(this, start, end, true)
     for (let i = 0; i < count; i++) {
       slice.add(this.get(start % this.size))
       start++
@@ -1746,11 +1748,13 @@ function _splice<E>(this: IList<E>, startIndex: number, deleteCount: number, sli
 }
 
 function _slice<E>(this: ILinkedList<E>, startIndex: number, endIndex: number, slice: ILinkedList<E>) {
-  const calc = calculateStartAndEnd.call(this, startIndex, endIndex)
+  const cse = calculateStartAndEnd<E>
+  const calc = cse.call(this, startIndex, endIndex)
   let { start } = calc
   const { end } = calc
 
-  const count = calculateCount.call(this, start, end, true)
+  const cc = calculateCount<E>
+  const count = cc.call(this, start, end, true)
   let startNode = this.getNode(start)
   for (let i = 0; i < count; i++) {
     slice.add(startNode?.value!)

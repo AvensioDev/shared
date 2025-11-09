@@ -1,0 +1,38 @@
+# Lists
+
+`List` and its linked variants offer array-like APIs plus iterable helpers.
+
+## `List`
+- Backed by an array.
+- Supports functional helpers (`map`, `filter`, `reduce`, `every`, `some`).
+- Provides slicing/splicing helpers:
+  - `slice(start, end)` wraps around when indices exceed bounds.
+  - `slice2(start, end)` uses the sign of `end` to determine direction (left/right).
+  - `splice(start, deleteCount)` removes elements relative to start.
+- Implements `Iterable` and `reverseIterator()` for forward/backward traversal.
+
+```ts
+const list = new List([1, 2, 3, 4])
+list.slice(-1, 2)   // wrap-around slice
+const mapped = list.map(n => n * 2)
+```
+
+## Linked lists
+`LinkedList`, `DoublyLinkedList`, and `CyclicLinkedList` share the `ILinkedList` API:
+- `addFirst`, `addLast`, `removeFirst`, `removeLast`
+- `getNode(index)` for direct node access
+- `first`/`last` node references for constant-time head/tail operations
+
+Use linked variants when you need predictable insert/remove costs regardless of position.
+
+## Comparator + sorting
+Lists implement `ISortable` and honor `list.comparator`. Pair them with `createComparator` or the built-in number/string comparators to sort in place.
+
+```ts
+const list = new List([{ score: 10 }, { score: 5 }])
+list.comparator = createComparator('score', 'desc')
+list.sort()
+```
+
+## Initialization via `Iterable`
+Every list constructor accepts an `Iterable`, so you can pass generators, sets, or other collections to bootstrap contents quickly.

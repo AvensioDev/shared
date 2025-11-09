@@ -28,7 +28,6 @@
     "datastructures"
   ],
   "scripts": {
-    "postinstall": "node ./scripts/hooks/commit-msg.mjs",
     "prepack": "pnpm run release",
     "release": "pnpm run test && pnpm run build && pnpm run changelog",
     "changelog": "changelogen --release --push --yes",
@@ -38,7 +37,10 @@
     "postbuild": "node ./scripts/update.ts",
     "lint": "eslint --fix",
     "test": "vitest --coverage test/",
-    "docs": "vitepress",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs",
+    "docs:api": "typedoc --options typedoc.config.ts src/index.ts",
     "clean": "rm -rf node_modules/ && rm -rf dist/"
   },
   "publishConfig": {
@@ -66,9 +68,6 @@
     "README.md",
     "LICENSE"
   ],
-  "dependencies": {
-    "@avensio/event-emitter": "workspace:* || ^1.0.0"
-  },
   "devDependencies": {
     "@commitlint/cli": "^20.1.0",
     "@commitlint/config-conventional": "^20.0.0",
@@ -82,6 +81,8 @@
     "changelogen": "^0.6.2",
     "eslint": "^9.39.0",
     "eslint-plugin-import": "^2.32.0",
+    "typedoc": "^0.28.14",
+    "typedoc-plugin-markdown": "^4.9.0",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.46.3",
     "vite": "^7.1.12",

@@ -1,4 +1,5 @@
 import {
+  BinaryHeap,
   type Comparator,
   FibonacciHeap,
   type ICollection,
@@ -9,7 +10,7 @@ export interface ISortable<V> {
 }
 
 /**
- * quicksort recursively splits a collection into two chunks
+ * Quicksort recursively splits a collection into two chunks
  * by a pivot element and sort both chunks on the way to the final result.
  * @param collection instance of an ICollection type for sorting
  * @param comparator
@@ -49,7 +50,6 @@ export function quicksort<V>(
 
 /**
  * Heapsort variant using a fibonacci heap.
- * Needs a Comparator to function properly!
  *
  * @param A
  * @param comparator

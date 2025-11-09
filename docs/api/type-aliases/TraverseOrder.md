@@ -8,4 +8,6 @@
 
 > **TraverseOrder** = `"in"` \| `"pre"` \| `"post"`
 
-Defined in: tree.ts:9
+Defined in: tree.ts:12
+
+Traversal order used by [BinarySearchTree.traverse](../classes/BinarySearchTree.md#traverse).

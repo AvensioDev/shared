@@ -8,7 +8,13 @@
 
 > **FibonacciHeapNode**\<`E`\> = `object`
 
-Defined in: heap.ts:188
+Defined in: heap.ts:279
+
+Node container used internally by the Fibonacci heap.
+
+## Since
+
+2.0.0
 
 ## Type Parameters
 
@@ -16,13 +22,15 @@ Defined in: heap.ts:188
 
 `E`
 
+Value type.
+
 ## Properties
 
 ### child?
 
 > `optional` **child**: `FibonacciHeapNode`\<`E`\>
 
-Defined in: heap.ts:195
+Defined in: heap.ts:286
 
 ***
 
@@ -30,7 +38,7 @@ Defined in: heap.ts:195
 
 > **degree**: `number`
 
-Defined in: heap.ts:190
+Defined in: heap.ts:281
 
 ***
 
@@ -38,7 +46,7 @@ Defined in: heap.ts:190
 
 > **left**: `FibonacciHeapNode`\<`E`\>
 
-Defined in: heap.ts:192
+Defined in: heap.ts:283
 
 ***
 
@@ -46,7 +54,7 @@ Defined in: heap.ts:192
 
 > **marked**: `boolean`
 
-Defined in: heap.ts:191
+Defined in: heap.ts:282
 
 ***
 
@@ -54,7 +62,7 @@ Defined in: heap.ts:191
 
 > `optional` **parent**: `FibonacciHeapNode`\<`E`\>
 
-Defined in: heap.ts:194
+Defined in: heap.ts:285
 
 ***
 
@@ -62,7 +70,7 @@ Defined in: heap.ts:194
 
 > **right**: `FibonacciHeapNode`\<`E`\>
 
-Defined in: heap.ts:193
+Defined in: heap.ts:284
 
 ***
 
@@ -70,4 +78,4 @@ Defined in: heap.ts:193
 
 > **value**: `E`
 
-Defined in: heap.ts:189
+Defined in: heap.ts:280

@@ -6,11 +6,11 @@
 
 # Function: heapSort()
 
-> **heapSort**\<`V`\>(`A`, `comparator`): [`FibonacciHeap`](../classes/FibonacciHeap.md)\<`V`\>
+> **heapSort**\<`V`\>(`values`, `comparator`): [`FibonacciHeap`](../classes/FibonacciHeap.md)\<`V`\>
 
-Defined in: sort/index.ts:57
+Defined in: sort/index.ts:80
 
-Heapsort variant using a fibonacci heap.
+Build a Fibonacci heap from values which can then be drained in order.
 
 ## Type Parameters
 
@@ -18,16 +18,32 @@ Heapsort variant using a fibonacci heap.
 
 `V`
 
+Value type.
+
 ## Parameters
 
-### A
+### values
 
 `Iterable`\<`V`\>
+
+Iterable of values to heapify.
 
 ### comparator
 
 [`Comparator`](../type-aliases/Comparator.md)\<`V`\>
 
+Comparator controlling heap ordering.
+
 ## Returns
 
 [`FibonacciHeap`](../classes/FibonacciHeap.md)\<`V`\>
+
+Heap representation (call `extractMin` until empty to retrieve sorted order).
+
+## Example
+
+```ts
+const heap = heapSort(items, numberComparatorASC)
+heap.extractMin()
+```
+ Complexity: O(n) to build, O(log n) per extraction.

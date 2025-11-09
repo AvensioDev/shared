@@ -8,4 +8,10 @@
 
 > `const` **stringComparatorDESC**: [`Comparator`](../type-aliases/Comparator.md)\<`string`\>
 
-Defined in: index.ts:52
+Defined in: index.ts:110
+
+Comparator sorting strings descending.
+
+## Since
+
+2.0.0

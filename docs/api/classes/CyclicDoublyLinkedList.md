@@ -6,7 +6,9 @@
 
 # Class: CyclicDoublyLinkedList\<E\>
 
-Defined in: list.ts:1203
+Defined in: list.ts:1405
+
+Circular doubly linked list used by Fibonacci heap internals.
 
 ## Type Parameters
 
@@ -24,7 +26,7 @@ Defined in: list.ts:1203
 
 > **new CyclicDoublyLinkedList**\<`E`\>(`elements?`, `reverse?`): `CyclicDoublyLinkedList`\<`E`\>
 
-Defined in: list.ts:1209
+Defined in: list.ts:1411
 
 #### Parameters
 
@@ -46,7 +48,9 @@ Defined in: list.ts:1209
 
 > **comparator**: [`Comparator`](../type-aliases/Comparator.md)\<`E`\>
 
-Defined in: list.ts:1207
+Defined in: list.ts:1409
+
+Comparator used for equality/sort checks.
 
 #### Implementation of
 
@@ -58,7 +62,9 @@ Defined in: list.ts:1207
 
 > **first**: [`Node`](../type-aliases/Node.md)\<`E`\>
 
-Defined in: list.ts:1204
+Defined in: list.ts:1406
+
+Head node reference.
 
 #### Implementation of
 
@@ -70,7 +76,9 @@ Defined in: list.ts:1204
 
 > **last**: [`Node`](../type-aliases/Node.md)\<`E`\>
 
-Defined in: list.ts:1205
+Defined in: list.ts:1407
+
+Tail node reference.
 
 #### Implementation of
 
@@ -82,7 +90,9 @@ Defined in: list.ts:1205
 
 > **size**: `number` = `0`
 
-Defined in: list.ts:1206
+Defined in: list.ts:1408
+
+Current element count.
 
 #### Implementation of
 
@@ -94,7 +104,7 @@ Defined in: list.ts:1206
 
 > **\[iterator\]**(): `Iterator`\<`E`\>
 
-Defined in: list.ts:1647
+Defined in: list.ts:1849
 
 O(size)
 
@@ -112,7 +122,7 @@ O(size)
 
 > **add**(`e`): `void`
 
-Defined in: list.ts:1222
+Defined in: list.ts:1424
 
 O(1)
 
@@ -136,7 +146,9 @@ O(1)
 
 > **addAll**(`c`): `void`
 
-Defined in: list.ts:1226
+Defined in: list.ts:1428
+
+Append every value from an iterable.
 
 #### Parameters
 
@@ -158,7 +170,7 @@ Defined in: list.ts:1226
 
 > **addFirst**(`e`): `void`
 
-Defined in: list.ts:1236
+Defined in: list.ts:1438
 
 O(1)
 
@@ -182,7 +194,7 @@ O(1)
 
 > **addLast**(`e`): `void`
 
-Defined in: list.ts:1267
+Defined in: list.ts:1469
 
 O(1)
 
@@ -206,7 +218,7 @@ O(1)
 
 > **clear**(): `void`
 
-Defined in: list.ts:1292
+Defined in: list.ts:1494
 
 O(1)
 
@@ -224,7 +236,7 @@ O(1)
 
 > **contains**(`element`): `boolean`
 
-Defined in: list.ts:1588
+Defined in: list.ts:1790
 
 Checks if an element is contained in the Queue.
 For this function to work, a comparator must be set!
@@ -250,7 +262,7 @@ O(size) amortized
 
 > **equals**(`l`): `boolean`
 
-Defined in: list.ts:1596
+Defined in: list.ts:1798
 
 For this method to work, a comparator must be set
 
@@ -274,7 +286,9 @@ For this method to work, a comparator must be set
 
 > **every**(`predicate`): `boolean`
 
-Defined in: list.ts:1412
+Defined in: list.ts:1614
+
+Test whether every element matches the predicate.
 
 #### Parameters
 
@@ -282,9 +296,14 @@ Defined in: list.ts:1412
 
 (`e`) => `boolean`
 
+Match callback.
+
 #### Returns
 
 `boolean`
+
+`true` when all elements satisfy the predicate.
+ Complexity: O(n)
 
 #### Implementation of
 
@@ -296,7 +315,9 @@ Defined in: list.ts:1412
 
 > **filter**(`predicate`): `CyclicDoublyLinkedList`\<`E`\>
 
-Defined in: list.ts:1402
+Defined in: list.ts:1604
+
+Create a list containing values that satisfy the predicate.
 
 #### Parameters
 
@@ -304,9 +325,14 @@ Defined in: list.ts:1402
 
 (`e`) => `boolean`
 
+Filter callback.
+
 #### Returns
 
 `CyclicDoublyLinkedList`\<`E`\>
+
+Filtered list.
+ Complexity: O(n)
 
 #### Implementation of
 
@@ -318,7 +344,7 @@ Defined in: list.ts:1402
 
 > **get**(`index`): `E`
 
-Defined in: list.ts:1302
+Defined in: list.ts:1504
 
 O(size / 2)<br>
 Ω(1)
@@ -343,7 +369,7 @@ O(size / 2)<br>
 
 > **getFirst**(): `E`
 
-Defined in: list.ts:1438
+Defined in: list.ts:1640
 
 O(1)
 
@@ -361,7 +387,7 @@ O(1)
 
 > **getLast**(): `E`
 
-Defined in: list.ts:1446
+Defined in: list.ts:1648
 
 O(1)
 
@@ -379,7 +405,7 @@ O(1)
 
 > **getNode**(`index`): [`Node`](../type-aliases/Node.md)\<`E`\>
 
-Defined in: list.ts:1563
+Defined in: list.ts:1765
 
 O(size / 2)<br>
 Ω(1)
@@ -404,7 +430,7 @@ O(size / 2)<br>
 
 > **indexOf**(`element`): `number`
 
-Defined in: list.ts:1610
+Defined in: list.ts:1812
 
 Finds the first index of the element
 O(size) amortized
@@ -429,7 +455,7 @@ O(size) amortized
 
 > **isEmpty**(): `boolean`
 
-Defined in: list.ts:1455
+Defined in: list.ts:1657
 
 O(1)
 
@@ -447,7 +473,9 @@ O(1)
 
 > **map**\<`V`\>(`fn`): `CyclicDoublyLinkedList`\<`V`\>
 
-Defined in: list.ts:1386
+Defined in: list.ts:1588
+
+Transform each element.
 
 #### Type Parameters
 
@@ -455,15 +483,22 @@ Defined in: list.ts:1386
 
 `V`
 
+Result type.
+
 #### Parameters
 
 ##### fn
 
 (`e`) => `V`
 
+Mapper invoked per element.
+
 #### Returns
 
 `CyclicDoublyLinkedList`\<`V`\>
+
+New list containing mapped values.
+ Complexity: O(n)
 
 #### Implementation of
 
@@ -475,7 +510,9 @@ Defined in: list.ts:1386
 
 > **reduce**\<`V`\>(`fn`, `initialValue?`): `V`
 
-Defined in: list.ts:1394
+Defined in: list.ts:1596
+
+Reduce the list to a single value.
 
 #### Type Parameters
 
@@ -483,19 +520,28 @@ Defined in: list.ts:1394
 
 `V`
 
+Accumulator type.
+
 #### Parameters
 
 ##### fn
 
 (`accumulator`, `element`) => `V`
 
+Reducer callback.
+
 ##### initialValue?
 
 `V`
 
+Optional starting value.
+
 #### Returns
 
 `V`
+
+Accumulated result.
+ Complexity: O(n)
 
 #### Implementation of
 
@@ -507,7 +553,9 @@ Defined in: list.ts:1394
 
 > **remove**(`target`, `isIndex`): `number` \| `E`
 
-Defined in: list.ts:1479
+Defined in: list.ts:1681
+
+Remove by value or index.
 
 #### Parameters
 
@@ -519,9 +567,14 @@ Defined in: list.ts:1479
 
 `boolean` = `true`
 
+When `true`, treat `e` as index.
+
 #### Returns
 
 `number` \| `E`
+
+Removed element or index of removal.
+ Complexity: O(n) worst case.
 
 #### Implementation of
 
@@ -533,7 +586,7 @@ Defined in: list.ts:1479
 
 > **removeFirst**(): `E`
 
-Defined in: list.ts:1489
+Defined in: list.ts:1691
 
 O(1)
 
@@ -551,7 +604,7 @@ O(1)
 
 > **removeLast**(): `E`
 
-Defined in: list.ts:1529
+Defined in: list.ts:1731
 
 O(size / 2)<br>
 Ω(1)
@@ -570,7 +623,7 @@ O(size / 2)<br>
 
 > **reverseIterator**(): `Generator`\<`E`, `void`, `unknown`\>
 
-Defined in: list.ts:1638
+Defined in: list.ts:1840
 
 In even cases: O(∑ i=1 to &lfloor;size&divide;2&rfloor; (i*2))<br>
 In odd cases: O((∑ i=1 to &lfloor;size&divide;2&rfloor; (i*2)) + &lceil;size&divide;2&rceil;)<br>
@@ -590,7 +643,7 @@ In odd cases: O((∑ i=1 to &lfloor;size&divide;2&rfloor; (i*2)) + &lceil;size&d
 
 > **set**(`index`, `e`): `boolean`
 
-Defined in: list.ts:1318
+Defined in: list.ts:1520
 
 O(size / 2)<br>
 Ω(1)
@@ -619,7 +672,9 @@ O(size / 2)<br>
 
 > **slice**(`startIndex`, `endIndex`): `CyclicDoublyLinkedList`\<`E`\>
 
-Defined in: list.ts:1324
+Defined in: list.ts:1526
+
+Take a slice using modulo arithmetic for wrap-around indices.
 
 #### Parameters
 
@@ -627,13 +682,20 @@ Defined in: list.ts:1324
 
 `number`
 
+Beginning index (accepts negatives).
+
 ##### endIndex
 
 `number`
 
+Ending index.
+
 #### Returns
 
 `CyclicDoublyLinkedList`\<`E`\>
+
+New list with copied range.
+ Complexity: O(k) where k is slice length.
 
 #### Implementation of
 
@@ -645,7 +707,9 @@ Defined in: list.ts:1324
 
 > **slice2**(`startIndex`, `endIndex`): `CyclicDoublyLinkedList`\<`E`\>
 
-Defined in: list.ts:1329
+Defined in: list.ts:1531
+
+Variant of [slice](../interfaces/IListFunctions.md#slice) where the sign of `endIndex` decides direction.
 
 #### Parameters
 
@@ -661,6 +725,9 @@ Defined in: list.ts:1329
 
 `CyclicDoublyLinkedList`\<`E`\>
 
+New list containing copied range.
+ Complexity: O(k)
+
 #### Implementation of
 
 [`ILinkedList`](../interfaces/ILinkedList.md).[`slice2`](../interfaces/ILinkedList.md#slice2)
@@ -671,7 +738,9 @@ Defined in: list.ts:1329
 
 > **some**(`predicate`): `boolean`
 
-Defined in: list.ts:1424
+Defined in: list.ts:1626
+
+Test whether any element matches the predicate.
 
 #### Parameters
 
@@ -679,9 +748,14 @@ Defined in: list.ts:1424
 
 (`e`) => `boolean`
 
+Match callback.
+
 #### Returns
 
 `boolean`
+
+`true` when at least one element matches.
+ Complexity: O(n)
 
 #### Implementation of
 
@@ -693,13 +767,17 @@ Defined in: list.ts:1424
 
 > **sort**(`cmp?`): `void`
 
-Defined in: list.ts:1618
+Defined in: list.ts:1820
+
+Sort the structure using the provided comparator.
 
 #### Parameters
 
 ##### cmp?
 
 [`Comparator`](../type-aliases/Comparator.md)\<`E`\>
+
+Optional comparator; falls back to the internal one.
 
 #### Returns
 
@@ -715,7 +793,9 @@ Defined in: list.ts:1618
 
 > **splice**(`startIndex`, `deleteCount`): `CyclicDoublyLinkedList`\<`E`\>
 
-Defined in: list.ts:1381
+Defined in: list.ts:1583
+
+Remove and return a consecutive range.
 
 #### Parameters
 
@@ -723,13 +803,20 @@ Defined in: list.ts:1381
 
 `number`
 
+Start position.
+
 ##### deleteCount
 
 `number`
 
+Number of items to remove (negative => left).
+
 #### Returns
 
 `CyclicDoublyLinkedList`\<`E`\>
+
+List containing removed elements.
+ Complexity: O(n)
 
 #### Implementation of
 

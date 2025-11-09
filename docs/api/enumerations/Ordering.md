@@ -6,7 +6,13 @@
 
 # Enumeration: Ordering
 
-Defined in: index.ts:3
+Defined in: index.ts:8
+
+Defines the relative ordering results used throughout the collections.
+
+## Since
+
+2.0.0
 
 ## Enumeration Members
 
@@ -14,7 +20,7 @@ Defined in: index.ts:3
 
 > **EQ**: `0`
 
-Defined in: index.ts:5
+Defined in: index.ts:10
 
 ***
 
@@ -22,7 +28,7 @@ Defined in: index.ts:5
 
 > **GT**: `1`
 
-Defined in: index.ts:6
+Defined in: index.ts:11
 
 ***
 
@@ -30,4 +36,4 @@ Defined in: index.ts:6
 
 > **LT**: `-1`
 
-Defined in: index.ts:4
+Defined in: index.ts:9

@@ -6,7 +6,9 @@
 
 # Class: LinkedQueue\<E\>
 
-Defined in: queue.ts:182
+Defined in: queue.ts:232
+
+Linked-list queue optimized for consistent O(1) enqueues/dequeues regardless of size.
 
 ## Type Parameters
 
@@ -24,7 +26,7 @@ Defined in: queue.ts:182
 
 > **new LinkedQueue**\<`E`\>(`elements?`, `comparator?`): `LinkedQueue`\<`E`\>
 
-Defined in: queue.ts:188
+Defined in: queue.ts:238
 
 #### Parameters
 
@@ -46,7 +48,9 @@ Defined in: queue.ts:188
 
 > **comparator**: [`Comparator`](../type-aliases/Comparator.md)\<`E`\>
 
-Defined in: queue.ts:186
+Defined in: queue.ts:236
+
+Comparator used for equality/sort checks.
 
 #### Implementation of
 
@@ -58,7 +62,9 @@ Defined in: queue.ts:186
 
 > **size**: `number` = `0`
 
-Defined in: queue.ts:185
+Defined in: queue.ts:235
+
+Current element count.
 
 #### Implementation of
 
@@ -70,7 +76,7 @@ Defined in: queue.ts:185
 
 > **\[iterator\]**(): `Iterator`\<`E`\>
 
-Defined in: queue.ts:287
+Defined in: queue.ts:337
 
 O(size)
 
@@ -88,7 +94,11 @@ O(size)
 
 > **add**(`e`): `void`
 
-Defined in: queue.ts:215
+Defined in: queue.ts:265
+
+Append an element.
+
+ Complexity: Amortized O(1) unless stated otherwise.
 
 #### Parameters
 
@@ -110,7 +120,11 @@ Defined in: queue.ts:215
 
 > **addAll**(`collection`): `void`
 
-Defined in: queue.ts:219
+Defined in: queue.ts:269
+
+Append every element from another collection.
+
+ Complexity: O(n + m) where m is `collection.size`.
 
 #### Parameters
 
@@ -132,7 +146,7 @@ Defined in: queue.ts:219
 
 > **clear**(): `void`
 
-Defined in: queue.ts:260
+Defined in: queue.ts:310
 
 O(1)
 
@@ -150,7 +164,7 @@ O(1)
 
 > **contains**(`element`): `boolean`
 
-Defined in: queue.ts:271
+Defined in: queue.ts:321
 
 Checks if an element is contained in the LinkedQueue.
 For this function to work, a comparator must be set!
@@ -176,7 +190,7 @@ O(size) amortized
 
 > **dequeue**(): `E`
 
-Defined in: queue.ts:228
+Defined in: queue.ts:278
 
 O(1)
 
@@ -194,7 +208,7 @@ O(1)
 
 > **enqueue**(`e`): `void`
 
-Defined in: queue.ts:203
+Defined in: queue.ts:253
 
 O(1)
 
@@ -218,7 +232,7 @@ O(1)
 
 > **head**(): `E`
 
-Defined in: queue.ts:252
+Defined in: queue.ts:302
 
 O(1)
 
@@ -236,7 +250,7 @@ O(1)
 
 > **isEmpty**(): `boolean`
 
-Defined in: queue.ts:245
+Defined in: queue.ts:295
 
 O(1)
 
@@ -254,7 +268,9 @@ O(1)
 
 > **remove**(`target`, `isIndex`): `number` \| `E`
 
-Defined in: queue.ts:345
+Defined in: queue.ts:395
+
+Remove by value or index.
 
 #### Parameters
 
@@ -266,9 +282,14 @@ Defined in: queue.ts:345
 
 `boolean` = `true`
 
+When `true`, treat `e` as index.
+
 #### Returns
 
 `number` \| `E`
+
+Removed element or index of removal.
+ Complexity: O(n) worst case.
 
 #### Implementation of
 
@@ -280,7 +301,9 @@ Defined in: queue.ts:345
 
 > **reverseIterator**(): `Generator`\<`E`\>
 
-Defined in: queue.ts:301
+Defined in: queue.ts:351
+
+Iterates elements from the most recently added to the earliest.
 
 #### Returns
 
@@ -296,13 +319,17 @@ Defined in: queue.ts:301
 
 > **sort**(`cmp?`): `void`
 
-Defined in: queue.ts:312
+Defined in: queue.ts:362
+
+Sort the structure using the provided comparator.
 
 #### Parameters
 
 ##### cmp?
 
 [`Comparator`](../type-aliases/Comparator.md)\<`E`\>
+
+Optional comparator; falls back to the internal one.
 
 #### Returns
 

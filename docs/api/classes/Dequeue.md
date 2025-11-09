@@ -6,13 +6,17 @@
 
 # Class: Dequeue\<E\>
 
-Defined in: queue.ts:438
+Defined in: queue.ts:519
+
+Double-ended queue exposing push/pop operations on both ends.
 
 ## Type Parameters
 
 ### E
 
 `E`
+
+Value type.
 
 ## Implements
 
@@ -24,7 +28,7 @@ Defined in: queue.ts:438
 
 > **new Dequeue**\<`E`\>(`elements?`): `Dequeue`\<`E`\>
 
-Defined in: queue.ts:444
+Defined in: queue.ts:525
 
 #### Parameters
 
@@ -42,7 +46,9 @@ Defined in: queue.ts:444
 
 > **comparator**: [`Comparator`](../type-aliases/Comparator.md)\<`E`\>
 
-Defined in: queue.ts:442
+Defined in: queue.ts:523
+
+Comparator used for equality/sort checks.
 
 #### Implementation of
 
@@ -54,7 +60,9 @@ Defined in: queue.ts:442
 
 > **size**: `number` = `0`
 
-Defined in: queue.ts:439
+Defined in: queue.ts:520
+
+Current element count.
 
 #### Implementation of
 
@@ -66,9 +74,9 @@ Defined in: queue.ts:439
 
 > **\[iterator\]**(): `Iterator`\<`E`\>
 
-Defined in: queue.ts:604
+Defined in: queue.ts:680
 
-O(size)
+Iterable
 
 #### Returns
 
@@ -84,7 +92,11 @@ O(size)
 
 > **add**(`e`): `void`
 
-Defined in: queue.ts:477
+Defined in: queue.ts:554
+
+Append an element.
+
+ Complexity: Amortized O(1) unless stated otherwise.
 
 #### Parameters
 
@@ -106,7 +118,11 @@ Defined in: queue.ts:477
 
 > **addAll**(`collection`): `void`
 
-Defined in: queue.ts:481
+Defined in: queue.ts:558
+
+Append every element from another collection.
+
+ Complexity: O(n + m) where m is `collection.size`.
 
 #### Parameters
 
@@ -128,9 +144,11 @@ Defined in: queue.ts:481
 
 > **clear**(): `void`
 
-Defined in: queue.ts:577
+Defined in: queue.ts:656
 
-O(1)
+Remove all entries.
+
+ Complexity: O(n)
 
 #### Returns
 
@@ -146,11 +164,11 @@ O(1)
 
 > **contains**(`element`): `boolean`
 
-Defined in: queue.ts:588
+Defined in: queue.ts:664
 
-Checks if an element is contained in the Dequeue.
-For this function to work, a comparator must be set!
-O(size) amortized
+Test membership using the comparator when available.
+
+ Complexity: O(n)
 
 #### Parameters
 
@@ -172,13 +190,20 @@ O(size) amortized
 
 > **dequeue**(): `E`
 
-Defined in: queue.ts:490
+Defined in: queue.ts:564
 
-O(1)
+Remove and return the head element.
 
 #### Returns
 
 `E`
+
+Dequeued value.
+
+#### Throws
+
+When empty.
+ Complexity: O(1) amortized
 
 #### Implementation of
 
@@ -190,15 +215,18 @@ O(1)
 
 > **enqueue**(`e`): `void`
 
-Defined in: queue.ts:456
+Defined in: queue.ts:533
 
-O(1)
+Append an element to the tail.
 
 #### Parameters
 
 ##### e
 
 `E`
+
+Value to enqueue.
+ Complexity: O(1) amortized
 
 #### Returns
 
@@ -214,13 +242,15 @@ O(1)
 
 > **head**(): `E`
 
-Defined in: queue.ts:562
+Defined in: queue.ts:641
 
-O(1)
+Peek the head without removal.
 
 #### Returns
 
 `E`
+
+Head value.
 
 #### Implementation of
 
@@ -232,13 +262,15 @@ O(1)
 
 > **isEmpty**(): `boolean`
 
-Defined in: queue.ts:570
+Defined in: queue.ts:649
 
-O(1)
+Check for emptiness.
 
 #### Returns
 
 `boolean`
+
+`true` when `size === 0`.
 
 #### Implementation of
 
@@ -250,13 +282,16 @@ O(1)
 
 > **pop**(): `E`
 
-Defined in: queue.ts:531
+Defined in: queue.ts:610
 
-O(1)
+Pop a value from the front.
 
 #### Returns
 
 `E`
+
+Removed value.
+ Complexity: O(1)
 
 #### Implementation of
 
@@ -268,15 +303,18 @@ O(1)
 
 > **push**(`e`): `void`
 
-Defined in: queue.ts:504
+Defined in: queue.ts:580
 
-O(1)
+Push a value onto the front (stack-style).
 
 #### Parameters
 
 ##### e
 
 `E`
+
+Value to push.
+ Complexity: O(1)
 
 #### Returns
 
@@ -292,7 +330,9 @@ O(1)
 
 > **remove**(`target`, `isIndex`): `number` \| `E`
 
-Defined in: queue.ts:666
+Defined in: queue.ts:742
+
+Remove by value or index.
 
 #### Parameters
 
@@ -304,9 +344,14 @@ Defined in: queue.ts:666
 
 `boolean` = `true`
 
+When `true`, treat `e` as index.
+
 #### Returns
 
 `number` \| `E`
+
+Removed element or index of removal.
+ Complexity: O(n) worst case.
 
 #### Implementation of
 
@@ -318,9 +363,9 @@ Defined in: queue.ts:666
 
 > **reverseIterator**(): `Generator`\<`E`, `void`, `unknown`\>
 
-Defined in: queue.ts:621
+Defined in: queue.ts:697
 
-O(size)
+Iterates elements from the most recently added to the earliest.
 
 #### Returns
 
@@ -336,13 +381,17 @@ O(size)
 
 > **sort**(`cmp?`): `void`
 
-Defined in: queue.ts:635
+Defined in: queue.ts:711
+
+Sort the structure using the provided comparator.
 
 #### Parameters
 
 ##### cmp?
 
 [`Comparator`](../type-aliases/Comparator.md)\<`E`\>
+
+Optional comparator; falls back to the internal one.
 
 #### Returns
 
@@ -358,7 +407,7 @@ Defined in: queue.ts:635
 
 > **top**(): `E`
 
-Defined in: queue.ts:553
+Defined in: queue.ts:632
 
 O(1)
 

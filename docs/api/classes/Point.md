@@ -6,7 +6,15 @@
 
 # Class: Point
 
-Defined in: math/point.ts:1
+Defined in: math/point.ts:9
+
+Lightweight 3D point used by graph and geometry utilities.
+
+## Example
+
+```ts
+const p = new Point(1, 2, 3)
+```
 
 ## Constructors
 
@@ -14,7 +22,7 @@ Defined in: math/point.ts:1
 
 > **new Point**(`x`, `y`, `z`): `Point`
 
-Defined in: math/point.ts:6
+Defined in: math/point.ts:19
 
 #### Parameters
 
@@ -22,13 +30,19 @@ Defined in: math/point.ts:6
 
 `number` = `0`
 
+X coordinate.
+
 ##### y
 
 `number` = `0`
 
+Y coordinate.
+
 ##### z
 
 `number` = `0`
+
+Z coordinate.
 
 #### Returns
 
@@ -40,7 +54,7 @@ Defined in: math/point.ts:6
 
 > **x**: `number`
 
-Defined in: math/point.ts:2
+Defined in: math/point.ts:10
 
 ***
 
@@ -48,7 +62,7 @@ Defined in: math/point.ts:2
 
 > **y**: `number`
 
-Defined in: math/point.ts:3
+Defined in: math/point.ts:11
 
 ***
 
@@ -56,4 +70,4 @@ Defined in: math/point.ts:3
 
 > **z**: `number`
 
-Defined in: math/point.ts:4
+Defined in: math/point.ts:12

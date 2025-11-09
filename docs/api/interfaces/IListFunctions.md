@@ -6,7 +6,9 @@
 
 # Interface: IListFunctions\<E\>
 
-Defined in: list.ts:8
+Defined in: list.ts:13
+
+Functional helpers shared by array- and node-based lists.
 
 ## Extended by
 
@@ -18,13 +20,17 @@ Defined in: list.ts:8
 
 `E`
 
+Value type.
+
 ## Methods
 
 ### every()
 
 > **every**(`predicate`): `boolean`
 
-Defined in: list.ts:12
+Defined in: list.ts:48
+
+Test whether every element matches the predicate.
 
 #### Parameters
 
@@ -32,9 +38,14 @@ Defined in: list.ts:12
 
 (`element`) => `boolean`
 
+Match callback.
+
 #### Returns
 
 `boolean`
+
+`true` when all elements satisfy the predicate.
+ Complexity: O(n)
 
 ***
 
@@ -42,7 +53,9 @@ Defined in: list.ts:12
 
 > **filter**(`predicate`): [`IList`](IList.md)\<`E`\>
 
-Defined in: list.ts:11
+Defined in: list.ts:40
+
+Create a list containing values that satisfy the predicate.
 
 #### Parameters
 
@@ -50,9 +63,14 @@ Defined in: list.ts:11
 
 (`element`) => `boolean`
 
+Filter callback.
+
 #### Returns
 
 [`IList`](IList.md)\<`E`\>
+
+Filtered list.
+ Complexity: O(n)
 
 ***
 
@@ -60,13 +78,17 @@ Defined in: list.ts:11
 
 > **map**\<`V`\>(`fn`): [`IList`](IList.md)\<`V`\>
 
-Defined in: list.ts:9
+Defined in: list.ts:22
+
+Transform each element.
 
 #### Type Parameters
 
 ##### V
 
 `V`
+
+Result type.
 
 #### Parameters
 
@@ -74,9 +96,14 @@ Defined in: list.ts:9
 
 (`element`) => `V`
 
+Mapper invoked per element.
+
 #### Returns
 
 [`IList`](IList.md)\<`V`\>
+
+New list containing mapped values.
+ Complexity: O(n)
 
 ***
 
@@ -84,7 +111,9 @@ Defined in: list.ts:9
 
 > **reduce**\<`V`\>(`fn`, `initialValue?`): `V`
 
-Defined in: list.ts:10
+Defined in: list.ts:32
+
+Reduce the list to a single value.
 
 #### Type Parameters
 
@@ -92,19 +121,28 @@ Defined in: list.ts:10
 
 `V`
 
+Accumulator type.
+
 #### Parameters
 
 ##### fn
 
 (`accumulator`, `element`) => `V`
 
+Reducer callback.
+
 ##### initialValue?
 
 `V`
 
+Optional starting value.
+
 #### Returns
 
 `V`
+
+Accumulated result.
+ Complexity: O(n)
 
 ***
 
@@ -112,7 +150,9 @@ Defined in: list.ts:10
 
 > **slice**(`startIndex`, `endIndex`): [`IList`](IList.md)\<`E`\>
 
-Defined in: list.ts:14
+Defined in: list.ts:65
+
+Take a slice using modulo arithmetic for wrap-around indices.
 
 #### Parameters
 
@@ -120,13 +160,20 @@ Defined in: list.ts:14
 
 `number`
 
+Beginning index (accepts negatives).
+
 ##### endIndex
 
 `number`
 
+Ending index.
+
 #### Returns
 
 [`IList`](IList.md)\<`E`\>
+
+New list with copied range.
+ Complexity: O(k) where k is slice length.
 
 ***
 
@@ -134,7 +181,9 @@ Defined in: list.ts:14
 
 > **slice2**(`startIndex`, `endIndex`): [`IList`](IList.md)\<`E`\>
 
-Defined in: list.ts:15
+Defined in: list.ts:72
+
+Variant of [slice](#slice) where the sign of `endIndex` decides direction.
 
 #### Parameters
 
@@ -150,13 +199,18 @@ Defined in: list.ts:15
 
 [`IList`](IList.md)\<`E`\>
 
+New list containing copied range.
+ Complexity: O(k)
+
 ***
 
 ### some()
 
 > **some**(`predicate`): `boolean`
 
-Defined in: list.ts:13
+Defined in: list.ts:56
+
+Test whether any element matches the predicate.
 
 #### Parameters
 
@@ -164,9 +218,14 @@ Defined in: list.ts:13
 
 (`element`) => `boolean`
 
+Match callback.
+
 #### Returns
 
 `boolean`
+
+`true` when at least one element matches.
+ Complexity: O(n)
 
 ***
 
@@ -174,7 +233,9 @@ Defined in: list.ts:13
 
 > **splice**(`startIndex`, `deleteCount`): [`IList`](IList.md)\<`E`\>
 
-Defined in: list.ts:16
+Defined in: list.ts:81
+
+Remove and return a consecutive range.
 
 #### Parameters
 
@@ -182,10 +243,17 @@ Defined in: list.ts:16
 
 `number`
 
+Start position.
+
 ##### deleteCount
 
 `number`
 
+Number of items to remove (negative => left).
+
 #### Returns
 
 [`IList`](IList.md)\<`E`\>
+
+List containing removed elements.
+ Complexity: O(n)

@@ -6,13 +6,30 @@
 
 # Class: BinaryHeap\<E\>
 
-Defined in: heap.ts:9
+Defined in: heap.ts:22
+
+Maintains a binary heap that honors the supplied comparator (min- or max-heap).
+
+## Example
+
+```ts
+const heap = new BinaryHeap(numberComparatorASC)
+heap.insert(3)
+heap.insert(1)
+heap.extractMin() // -> 1
+```
+
+## Since
+
+2.0.0
 
 ## Type Parameters
 
 ### E
 
 `E`
+
+Value type.
 
 ## Implements
 
@@ -24,7 +41,7 @@ Defined in: heap.ts:9
 
 > **new BinaryHeap**\<`E`\>(`comparator`, `elements?`): `BinaryHeap`\<`E`\>
 
-Defined in: heap.ts:14
+Defined in: heap.ts:31
 
 #### Parameters
 
@@ -32,9 +49,13 @@ Defined in: heap.ts:14
 
 [`Comparator`](../type-aliases/Comparator.md)\<`E`\>
 
+Ordering strategy (ascending produces a min-heap).
+
 ##### elements?
 
 `Iterable`\<`E`, `any`, `any`\>
+
+Optional seed data; inserted in comparator order.
 
 #### Returns
 
@@ -46,7 +67,9 @@ Defined in: heap.ts:14
 
 > **comparator**: [`Comparator`](../type-aliases/Comparator.md)\<`E`\>
 
-Defined in: heap.ts:12
+Defined in: heap.ts:25
+
+Comparator used for equality/sort checks.
 
 #### Implementation of
 
@@ -58,7 +81,9 @@ Defined in: heap.ts:12
 
 > **size**: `number` = `0`
 
-Defined in: heap.ts:11
+Defined in: heap.ts:24
+
+Current element count.
 
 #### Implementation of
 
@@ -70,11 +95,15 @@ Defined in: heap.ts:11
 
 > **\[iterator\]**(): `Iterator`\<`E`\>
 
-Defined in: heap.ts:115
+Defined in: heap.ts:197
+
+Iterate elements in ascending comparator order.
 
 #### Returns
 
 `Iterator`\<`E`\>
+
+Iterator snapshot; future mutations do not affect ongoing iteration.
 
 #### Implementation of
 
@@ -86,7 +115,9 @@ Defined in: heap.ts:115
 
 > **add**(`element`): `void`
 
-Defined in: heap.ts:47
+Defined in: heap.ts:87
+
+Alias for [insert](#insert).
 
 #### Parameters
 
@@ -108,13 +139,18 @@ Defined in: heap.ts:47
 
 > **addAll**(`collection`): `void`
 
-Defined in: heap.ts:51
+Defined in: heap.ts:97
+
+Insert every element from another collection.
 
 #### Parameters
 
 ##### collection
 
 [`ICollection`](../interfaces/ICollection.md)\<`E`\>
+
+Source collection.
+ Complexity: O(n log n) where n is `collection.size`.
 
 #### Returns
 
@@ -130,7 +166,11 @@ Defined in: heap.ts:51
 
 > **clear**(): `void`
 
-Defined in: heap.ts:57
+Defined in: heap.ts:108
+
+Remove every element.
+
+ Complexity: O(1)
 
 #### Returns
 
@@ -146,7 +186,9 @@ Defined in: heap.ts:57
 
 > **contains**(`element`): `boolean`
 
-Defined in: heap.ts:66
+Defined in: heap.ts:127
+
+Test whether an element exists using the comparator when available.
 
 #### Parameters
 
@@ -154,9 +196,14 @@ Defined in: heap.ts:66
 
 `E`
 
+Value to search for.
+
 #### Returns
 
 `boolean`
+
+`true` when present.
+ Complexity: O(n)
 
 #### Implementation of
 
@@ -168,11 +215,20 @@ Defined in: heap.ts:66
 
 > **extractMin**(): `E`
 
-Defined in: heap.ts:30
+Defined in: heap.ts:60
+
+Remove and return the top element according to the comparator.
 
 #### Returns
 
 `E`
+
+Extracted value.
+
+#### Throws
+
+When the heap is empty.
+ Complexity: O(log n)
 
 ***
 
@@ -180,13 +236,18 @@ Defined in: heap.ts:30
 
 > **insert**(`element`): `void`
 
-Defined in: heap.ts:23
+Defined in: heap.ts:46
+
+Insert an element into the heap.
 
 #### Parameters
 
 ##### element
 
 `E`
+
+Value to insert (ignored when `undefined`).
+ Complexity: O(log n)
 
 #### Returns
 
@@ -198,7 +259,9 @@ Defined in: heap.ts:23
 
 > **isEmpty**(): `boolean`
 
-Defined in: heap.ts:62
+Defined in: heap.ts:116
+
+Check whether the heap contains no elements.
 
 #### Returns
 
@@ -214,11 +277,20 @@ Defined in: heap.ts:62
 
 > **peek**(): `E`
 
-Defined in: heap.ts:42
+Defined in: heap.ts:79
+
+Read the current top element without removing it.
 
 #### Returns
 
 `E`
+
+Heap front value.
+
+#### Throws
+
+When empty.
+ Complexity: O(1)
 
 ***
 
@@ -226,11 +298,15 @@ Defined in: heap.ts:42
 
 > **remove**(`target`, `isIndex`): `number` \| `E`
 
-Defined in: heap.ts:93
+Defined in: heap.ts:170
+
+Remove by index or value.
 
 #### Parameters
 
 ##### target
+
+Index or value depending on `isIndex`.
 
 `number` | `E`
 
@@ -238,9 +314,18 @@ Defined in: heap.ts:93
 
 `boolean` = `true`
 
+Interpret `target` as index when `true`.
+
 #### Returns
 
 `number` \| `E`
+
+Removed element (index mode) or the removed index (value mode).
+
+#### Throws
+
+When the heap is empty or the index is invalid.
+ Complexity: O(n log n) due to rebuild.
 
 #### Implementation of
 
@@ -252,7 +337,9 @@ Defined in: heap.ts:93
 
 > **reverseIterator**(): `Generator`\<`E`\>
 
-Defined in: heap.ts:126
+Defined in: heap.ts:211
+
+Iterate elements in descending comparator order.
 
 #### Returns
 
@@ -268,7 +355,9 @@ Defined in: heap.ts:126
 
 > **sort**(`cmp?`): `void`
 
-Defined in: heap.ts:79
+Defined in: heap.ts:147
+
+Rebuild the heap using a different comparator.
 
 #### Parameters
 
@@ -276,9 +365,16 @@ Defined in: heap.ts:79
 
 [`Comparator`](../type-aliases/Comparator.md)\<`E`\>
 
+Optional comparator override.
+
 #### Returns
 
 `void`
+
+#### Throws
+
+If neither argument nor existing comparator are set.
+ Complexity: O(n log n)
 
 #### Implementation of
 

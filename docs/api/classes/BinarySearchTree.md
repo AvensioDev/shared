@@ -6,13 +6,30 @@
 
 # Class: BinarySearchTree\<T\>
 
-Defined in: tree.ts:11
+Defined in: tree.ts:27
+
+Unbalanced binary search tree that keeps data ordered via a comparator.
+
+## Example
+
+```ts
+const tree = new BinarySearchTree(createComparator('id'))
+tree.insert({ id: 2 })
+tree.insert({ id: 1 })
+tree.traverse() // -> ascending order
+```
+
+## Since
+
+2.0.0
 
 ## Type Parameters
 
 ### T
 
 `T`
+
+Value type.
 
 ## Implements
 
@@ -24,7 +41,7 @@ Defined in: tree.ts:11
 
 > **new BinarySearchTree**\<`T`\>(`comparator`, `elements?`): `BinarySearchTree`\<`T`\>
 
-Defined in: tree.ts:15
+Defined in: tree.ts:35
 
 #### Parameters
 
@@ -32,9 +49,13 @@ Defined in: tree.ts:15
 
 [`Comparator`](../type-aliases/Comparator.md)\<`T`\>
 
+Ordering strategy.
+
 ##### elements?
 
 `Iterable`\<`T`, `any`, `any`\>
+
+Optional seed data.
 
 #### Returns
 
@@ -46,7 +67,9 @@ Defined in: tree.ts:15
 
 > **comparator**: [`Comparator`](../type-aliases/Comparator.md)\<`T`\>
 
-Defined in: tree.ts:15
+Defined in: tree.ts:35
+
+Ordering strategy.
 
 ## Accessors
 
@@ -56,7 +79,9 @@ Defined in: tree.ts:15
 
 > **get** **size**(): `number`
 
-Defined in: tree.ts:23
+Defined in: tree.ts:46
+
+Current number of stored nodes.
 
 ##### Returns
 
@@ -68,7 +93,9 @@ Defined in: tree.ts:23
 
 > **\[iterator\]**(): `Iterator`\<`T`\>
 
-Defined in: tree.ts:106
+Defined in: tree.ts:175
+
+Iterate values in in-order sequence.
 
 #### Returns
 
@@ -84,7 +111,9 @@ Defined in: tree.ts:106
 
 > **delete**(`value`): `boolean`
 
-Defined in: tree.ts:66
+Defined in: tree.ts:109
+
+Delete a matching value.
 
 #### Parameters
 
@@ -92,9 +121,14 @@ Defined in: tree.ts:66
 
 `T`
 
+Value to remove.
+
 #### Returns
 
 `boolean`
+
+`true` when a node was removed.
+ Complexity: Average O(log n), worst-case O(n).
 
 ***
 
@@ -102,7 +136,9 @@ Defined in: tree.ts:66
 
 > **find**(`value`): `T` \| `null`
 
-Defined in: tree.ts:56
+Defined in: tree.ts:92
+
+Find a matching value.
 
 #### Parameters
 
@@ -110,9 +146,14 @@ Defined in: tree.ts:56
 
 `T`
 
+Value to search.
+
 #### Returns
 
 `T` \| `null`
+
+Stored value or `null`.
+ Complexity: Average O(log n), worst-case O(n).
 
 ***
 
@@ -120,13 +161,18 @@ Defined in: tree.ts:56
 
 > **insert**(`value`): `void`
 
-Defined in: tree.ts:27
+Defined in: tree.ts:56
+
+Insert a value using the comparator for placement.
 
 #### Parameters
 
 ##### value
 
 `T`
+
+Value to add.
+ Complexity: Average O(log n), worst-case O(n).
 
 #### Returns
 
@@ -138,11 +184,15 @@ Defined in: tree.ts:27
 
 > **max**(): `T` \| `null`
 
-Defined in: tree.ts:90
+Defined in: tree.ts:151
+
+Return the largest value.
 
 #### Returns
 
 `T` \| `null`
+
+Maximum value or `null`.
 
 ***
 
@@ -150,11 +200,15 @@ Defined in: tree.ts:90
 
 > **metrics**(): `object`
 
-Defined in: tree.ts:99
+Defined in: tree.ts:165
+
+Report height and node count.
 
 #### Returns
 
 `object`
+
+Metrics snapshot.
 
 ##### height
 
@@ -170,11 +224,16 @@ Defined in: tree.ts:99
 
 > **min**(): `T` \| `null`
 
-Defined in: tree.ts:81
+Defined in: tree.ts:137
+
+Return the smallest value.
 
 #### Returns
 
 `T` \| `null`
+
+Minimum value or `null`.
+ Complexity: Average O(log n), worst-case O(n).
 
 ***
 
@@ -182,7 +241,9 @@ Defined in: tree.ts:81
 
 > **traverse**(`order`): `T`[]
 
-Defined in: tree.ts:75
+Defined in: tree.ts:125
+
+Traverse the tree in the requested order.
 
 #### Parameters
 
@@ -190,6 +251,11 @@ Defined in: tree.ts:75
 
 [`TraverseOrder`](../type-aliases/TraverseOrder.md) = `'in'`
 
+`'in' | 'pre' | 'post'` (defaults to in-order).
+
 #### Returns
 
 `T`[]
+
+Array containing nodes in traversal order.
+ Complexity: O(n)

@@ -8,4 +8,10 @@
 
 > `const` **numberComparatorASC**: [`Comparator`](../type-aliases/Comparator.md)\<`number`\>
 
-Defined in: index.ts:49
+Defined in: index.ts:89
+
+Comparator sorting numbers ascending (min-first).
+
+## Since
+
+2.0.0

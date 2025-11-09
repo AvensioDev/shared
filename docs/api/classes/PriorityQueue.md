@@ -6,13 +6,17 @@
 
 # Class: PriorityQueue\<E\>
 
-Defined in: queue.ts:370
+Defined in: queue.ts:425
+
+Comparator-driven queue backed by [BinaryHeap](BinaryHeap.md).
 
 ## Type Parameters
 
 ### E
 
 `E`
+
+Value type.
 
 ## Implements
 
@@ -24,7 +28,7 @@ Defined in: queue.ts:370
 
 > **new PriorityQueue**\<`E`\>(`comparator`, `elements?`): `PriorityQueue`\<`E`\>
 
-Defined in: queue.ts:373
+Defined in: queue.ts:428
 
 #### Parameters
 
@@ -48,7 +52,9 @@ Defined in: queue.ts:373
 
 > **get** **comparator**(): [`Comparator`](../type-aliases/Comparator.md)\<`E`\>
 
-Defined in: queue.ts:377
+Defined in: queue.ts:432
+
+Comparator used for equality/sort checks.
 
 ##### Returns
 
@@ -58,7 +64,9 @@ Defined in: queue.ts:377
 
 > **set** **comparator**(`value`): `void`
 
-Defined in: queue.ts:381
+Defined in: queue.ts:436
+
+Comparator used for equality/sort checks.
 
 ##### Parameters
 
@@ -69,6 +77,8 @@ Defined in: queue.ts:381
 ##### Returns
 
 `void`
+
+Comparator used for equality/sort checks.
 
 #### Implementation of
 
@@ -82,11 +92,15 @@ Defined in: queue.ts:381
 
 > **get** **size**(): `number`
 
-Defined in: queue.ts:385
+Defined in: queue.ts:440
+
+Current element count.
 
 ##### Returns
 
 `number`
+
+Current element count.
 
 #### Implementation of
 
@@ -98,7 +112,7 @@ Defined in: queue.ts:385
 
 > **\[iterator\]**(): `Iterator`\<`E`\>
 
-Defined in: queue.ts:421
+Defined in: queue.ts:491
 
 #### Returns
 
@@ -114,7 +128,11 @@ Defined in: queue.ts:421
 
 > **add**(`e`): `void`
 
-Defined in: queue.ts:393
+Defined in: queue.ts:451
+
+Append an element.
+
+ Complexity: Amortized O(1) unless stated otherwise.
 
 #### Parameters
 
@@ -136,7 +154,11 @@ Defined in: queue.ts:393
 
 > **addAll**(`collection`): `void`
 
-Defined in: queue.ts:397
+Defined in: queue.ts:455
+
+Append every element from another collection.
+
+ Complexity: O(n + m) where m is `collection.size`.
 
 #### Parameters
 
@@ -158,7 +180,11 @@ Defined in: queue.ts:397
 
 > **clear**(): `void`
 
-Defined in: queue.ts:413
+Defined in: queue.ts:480
+
+Remove all entries.
+
+ Complexity: O(n)
 
 #### Returns
 
@@ -174,7 +200,11 @@ Defined in: queue.ts:413
 
 > **contains**(`element`): `boolean`
 
-Defined in: queue.ts:417
+Defined in: queue.ts:487
+
+Test membership using the comparator when available.
+
+ Complexity: O(n)
 
 #### Parameters
 
@@ -196,11 +226,15 @@ Defined in: queue.ts:417
 
 > **dequeue**(): `E`
 
-Defined in: queue.ts:401
+Defined in: queue.ts:465
+
+Remove and return the head element.
 
 #### Returns
 
 `E`
+
+Dequeued value.
 
 #### Implementation of
 
@@ -212,13 +246,18 @@ Defined in: queue.ts:401
 
 > **enqueue**(`e`): `void`
 
-Defined in: queue.ts:389
+Defined in: queue.ts:447
+
+Append an element to the tail.
 
 #### Parameters
 
 ##### e
 
 `E`
+
+Value to enqueue.
+ Complexity: O(1) amortized
 
 #### Returns
 
@@ -234,11 +273,15 @@ Defined in: queue.ts:389
 
 > **head**(): `E`
 
-Defined in: queue.ts:405
+Defined in: queue.ts:472
+
+Peek the head without removal.
 
 #### Returns
 
 `E`
+
+Head value.
 
 #### Implementation of
 
@@ -250,11 +293,15 @@ Defined in: queue.ts:405
 
 > **isEmpty**(): `boolean`
 
-Defined in: queue.ts:409
+Defined in: queue.ts:476
+
+Check for emptiness.
 
 #### Returns
 
 `boolean`
+
+`true` when `size === 0`.
 
 #### Implementation of
 
@@ -266,11 +313,15 @@ Defined in: queue.ts:409
 
 > **remove**(`target`, `isIndex`): `number` \| `E`
 
-Defined in: queue.ts:433
+Defined in: queue.ts:509
+
+Remove by value or index.
 
 #### Parameters
 
 ##### target
+
+Element or index.
 
 `number` | `E`
 
@@ -278,9 +329,14 @@ Defined in: queue.ts:433
 
 `boolean` = `true`
 
+When `true`, treat `e` as index.
+
 #### Returns
 
 `number` \| `E`
+
+Removed element or index of removal.
+ Complexity: O(n) worst case.
 
 #### Implementation of
 
@@ -292,7 +348,9 @@ Defined in: queue.ts:433
 
 > **reverseIterator**(): `Generator`\<`E`\>
 
-Defined in: queue.ts:425
+Defined in: queue.ts:495
+
+Iterates elements from the most recently added to the earliest.
 
 #### Returns
 
@@ -308,13 +366,17 @@ Defined in: queue.ts:425
 
 > **sort**(`cmp?`): `void`
 
-Defined in: queue.ts:429
+Defined in: queue.ts:502
+
+Sort the structure using the provided comparator.
 
 #### Parameters
 
 ##### cmp?
 
 [`Comparator`](../type-aliases/Comparator.md)\<`E`\>
+
+Optional comparator; falls back to the internal one.
 
 #### Returns
 

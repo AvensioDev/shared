@@ -6,7 +6,9 @@
 
 # Interface: IDequeue\<E\>
 
-Defined in: queue.ts:16
+Defined in: queue.ts:43
+
+Hybrid queue/stack contract exposing push/pop on both ends.
 
 ## Extends
 
@@ -24,7 +26,9 @@ Defined in: queue.ts:16
 
 > **comparator**: [`Comparator`](../type-aliases/Comparator.md)\<`E`\>
 
-Defined in: index.ts:60
+Defined in: index.ts:142
+
+Comparator used for equality/sort checks.
 
 #### Inherited from
 
@@ -36,7 +40,9 @@ Defined in: index.ts:60
 
 > **size**: `number`
 
-Defined in: index.ts:61
+Defined in: index.ts:146
+
+Current element count.
 
 #### Inherited from
 
@@ -48,7 +54,11 @@ Defined in: index.ts:61
 
 > **add**(`element`): `void`
 
-Defined in: index.ts:62
+Defined in: index.ts:152
+
+Append an element.
+
+ Complexity: Amortized O(1) unless stated otherwise.
 
 #### Parameters
 
@@ -70,7 +80,11 @@ Defined in: index.ts:62
 
 > **addAll**(`collection`): `void`
 
-Defined in: index.ts:63
+Defined in: index.ts:158
+
+Append every element from another collection.
+
+ Complexity: O(n + m) where m is `collection.size`.
 
 #### Parameters
 
@@ -92,7 +106,11 @@ Defined in: index.ts:63
 
 > **clear**(): `void`
 
-Defined in: index.ts:65
+Defined in: index.ts:173
+
+Remove all entries.
+
+ Complexity: O(n)
 
 #### Returns
 
@@ -108,7 +126,11 @@ Defined in: index.ts:65
 
 > **contains**(`element`): `boolean`
 
-Defined in: index.ts:67
+Defined in: index.ts:185
+
+Test membership using the comparator when available.
+
+ Complexity: O(n)
 
 #### Parameters
 
@@ -130,11 +152,20 @@ Defined in: index.ts:67
 
 > **dequeue**(): `E`
 
-Defined in: queue.ts:12
+Defined in: queue.ts:30
+
+Remove and return the head element.
 
 #### Returns
 
 `E`
+
+Dequeued value.
+
+#### Throws
+
+When empty.
+ Complexity: O(1) amortized
 
 #### Inherited from
 
@@ -146,13 +177,18 @@ Defined in: queue.ts:12
 
 > **enqueue**(`e`): `void`
 
-Defined in: queue.ts:11
+Defined in: queue.ts:22
+
+Append an element to the tail.
 
 #### Parameters
 
 ##### e
 
 `E`
+
+Value to enqueue.
+ Complexity: O(1) amortized
 
 #### Returns
 
@@ -168,11 +204,19 @@ Defined in: queue.ts:11
 
 > **head**(): `E`
 
-Defined in: queue.ts:13
+Defined in: queue.ts:37
+
+Peek the head without removal.
 
 #### Returns
 
 `E`
+
+Head value.
+
+#### Throws
+
+When empty.
 
 #### Inherited from
 
@@ -184,11 +228,15 @@ Defined in: queue.ts:13
 
 > **isEmpty**(): `boolean`
 
-Defined in: index.ts:66
+Defined in: index.ts:179
+
+Check for emptiness.
 
 #### Returns
 
 `boolean`
+
+`true` when `size === 0`.
 
 #### Inherited from
 
@@ -200,11 +248,20 @@ Defined in: index.ts:66
 
 > **pop**(): `E`
 
-Defined in: stack.ts:11
+Defined in: stack.ts:32
+
+Pop and return the top value.
 
 #### Returns
 
 `E`
+
+Removed value.
+
+#### Throws
+
+When empty.
+ Complexity: O(1)
 
 #### Inherited from
 
@@ -216,13 +273,18 @@ Defined in: stack.ts:11
 
 > **push**(`e`): `void`
 
-Defined in: stack.ts:10
+Defined in: stack.ts:24
+
+Push a value on top.
 
 #### Parameters
 
 ##### e
 
 `E`
+
+Value to push.
+ Complexity: O(1)
 
 #### Returns
 
@@ -238,11 +300,15 @@ Defined in: stack.ts:10
 
 > **remove**(`e`, `isIndex?`): `number` \| `E`
 
-Defined in: index.ts:64
+Defined in: index.ts:167
+
+Remove by value or index.
 
 #### Parameters
 
 ##### e
+
+Element or index.
 
 `number` | `E`
 
@@ -250,9 +316,14 @@ Defined in: index.ts:64
 
 `boolean`
 
+When `true`, treat `e` as index.
+
 #### Returns
 
 `number` \| `E`
+
+Removed element or index of removal.
+ Complexity: O(n) worst case.
 
 #### Inherited from
 
@@ -264,7 +335,9 @@ Defined in: index.ts:64
 
 > **reverseIterator**(): `Generator`\<`E`\>
 
-Defined in: index.ts:56
+Defined in: index.ts:129
+
+Iterates elements from the most recently added to the earliest.
 
 #### Returns
 
@@ -280,13 +353,17 @@ Defined in: index.ts:56
 
 > **sort**(`cmp?`): `void`
 
-Defined in: sort/index.ts:9
+Defined in: sort/index.ts:19
+
+Sort the structure using the provided comparator.
 
 #### Parameters
 
 ##### cmp?
 
 [`Comparator`](../type-aliases/Comparator.md)\<`E`\>
+
+Optional comparator; falls back to the internal one.
 
 #### Returns
 
@@ -302,11 +379,19 @@ Defined in: sort/index.ts:9
 
 > **top**(): `E`
 
-Defined in: stack.ts:12
+Defined in: stack.ts:39
+
+Peek the top value without removing it.
 
 #### Returns
 
 `E`
+
+Top value.
+
+#### Throws
+
+When empty.
 
 #### Inherited from
 

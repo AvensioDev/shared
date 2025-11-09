@@ -6,11 +6,36 @@
 
 # Function: createComparator()
 
+Creates a comparator from a property key or extractor function.
+
+## Template
+
+Value type.
+
+## Param
+
+Property key or extractor returning a sortable value.
+
+## Param
+
+Sort direction (defaults to ascending).
+
+## Example
+
+```ts
+const byIdDesc = createComparator<{ id: number }>('id', 'desc')
+```
+ Complexity: O(1) per comparison.
+
+## Since
+
+2.0.0
+
 ## Call Signature
 
 > **createComparator**\<`T`\>(`key`, `direction?`): [`Comparator`](../type-aliases/Comparator.md)\<`T`\>
 
-Defined in: index.ts:17
+Defined in: index.ts:37
 
 ### Type Parameters
 
@@ -36,7 +61,7 @@ keyof `T`
 
 > **createComparator**\<`T`\>(`extractor`, `direction?`): [`Comparator`](../type-aliases/Comparator.md)\<`T`\>
 
-Defined in: index.ts:22
+Defined in: index.ts:42
 
 ### Type Parameters
 

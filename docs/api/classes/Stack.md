@@ -6,13 +6,17 @@
 
 # Class: Stack\<E\>
 
-Defined in: stack.ts:15
+Defined in: stack.ts:47
+
+Array-backed stack optimized for traversal and random inspection.
 
 ## Type Parameters
 
 ### E
 
 `E`
+
+Value type.
 
 ## Implements
 
@@ -24,7 +28,7 @@ Defined in: stack.ts:15
 
 > **new Stack**\<`E`\>(`elements?`): `Stack`\<`E`\>
 
-Defined in: stack.ts:19
+Defined in: stack.ts:51
 
 #### Parameters
 
@@ -42,7 +46,9 @@ Defined in: stack.ts:19
 
 > **comparator**: [`Comparator`](../type-aliases/Comparator.md)\<`E`\>
 
-Defined in: stack.ts:18
+Defined in: stack.ts:50
+
+Comparator used for contains/sort checks.
 
 #### Implementation of
 
@@ -54,7 +60,9 @@ Defined in: stack.ts:18
 
 > **size**: `number` = `0`
 
-Defined in: stack.ts:17
+Defined in: stack.ts:49
+
+Current element count.
 
 #### Implementation of
 
@@ -66,7 +74,9 @@ Defined in: stack.ts:17
 
 > **\[iterator\]**(): `Iterator`\<`E`\>
 
-Defined in: stack.ts:75
+Defined in: stack.ts:122
+
+Iterable
 
 #### Returns
 
@@ -82,7 +92,11 @@ Defined in: stack.ts:75
 
 > **add**(`e`): `void`
 
-Defined in: stack.ts:90
+Defined in: stack.ts:137
+
+Append an element.
+
+ Complexity: Amortized O(1) unless stated otherwise.
 
 #### Parameters
 
@@ -104,7 +118,11 @@ Defined in: stack.ts:90
 
 > **addAll**(`collection`): `void`
 
-Defined in: stack.ts:94
+Defined in: stack.ts:141
+
+Append every element from another collection.
+
+ Complexity: O(n + m) where m is `collection.size`.
 
 #### Parameters
 
@@ -126,7 +144,11 @@ Defined in: stack.ts:94
 
 > **clear**(): `void`
 
-Defined in: stack.ts:27
+Defined in: stack.ts:62
+
+Remove all entries.
+
+ Complexity: O(n)
 
 #### Returns
 
@@ -142,11 +164,11 @@ Defined in: stack.ts:27
 
 > **contains**(`element`): `boolean`
 
-Defined in: stack.ts:62
+Defined in: stack.ts:106
 
-Checks if an element is contained in the Stack.
-For this function to work, a comparator must be set!
-O(size) amortized
+Test membership using the comparator when available.
+
+ Complexity: O(n)
 
 #### Parameters
 
@@ -168,11 +190,15 @@ O(size) amortized
 
 > **isEmpty**(): `boolean`
 
-Defined in: stack.ts:32
+Defined in: stack.ts:70
+
+Check for emptiness.
 
 #### Returns
 
 `boolean`
+
+`true` when `size === 0`.
 
 #### Implementation of
 
@@ -184,11 +210,15 @@ Defined in: stack.ts:32
 
 > **pop**(): `E`
 
-Defined in: stack.ts:42
+Defined in: stack.ts:86
+
+Pop and return the top value.
 
 #### Returns
 
 `E`
+
+Removed value.
 
 #### Implementation of
 
@@ -200,13 +230,18 @@ Defined in: stack.ts:42
 
 > **push**(`e`): `void`
 
-Defined in: stack.ts:49
+Defined in: stack.ts:96
+
+Push a value on top.
 
 #### Parameters
 
 ##### e
 
 `E`
+
+Value to push.
+ Complexity: O(1)
 
 #### Returns
 
@@ -222,7 +257,9 @@ Defined in: stack.ts:49
 
 > **remove**(`target`, `isIndex`): `number` \| `E`
 
-Defined in: stack.ts:100
+Defined in: stack.ts:147
+
+Remove by value or index.
 
 #### Parameters
 
@@ -234,9 +271,14 @@ Defined in: stack.ts:100
 
 `boolean` = `true`
 
+When `true`, treat `e` as index.
+
 #### Returns
 
 `number` \| `E`
+
+Removed element or index of removal.
+ Complexity: O(n) worst case.
 
 #### Implementation of
 
@@ -248,7 +290,9 @@ Defined in: stack.ts:100
 
 > **reverseIterator**(): `Generator`\<`E`\>
 
-Defined in: stack.ts:120
+Defined in: stack.ts:167
+
+Iterates elements from the most recently added to the earliest.
 
 #### Returns
 
@@ -264,13 +308,17 @@ Defined in: stack.ts:120
 
 > **sort**(`cmp?`): `void`
 
-Defined in: stack.ts:131
+Defined in: stack.ts:178
+
+Sort the structure using the provided comparator.
 
 #### Parameters
 
 ##### cmp?
 
 [`Comparator`](../type-aliases/Comparator.md)\<`E`\>
+
+Optional comparator; falls back to the internal one.
 
 #### Returns
 
@@ -286,11 +334,15 @@ Defined in: stack.ts:131
 
 > **top**(): `E`
 
-Defined in: stack.ts:36
+Defined in: stack.ts:77
+
+Peek the top value without removing it.
 
 #### Returns
 
 `E`
+
+Top value.
 
 #### Implementation of
 

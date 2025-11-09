@@ -8,10 +8,9 @@
 
 > **quicksort**\<`V`\>(`collection`, `comparator`, `factory`): [`ICollection`](../interfaces/ICollection.md)\<`V`\>
 
-Defined in: sort/index.ts:19
+Defined in: sort/index.ts:36
 
-Quicksort recursively splits a collection into two chunks
-by a pivot element and sort both chunks on the way to the final result.
+Sort a collection by recursively partitioning around a pivot.
 
 ## Type Parameters
 
@@ -19,24 +18,37 @@ by a pivot element and sort both chunks on the way to the final result.
 
 `V`
 
+Value type.
+
 ## Parameters
 
 ### collection
 
 [`ICollection`](../interfaces/ICollection.md)\<`V`\>
 
-instance of an ICollection type for sorting
+Target collection (mutated while sorting).
 
 ### comparator
 
 [`Comparator`](../type-aliases/Comparator.md)\<`V`\>
 
+Comparator used for ordering.
+
 ### factory
 
 () => [`ICollection`](../interfaces/ICollection.md)\<`V`\>
 
-an ICollection type for splitting
+Factory used to allocate temporary collections.
 
 ## Returns
 
 [`ICollection`](../interfaces/ICollection.md)\<`V`\>
+
+Sorted collection instance from the factory.
+
+## Example
+
+```ts
+const sorted = quicksort(list, createComparator('score'), () => new List())
+```
+ Complexity: Average O(n log n), worst-case O(n²) when partitions are imbalanced.

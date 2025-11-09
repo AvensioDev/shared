@@ -6,17 +6,21 @@
 
 # Class: FibonacciHeap\<E\>
 
-Defined in: heap.ts:217
+Defined in: heap.ts:316
 
-FibonacciHeap Implementation
-The Comparator has one requirement: When the "left" value is "null" the ordering must be Ordering.GT
-This is needed for delete to function correctly
+Amortized-efficient heap with `O(1)` insert/decrease-key and `O(log n)` extract-min.
+
+## Since
+
+2.0.0
 
 ## Type Parameters
 
 ### E
 
 `E`
+
+Value type.
 
 ## Implements
 
@@ -28,7 +32,7 @@ This is needed for delete to function correctly
 
 > **new FibonacciHeap**\<`E`\>(`comparator`, `elements?`): `FibonacciHeap`\<`E`\>
 
-Defined in: heap.ts:224
+Defined in: heap.ts:327
 
 #### Parameters
 
@@ -36,9 +40,13 @@ Defined in: heap.ts:224
 
 [`Comparator`](../type-aliases/Comparator.md)\<`E`\>
 
+Ordering strategy.
+
 ##### elements?
 
 `Iterable`\<`E`, `any`, `any`\>
+
+Optional seed data.
 
 #### Returns
 
@@ -50,7 +58,9 @@ Defined in: heap.ts:224
 
 > **comparator**: [`Comparator`](../type-aliases/Comparator.md)\<`E`\>
 
-Defined in: heap.ts:221
+Defined in: heap.ts:320
+
+Comparator used for equality/sort checks.
 
 #### Implementation of
 
@@ -62,7 +72,7 @@ Defined in: heap.ts:221
 
 > **minNode**: [`FibonacciHeapNode`](../type-aliases/FibonacciHeapNode.md)\<`E`\>
 
-Defined in: heap.ts:219
+Defined in: heap.ts:318
 
 #### Implementation of
 
@@ -74,7 +84,7 @@ Defined in: heap.ts:219
 
 > **rootList**: [`FibonacciHeapNode`](../type-aliases/FibonacciHeapNode.md)\<`E`\>
 
-Defined in: heap.ts:218
+Defined in: heap.ts:317
 
 #### Implementation of
 
@@ -86,7 +96,9 @@ Defined in: heap.ts:218
 
 > **size**: `number` = `0`
 
-Defined in: heap.ts:220
+Defined in: heap.ts:319
+
+Current element count.
 
 #### Implementation of
 
@@ -98,7 +110,7 @@ Defined in: heap.ts:220
 
 > **\[iterator\]**(): `Iterator`\<`E`\>
 
-Defined in: heap.ts:583
+Defined in: heap.ts:753
 
 #### Returns
 
@@ -114,7 +126,11 @@ Defined in: heap.ts:583
 
 > **add**(`e`): [`FibonacciHeapNode`](../type-aliases/FibonacciHeapNode.md)\<`E`\>
 
-Defined in: heap.ts:270
+Defined in: heap.ts:384
+
+Append an element.
+
+ Complexity: Amortized O(1) unless stated otherwise.
 
 #### Parameters
 
@@ -136,7 +152,11 @@ Defined in: heap.ts:270
 
 > **addAll**(`collection`): `void`
 
-Defined in: heap.ts:274
+Defined in: heap.ts:393
+
+Append every element from another collection.
+
+ Complexity: O(n + m) where m is `collection.size`.
 
 #### Parameters
 
@@ -158,7 +178,11 @@ Defined in: heap.ts:274
 
 > **clear**(): `void`
 
-Defined in: heap.ts:382
+Defined in: heap.ts:535
+
+Remove all entries.
+
+ Complexity: O(n)
 
 #### Returns
 
@@ -174,7 +198,11 @@ Defined in: heap.ts:382
 
 > **contains**(`element`): `boolean`
 
-Defined in: heap.ts:260
+Defined in: heap.ts:371
+
+Test membership using the comparator when available.
+
+ Complexity: O(n)
 
 #### Parameters
 
@@ -196,11 +224,9 @@ Defined in: heap.ts:260
 
 > **decreaseKey**(`node`, `newValue`): `void`
 
-Defined in: heap.ts:298
+Defined in: heap.ts:420
 
-Decreases a nodes key. When the newValue is null or undefined, node will get the new minNode
-
-O(1) (amortized)
+Decrease a node's key and bubble it up if necessary.
 
 #### Parameters
 
@@ -208,13 +234,23 @@ O(1) (amortized)
 
 [`FibonacciHeapNode`](../type-aliases/FibonacciHeapNode.md)\<`E`\>
 
+Target node handle.
+
 ##### newValue
 
 `E`
 
+New value (must compare <= old value). Pass `null`/`undefined` to
+mark the node as the next minimum.
+
 #### Returns
 
 `void`
+
+#### Throws
+
+When `newValue` is greater than the current value.
+ Complexity: O(1) amortized
 
 #### Implementation of
 
@@ -226,9 +262,9 @@ O(1) (amortized)
 
 > **delete**(`e`): [`FibonacciHeapNode`](../type-aliases/FibonacciHeapNode.md)\<`E`\>
 
-Defined in: heap.ts:285
+Defined in: heap.ts:406
 
-O(log(size)) (amortized)
+Delete a node using its handle.
 
 #### Parameters
 
@@ -236,9 +272,14 @@ O(log(size)) (amortized)
 
 [`FibonacciHeapNode`](../type-aliases/FibonacciHeapNode.md)\<`E`\>
 
+Node handle obtained from [insert](#insert).
+
 #### Returns
 
 [`FibonacciHeapNode`](../type-aliases/FibonacciHeapNode.md)\<`E`\>
+
+Removed node.
+ Complexity: O(log n) amortized
 
 #### Implementation of
 
@@ -250,7 +291,9 @@ O(log(size)) (amortized)
 
 > **extractChildren**(`node`): [`CyclicDoublyLinkedList`](CyclicDoublyLinkedList.md)\<[`FibonacciHeapNode`](../type-aliases/FibonacciHeapNode.md)\<`E`\>\>
 
-Defined in: heap.ts:400
+Defined in: heap.ts:570
+
+Return the child list of a node.
 
 #### Parameters
 
@@ -258,9 +301,13 @@ Defined in: heap.ts:400
 
 [`FibonacciHeapNode`](../type-aliases/FibonacciHeapNode.md)\<`E`\>
 
+Parent node.
+
 #### Returns
 
 [`CyclicDoublyLinkedList`](CyclicDoublyLinkedList.md)\<[`FibonacciHeapNode`](../type-aliases/FibonacciHeapNode.md)\<`E`\>\>
+
+Cyclic list of children.
 
 #### Implementation of
 
@@ -272,11 +319,16 @@ Defined in: heap.ts:400
 
 > **extractMin**(): [`FibonacciHeapNode`](../type-aliases/FibonacciHeapNode.md)\<`E`\>
 
-Defined in: heap.ts:322
+Defined in: heap.ts:456
+
+IFibonacciHeap.extractMin
 
 #### Returns
 
 [`FibonacciHeapNode`](../type-aliases/FibonacciHeapNode.md)\<`E`\>
+
+Removed minimum node.
+ Complexity: O(log n) amortized
 
 #### Implementation of
 
@@ -288,7 +340,9 @@ Defined in: heap.ts:322
 
 > **extractNeighbours**(`node`, `includeSelf`): [`CyclicDoublyLinkedList`](CyclicDoublyLinkedList.md)\<[`FibonacciHeapNode`](../type-aliases/FibonacciHeapNode.md)\<`E`\>\>
 
-Defined in: heap.ts:386
+Defined in: heap.ts:547
+
+Collect sibling nodes adjacent to the provided node.
 
 #### Parameters
 
@@ -296,13 +350,19 @@ Defined in: heap.ts:386
 
 [`FibonacciHeapNode`](../type-aliases/FibonacciHeapNode.md)\<`E`\>
 
+Starting node.
+
 ##### includeSelf
 
 `boolean` = `false`
 
+Whether to include `node` in the output.
+
 #### Returns
 
 [`CyclicDoublyLinkedList`](CyclicDoublyLinkedList.md)\<[`FibonacciHeapNode`](../type-aliases/FibonacciHeapNode.md)\<`E`\>\>
+
+Cyclic list of neighbour nodes.
 
 #### Implementation of
 
@@ -314,9 +374,9 @@ Defined in: heap.ts:386
 
 > **insert**(`element`): [`FibonacciHeapNode`](../type-aliases/FibonacciHeapNode.md)\<`E`\>
 
-Defined in: heap.ts:237
+Defined in: heap.ts:343
 
-O(1)
+Insert a value and return its node handle.
 
 #### Parameters
 
@@ -324,9 +384,14 @@ O(1)
 
 `E`
 
+Value to insert.
+
 #### Returns
 
 [`FibonacciHeapNode`](../type-aliases/FibonacciHeapNode.md)\<`E`\>
+
+Newly created node.
+ Complexity: O(1)
 
 #### Implementation of
 
@@ -338,11 +403,15 @@ O(1)
 
 > **isEmpty**(): `boolean`
 
-Defined in: heap.ts:378
+Defined in: heap.ts:526
+
+Check for emptiness.
 
 #### Returns
 
 `boolean`
+
+`true` when `size === 0`.
 
 #### Implementation of
 
@@ -354,11 +423,16 @@ Defined in: heap.ts:378
 
 > **minimum**(): [`FibonacciHeapNode`](../type-aliases/FibonacciHeapNode.md)\<`E`\>
 
-Defined in: heap.ts:317
+Defined in: heap.ts:445
+
+IFibonacciHeap.minimum
 
 #### Returns
 
 [`FibonacciHeapNode`](../type-aliases/FibonacciHeapNode.md)\<`E`\>
+
+Current minimum node.
+ Complexity: O(1)
 
 #### Implementation of
 
@@ -370,7 +444,7 @@ Defined in: heap.ts:317
 
 > **nodeIterator**(): `Generator`\<[`FibonacciHeapNode`](../type-aliases/FibonacciHeapNode.md)\<`E`\>, `void`, `unknown`\>
 
-Defined in: heap.ts:577
+Defined in: heap.ts:747
 
 #### Returns
 
@@ -382,7 +456,9 @@ Defined in: heap.ts:577
 
 > **remove**(`target`, `isIndex`): `number` \| `E`
 
-Defined in: heap.ts:622
+Defined in: heap.ts:792
+
+Remove by value or index.
 
 #### Parameters
 
@@ -394,9 +470,14 @@ Defined in: heap.ts:622
 
 `boolean` = `true`
 
+When `true`, treat `e` as index.
+
 #### Returns
 
 `number` \| `E`
+
+Removed element or index of removal.
+ Complexity: O(n) worst case.
 
 #### Implementation of
 
@@ -408,7 +489,9 @@ Defined in: heap.ts:622
 
 > **reverseIterator**(): `Generator`\<`E`\>
 
-Defined in: heap.ts:599
+Defined in: heap.ts:769
+
+Iterates elements from the most recently added to the earliest.
 
 #### Returns
 
@@ -424,7 +507,7 @@ Defined in: heap.ts:599
 
 > **sort**(`cmp?`): `void`
 
-Defined in: heap.ts:611
+Defined in: heap.ts:781
 
 This sort function changes the comparator, if one is given as parameter!
 
@@ -448,9 +531,9 @@ This sort function changes the comparator, if one is given as parameter!
 
 > **union**(`heap`): `void`
 
-Defined in: heap.ts:357
+Defined in: heap.ts:502
 
-O(1)
+Merge another heap into this one.
 
 #### Parameters
 
@@ -458,7 +541,8 @@ O(1)
 
 [`IFibonacciHeap`](../interfaces/IFibonacciHeap.md)\<`E`\>
 
-to merge in the current one
+Heap to absorb.
+ Complexity: O(1)
 
 #### Returns
 

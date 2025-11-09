@@ -6,7 +6,13 @@
 
 # Interface: IList\<E\>
 
-Defined in: list.ts:19
+Defined in: list.ts:84
+
+Base contract shared by all collections.
+
+## Since
+
+2.0.0
 
 ## Extends
 
@@ -22,13 +28,17 @@ Defined in: list.ts:19
 
 `E`
 
+Value type.
+
 ## Properties
 
 ### comparator
 
 > **comparator**: [`Comparator`](../type-aliases/Comparator.md)\<`E`\>
 
-Defined in: index.ts:60
+Defined in: index.ts:142
+
+Comparator used for equality/sort checks.
 
 #### Inherited from
 
@@ -40,7 +50,9 @@ Defined in: index.ts:60
 
 > **size**: `number`
 
-Defined in: index.ts:61
+Defined in: index.ts:146
+
+Current element count.
 
 #### Inherited from
 
@@ -52,7 +64,11 @@ Defined in: index.ts:61
 
 > **add**(`element`): `void`
 
-Defined in: index.ts:62
+Defined in: index.ts:152
+
+Append an element.
+
+ Complexity: Amortized O(1) unless stated otherwise.
 
 #### Parameters
 
@@ -74,13 +90,18 @@ Defined in: index.ts:62
 
 > **addAll**(`collection`): `void`
 
-Defined in: list.ts:20
+Defined in: list.ts:91
+
+Append every value from an iterable.
 
 #### Parameters
 
 ##### collection
 
 `Iterable`\<`E`\>
+
+Source iterable.
+ Complexity: O(n)
 
 #### Returns
 
@@ -96,7 +117,11 @@ Defined in: list.ts:20
 
 > **clear**(): `void`
 
-Defined in: index.ts:65
+Defined in: index.ts:173
+
+Remove all entries.
+
+ Complexity: O(n)
 
 #### Returns
 
@@ -112,7 +137,11 @@ Defined in: index.ts:65
 
 > **contains**(`element`): `boolean`
 
-Defined in: index.ts:67
+Defined in: index.ts:185
+
+Test membership using the comparator when available.
+
+ Complexity: O(n)
 
 #### Parameters
 
@@ -134,7 +163,9 @@ Defined in: index.ts:67
 
 > **equals**(`otherList`): `boolean`
 
-Defined in: list.ts:23
+Defined in: list.ts:114
+
+Compare equality value-by-value using the comparator.
 
 #### Parameters
 
@@ -142,9 +173,13 @@ Defined in: list.ts:23
 
 `IList`\<`E`\>
 
+List to compare.
+
 #### Returns
 
 `boolean`
+
+`true` when lengths match and all elements compare equal.
 
 ***
 
@@ -152,7 +187,9 @@ Defined in: list.ts:23
 
 > **every**(`predicate`): `boolean`
 
-Defined in: list.ts:12
+Defined in: list.ts:48
+
+Test whether every element matches the predicate.
 
 #### Parameters
 
@@ -160,9 +197,14 @@ Defined in: list.ts:12
 
 (`element`) => `boolean`
 
+Match callback.
+
 #### Returns
 
 `boolean`
+
+`true` when all elements satisfy the predicate.
+ Complexity: O(n)
 
 #### Inherited from
 
@@ -174,7 +216,9 @@ Defined in: list.ts:12
 
 > **filter**(`predicate`): `IList`\<`E`\>
 
-Defined in: list.ts:11
+Defined in: list.ts:40
+
+Create a list containing values that satisfy the predicate.
 
 #### Parameters
 
@@ -182,9 +226,14 @@ Defined in: list.ts:11
 
 (`element`) => `boolean`
 
+Filter callback.
+
 #### Returns
 
 `IList`\<`E`\>
+
+Filtered list.
+ Complexity: O(n)
 
 #### Inherited from
 
@@ -196,7 +245,9 @@ Defined in: list.ts:11
 
 > **get**(`index`): `E`
 
-Defined in: list.ts:21
+Defined in: list.ts:99
+
+Read the element at a given index.
 
 #### Parameters
 
@@ -204,9 +255,14 @@ Defined in: list.ts:21
 
 `number`
 
+Zero-based index.
+
 #### Returns
 
 `E`
+
+Element at the index.
+ Complexity: O(1) for [List](../classes/List.md), O(n) for linked variants.
 
 ***
 
@@ -214,7 +270,9 @@ Defined in: list.ts:21
 
 > **indexOf**(`element`, `startIndex`): `number`
 
-Defined in: list.ts:24
+Defined in: list.ts:123
+
+Locate the first matching element starting at `startIndex`.
 
 #### Parameters
 
@@ -222,13 +280,20 @@ Defined in: list.ts:24
 
 `E`
 
+Needle value.
+
 ##### startIndex
 
 `number`
 
+Optional search start.
+
 #### Returns
 
 `number`
+
+Index or `-1`.
+ Complexity: O(n)
 
 ***
 
@@ -236,11 +301,15 @@ Defined in: list.ts:24
 
 > **isEmpty**(): `boolean`
 
-Defined in: index.ts:66
+Defined in: index.ts:179
+
+Check for emptiness.
 
 #### Returns
 
 `boolean`
+
+`true` when `size === 0`.
 
 #### Inherited from
 
@@ -252,7 +321,9 @@ Defined in: index.ts:66
 
 > **map**\<`V`\>(`fn`): `IList`\<`V`\>
 
-Defined in: list.ts:9
+Defined in: list.ts:22
+
+Transform each element.
 
 #### Type Parameters
 
@@ -260,15 +331,22 @@ Defined in: list.ts:9
 
 `V`
 
+Result type.
+
 #### Parameters
 
 ##### fn
 
 (`element`) => `V`
 
+Mapper invoked per element.
+
 #### Returns
 
 `IList`\<`V`\>
+
+New list containing mapped values.
+ Complexity: O(n)
 
 #### Inherited from
 
@@ -280,7 +358,9 @@ Defined in: list.ts:9
 
 > **reduce**\<`V`\>(`fn`, `initialValue?`): `V`
 
-Defined in: list.ts:10
+Defined in: list.ts:32
+
+Reduce the list to a single value.
 
 #### Type Parameters
 
@@ -288,19 +368,28 @@ Defined in: list.ts:10
 
 `V`
 
+Accumulator type.
+
 #### Parameters
 
 ##### fn
 
 (`accumulator`, `element`) => `V`
 
+Reducer callback.
+
 ##### initialValue?
 
 `V`
 
+Optional starting value.
+
 #### Returns
 
 `V`
+
+Accumulated result.
+ Complexity: O(n)
 
 #### Inherited from
 
@@ -312,11 +401,15 @@ Defined in: list.ts:10
 
 > **remove**(`e`, `isIndex?`): `number` \| `E`
 
-Defined in: index.ts:64
+Defined in: index.ts:167
+
+Remove by value or index.
 
 #### Parameters
 
 ##### e
+
+Element or index.
 
 `number` | `E`
 
@@ -324,9 +417,14 @@ Defined in: index.ts:64
 
 `boolean`
 
+When `true`, treat `e` as index.
+
 #### Returns
 
 `number` \| `E`
+
+Removed element or index of removal.
+ Complexity: O(n) worst case.
 
 #### Inherited from
 
@@ -338,7 +436,9 @@ Defined in: index.ts:64
 
 > **reverseIterator**(): `Generator`\<`E`\>
 
-Defined in: list.ts:25
+Defined in: list.ts:127
+
+Iterate backwards.
 
 #### Returns
 
@@ -354,7 +454,9 @@ Defined in: list.ts:25
 
 > **set**(`index`, `element`): `boolean`
 
-Defined in: list.ts:22
+Defined in: list.ts:107
+
+Replace the element at `index`.
 
 #### Parameters
 
@@ -362,7 +464,11 @@ Defined in: list.ts:22
 
 `number`
 
+Position to update.
+
 ##### element
+
+New value.
 
 `E` | `null`
 
@@ -370,13 +476,17 @@ Defined in: list.ts:22
 
 `boolean`
 
+`true` when successful.
+
 ***
 
 ### slice()
 
 > **slice**(`startIndex`, `endIndex`): `IList`\<`E`\>
 
-Defined in: list.ts:14
+Defined in: list.ts:65
+
+Take a slice using modulo arithmetic for wrap-around indices.
 
 #### Parameters
 
@@ -384,13 +494,20 @@ Defined in: list.ts:14
 
 `number`
 
+Beginning index (accepts negatives).
+
 ##### endIndex
 
 `number`
 
+Ending index.
+
 #### Returns
 
 `IList`\<`E`\>
+
+New list with copied range.
+ Complexity: O(k) where k is slice length.
 
 #### Inherited from
 
@@ -402,7 +519,9 @@ Defined in: list.ts:14
 
 > **slice2**(`startIndex`, `endIndex`): `IList`\<`E`\>
 
-Defined in: list.ts:15
+Defined in: list.ts:72
+
+Variant of [slice](IListFunctions.md#slice) where the sign of `endIndex` decides direction.
 
 #### Parameters
 
@@ -418,6 +537,9 @@ Defined in: list.ts:15
 
 `IList`\<`E`\>
 
+New list containing copied range.
+ Complexity: O(k)
+
 #### Inherited from
 
 [`IListFunctions`](IListFunctions.md).[`slice2`](IListFunctions.md#slice2)
@@ -428,7 +550,9 @@ Defined in: list.ts:15
 
 > **some**(`predicate`): `boolean`
 
-Defined in: list.ts:13
+Defined in: list.ts:56
+
+Test whether any element matches the predicate.
 
 #### Parameters
 
@@ -436,9 +560,14 @@ Defined in: list.ts:13
 
 (`element`) => `boolean`
 
+Match callback.
+
 #### Returns
 
 `boolean`
+
+`true` when at least one element matches.
+ Complexity: O(n)
 
 #### Inherited from
 
@@ -450,13 +579,17 @@ Defined in: list.ts:13
 
 > **sort**(`cmp?`): `void`
 
-Defined in: sort/index.ts:9
+Defined in: sort/index.ts:19
+
+Sort the structure using the provided comparator.
 
 #### Parameters
 
 ##### cmp?
 
 [`Comparator`](../type-aliases/Comparator.md)\<`E`\>
+
+Optional comparator; falls back to the internal one.
 
 #### Returns
 
@@ -472,7 +605,9 @@ Defined in: sort/index.ts:9
 
 > **splice**(`startIndex`, `deleteCount`): `IList`\<`E`\>
 
-Defined in: list.ts:16
+Defined in: list.ts:81
+
+Remove and return a consecutive range.
 
 #### Parameters
 
@@ -480,13 +615,20 @@ Defined in: list.ts:16
 
 `number`
 
+Start position.
+
 ##### deleteCount
 
 `number`
 
+Number of items to remove (negative => left).
+
 #### Returns
 
 `IList`\<`E`\>
+
+List containing removed elements.
+ Complexity: O(n)
 
 #### Inherited from
 

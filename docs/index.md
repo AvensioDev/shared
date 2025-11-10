@@ -31,10 +31,10 @@ import { List, Queue, Stack, createComparator } from '@avensio/shared'
 - **Sorting**: QuickSort and HeapSort on `ISortable` collections
 - **Math/Utilities**: `Point`, `Ordering`, `createComparator`, helper interfaces
 
-Use the sidebar to explore each family. Comparator usage is covered in [Comparator Helpers](./comparators.md). For the generated API docs, open [docs/api/index.html](./api/index.html).
+Use the sidebar to explore each family. Comparator usage is covered in [Comparator Helpers](./comparators.md). For the generated API docs, open [docs/api/README.html](./api/README.html).
 
 ## Graphs
-Graph algorithms now live in [`@avensio/graph`](../graph/README.md). That package exposes `Graph`, `Vertex`, and `Edge` classes plus serialization hooks and algorithms. Use this shared library for the supporting data structures those graphs rely on.
+Graph algorithms now live in [`@avensio/graph`](https://avensio.github.io/docs/graph). That package exposes `Graph`, `Vertex`, and `Edge` classes plus serialization hooks and algorithms. Use this shared library for the supporting data structures those graphs rely on.
 
 ## Benchmarks & Tests
 - `pnpm test` → Vitest unit suite with coverage

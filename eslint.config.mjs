@@ -17,6 +17,7 @@ export default defineConfig(
     'eslint.config.mjs',
     'docs/.vitepress/cache/**',
     'scripts/hooks/**',
+    'benchmarks/**',
   ]),
   {
     files: [

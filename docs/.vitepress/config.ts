@@ -7,9 +7,33 @@ export default withPwa(defineConfig({
   lastUpdated: true,
   base: '/',
   sitemap: {
-    hostname: 'https://docs.avensio.de',
+    hostname: 'https://docs.avensio.dev',
   },
-  pwa: {},
+  pwa: {
+    mode: 'development',
+    registerType: 'autoUpdate',
+    injectRegister: 'script-defer',
+    includeAssets: ['favicon.ico', 'Logo Avensio.png'],
+    manifest: {
+      name: 'Avensio Shared',
+      short_name: 'Shared',
+      theme_color: '#ffffff',
+    },
+    pwaAssets: {
+      config: true,
+    },
+    workbox: {
+      globPatterns: ['**/*.{css,js,html,svg,png,ico,txt,woff2}'],
+    },
+    experimental: {
+      includeAllowlist: true,
+    },
+    devOptions: {
+      enabled: true,
+      suppressWarnings: true,
+      navigateFallback: '/',
+    },
+  },
   markdown: {
     lineNumbers: true,
     toc: { level: [2, 3, 4] },

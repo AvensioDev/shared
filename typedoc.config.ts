@@ -1,3 +1,4 @@
+// @ts-nocheck
 // typedoc.config.ts
 import type { TypeDocOptions } from 'typedoc'
 

@@ -16,6 +16,7 @@ export default withPwa(defineConfig({
     publicDir: path.resolve(__dirname, '../public'),
   },
   pwa: {
+    outDir: path.resolve(__dirname, '../.vitepress/dist'),
     mode: isDevCommand ? 'development' : 'production',
     registerType: 'autoUpdate',
     injectRegister: 'script-defer',

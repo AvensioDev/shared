@@ -27,5 +27,6 @@ export default defineConfig({
       }
     }, ['iPad Air 9.7"'])
   },
-  images: 'docs/public/avensio-logo-mark.svg'
+  images: 'docs/public/avensio-logo-mark.svg',
+  root: 'docs'
 })

@@ -4,11 +4,11 @@ description: |-
   .
 ---
 
-[**Avensio Shared**](../README.md)
+[**Avensio Shared (TypeDoc)**](../README.md)
 
 ***
 
-[Avensio Shared](../README.md) / TraverseOrder
+[Avensio Shared (TypeDoc)](../README.md) / TraverseOrder
 
 # Type Alias: TraverseOrder
 

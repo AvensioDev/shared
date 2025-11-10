@@ -2,11 +2,11 @@
 description: Doubly linked list supporting bidirectional traversal with O(1) inserts at both ends.
 ---
 
-[**Avensio Shared**](../README.md)
+[**Avensio Shared (TypeDoc)**](../README.md)
 
 ***
 
-[Avensio Shared](../README.md) / DoublyLinkedList
+[Avensio Shared (TypeDoc)](../README.md) / DoublyLinkedList
 
 # Class: DoublyLinkedList\<E\>
 

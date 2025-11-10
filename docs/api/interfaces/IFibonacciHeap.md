@@ -6,11 +6,11 @@ description: |-
   left-hand side as greater-than to enable the deletion shortcut.
 ---
 
-[**Avensio Shared**](../README.md)
+[**Avensio Shared (TypeDoc)**](../README.md)
 
 ***
 
-[Avensio Shared](../README.md) / IFibonacciHeap
+[Avensio Shared (TypeDoc)](../README.md) / IFibonacciHeap
 
 # Interface: IFibonacciHeap\<E\>
 

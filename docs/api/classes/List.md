@@ -4,11 +4,11 @@ description: |-
    optimized for random access and iteration.
 ---
 
-[**Avensio Shared**](../README.md)
+[**Avensio Shared (TypeDoc)**](../README.md)
 
 ***
 
-[Avensio Shared](../README.md) / List
+[Avensio Shared (TypeDoc)](../README.md) / List
 
 # Class: List\<E\>
 

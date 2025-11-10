@@ -1,8 +1,8 @@
-**Avensio Shared**
+**Avensio Shared (TypeDoc)**
 
 ***
 
-# Avensio Shared
+# Avensio Shared (TypeDoc)
 
 ## Enumerations
 

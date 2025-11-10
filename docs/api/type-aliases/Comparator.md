@@ -4,11 +4,11 @@ description: |-
   .
 ---
 
-[**Avensio Shared**](../README.md)
+[**Avensio Shared (TypeDoc)**](../README.md)
 
 ***
 
-[Avensio Shared](../README.md) / Comparator
+[Avensio Shared (TypeDoc)](../README.md) / Comparator
 
 # Type Alias: Comparator()\<E\>
 

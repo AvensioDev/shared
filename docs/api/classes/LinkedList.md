@@ -2,11 +2,11 @@
 description: Singly linked list with O(1) head/tail insertions.
 ---
 
-[**Avensio Shared**](../README.md)
+[**Avensio Shared (TypeDoc)**](../README.md)
 
 ***
 
-[Avensio Shared](../README.md) / LinkedList
+[Avensio Shared (TypeDoc)](../README.md) / LinkedList
 
 # Class: LinkedList\<E\>
 

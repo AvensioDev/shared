@@ -1,3 +1,7 @@
+---
+description: Compares Queue, LinkedQueue, PriorityQueue, and Dequeue implementations, showing how to pick the right FIFO structure and what each costs.
+---
+
 # Queues
 `@avensio/shared` offers multiple FIFO-oriented structures for different workloads.
 

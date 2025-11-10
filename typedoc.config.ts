@@ -2,7 +2,7 @@
 import type { TypeDocOptions } from 'typedoc'
 
 const config: Partial<TypeDocOptions> = {
-  name: 'Avensio Shared',
+  name: 'Avensio Shared (TypeDoc)',
   gitRevision: 'main',
   gitRemote: 'origin',
   entryPoints: ['src/index.ts'],

@@ -2,11 +2,11 @@
 description: Base contract shared by all collections.
 ---
 
-[**Avensio Shared**](../README.md)
+[**Avensio Shared (TypeDoc)**](../README.md)
 
 ***
 
-[Avensio Shared](../README.md) / ICollection
+[Avensio Shared (TypeDoc)](../README.md) / ICollection
 
 # Interface: ICollection\<E\>
 

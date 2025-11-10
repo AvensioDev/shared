@@ -1,3 +1,7 @@
+---
+description: Details array-backed Stack and LinkedStack implementations with usage patterns, iterator support, and performance characteristics.
+---
+
 # Stacks
 
 Stacks provide LIFO semantics via either an array-backed implementation (`Stack`) or a node-based

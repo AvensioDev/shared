@@ -2,11 +2,11 @@
 description: Linked-list queue optimized for consistent O(1) enqueues/dequeues regardless of size.
 ---
 
-[**Avensio Shared**](../README.md)
+[**Avensio Shared (TypeDoc)**](../README.md)
 
 ***
 
-[Avensio Shared](../README.md) / LinkedQueue
+[Avensio Shared (TypeDoc)](../README.md) / LinkedQueue
 
 # Class: LinkedQueue\<E\>
 

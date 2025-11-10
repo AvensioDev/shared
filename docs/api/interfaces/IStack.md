@@ -2,11 +2,11 @@
 description: LIFO stack contract shared by array and linked implementations.
 ---
 
-[**Avensio Shared**](../README.md)
+[**Avensio Shared (TypeDoc)**](../README.md)
 
 ***
 
-[Avensio Shared](../README.md) / IStack
+[Avensio Shared (TypeDoc)](../README.md) / IStack
 
 # Interface: IStack\<E\>
 

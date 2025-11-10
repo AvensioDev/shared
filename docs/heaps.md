@@ -1,3 +1,7 @@
+---
+description: Explains when to reach for BinaryHeap vs FibonacciHeap in @avensio/shared, covering APIs, sample usage, and complexity comparisons.
+---
+
 # Heaps
 
 Heaps power priority queues and graph algorithms. Use `BinaryHeap` for general-purpose scheduling

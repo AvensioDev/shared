@@ -4,11 +4,11 @@ description: |-
   .
 ---
 
-[**Avensio Shared**](../README.md)
+[**Avensio Shared (TypeDoc)**](../README.md)
 
 ***
 
-[Avensio Shared](../README.md) / PriorityQueue
+[Avensio Shared (TypeDoc)](../README.md) / PriorityQueue
 
 # Class: PriorityQueue\<E\>
 

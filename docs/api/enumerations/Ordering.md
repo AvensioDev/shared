@@ -2,11 +2,11 @@
 description: Defines the relative ordering results used throughout the collections.
 ---
 
-[**Avensio Shared**](../README.md)
+[**Avensio Shared (TypeDoc)**](../README.md)
 
 ***
 
-[Avensio Shared](../README.md) / Ordering
+[Avensio Shared (TypeDoc)](../README.md) / Ordering
 
 # Enumeration: Ordering
 

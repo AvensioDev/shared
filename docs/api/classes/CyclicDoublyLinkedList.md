@@ -2,11 +2,11 @@
 description: Circular doubly linked list used by Fibonacci heap internals.
 ---
 
-[**Avensio Shared**](../README.md)
+[**Avensio Shared (TypeDoc)**](../README.md)
 
 ***
 
-[Avensio Shared](../README.md) / CyclicDoublyLinkedList
+[Avensio Shared (TypeDoc)](../README.md) / CyclicDoublyLinkedList
 
 # Class: CyclicDoublyLinkedList\<E\>
 

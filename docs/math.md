@@ -1,3 +1,7 @@
+---
+description: Introduces the lightweight Point helper used for graph or geometry payloads, with simple constructor examples.
+---
+
 # Math & Utilities
 
 ## `Point`

@@ -1,3 +1,7 @@
+---
+description: Actionable guide to QuickSort and HeapSort helpers in @avensio/shared, including APIs, comparator requirements, and complexity trade-offs.
+---
+
 # Sorting
 
 Two helpers are provided: `quicksort` (operates on any `ICollection`) and `heapSort` (builds a

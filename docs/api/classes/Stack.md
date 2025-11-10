@@ -2,11 +2,11 @@
 description: Array-backed stack optimized for traversal and random inspection.
 ---
 
-[**Avensio Shared**](../README.md)
+[**Avensio Shared (TypeDoc)**](../README.md)
 
 ***
 
-[Avensio Shared](../README.md) / Stack
+[Avensio Shared (TypeDoc)](../README.md) / Stack
 
 # Class: Stack\<E\>
 

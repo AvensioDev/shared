@@ -2,11 +2,11 @@
 description: FIFO queue contract shared by all queue implementations.
 ---
 
-[**Avensio Shared**](../README.md)
+[**Avensio Shared (TypeDoc)**](../README.md)
 
 ***
 
-[Avensio Shared](../README.md) / IQueue
+[Avensio Shared (TypeDoc)](../README.md) / IQueue
 
 # Interface: IQueue\<E\>
 

@@ -1,3 +1,7 @@
+---
+description: Covers the BinarySearchTree API, traversals, complexity profile, and how comparators shape ordered data storage.
+---
+
 # Trees
 
 ## BinarySearchTree

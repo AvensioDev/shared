@@ -2,11 +2,11 @@
 description: Comparator sorting numbers ascending (min-first).
 ---
 
-[**Avensio Shared**](../README.md)
+[**Avensio Shared (TypeDoc)**](../README.md)
 
 ***
 
-[Avensio Shared](../README.md) / numberComparatorASC
+[Avensio Shared (TypeDoc)](../README.md) / numberComparatorASC
 
 # Variable: numberComparatorASC
 

@@ -1,3 +1,7 @@
+---
+description: Catalog of shared helper types like Ordering, Comparator, Node, ICollection, plus the printHeap visualizer for Fibonacci heaps.
+---
+
 # Helper Utilities
 
 ## Core types

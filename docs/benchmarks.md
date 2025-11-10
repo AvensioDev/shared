@@ -1,3 +1,7 @@
+---
+description: Explains how to run pnpm bench and interpret recorded benchmark suites for lists, queues, stacks, and heap-vs-tree comparisons.
+---
+
 # Benchmarks
 
 Run `pnpm bench` to execute the Vitest benchmark suites under `test/benchmarks/`.

@@ -2,11 +2,11 @@
 description: Comparator sorting strings ascending (lexicographical).
 ---
 
-[**Avensio Shared**](../README.md)
+[**Avensio Shared (TypeDoc)**](../README.md)
 
 ***
 
-[Avensio Shared](../README.md) / stringComparatorASC
+[Avensio Shared (TypeDoc)](../README.md) / stringComparatorASC
 
 # Variable: stringComparatorASC
 

@@ -1,3 +1,7 @@
+---
+description: Summarizes the package's core data structures and contrasts BinaryHeap vs BinarySearchTree characteristics with sample code.
+---
+
 # Data Structures Overview
 
 The shared package contains reusable lists, queues, stacks, heaps, trees, and math/comparator

@@ -5,11 +5,11 @@ description: |-
    extract-min.
 ---
 
-[**Avensio Shared**](../README.md)
+[**Avensio Shared (TypeDoc)**](../README.md)
 
 ***
 
-[Avensio Shared](../README.md) / FibonacciHeap
+[Avensio Shared (TypeDoc)](../README.md) / FibonacciHeap
 
 # Class: FibonacciHeap\<E\>
 

@@ -2,11 +2,11 @@
 description: Allows iterating from tail to head.
 ---
 
-[**Avensio Shared**](../README.md)
+[**Avensio Shared (TypeDoc)**](../README.md)
 
 ***
 
-[Avensio Shared](../README.md) / IReverseIterable
+[Avensio Shared (TypeDoc)](../README.md) / IReverseIterable
 
 # Interface: IReverseIterable\<E\>
 

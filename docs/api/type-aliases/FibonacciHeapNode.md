@@ -2,11 +2,11 @@
 description: Node container used internally by the Fibonacci heap.
 ---
 
-[**Avensio Shared**](../README.md)
+[**Avensio Shared (TypeDoc)**](../README.md)
 
 ***
 
-[Avensio Shared](../README.md) / FibonacciHeapNode
+[Avensio Shared (TypeDoc)](../README.md) / FibonacciHeapNode
 
 # Type Alias: FibonacciHeapNode\<E\>
 

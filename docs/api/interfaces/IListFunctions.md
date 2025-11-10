@@ -2,11 +2,11 @@
 description: Functional helpers shared by array- and node-based lists.
 ---
 
-[**Avensio Shared**](../README.md)
+[**Avensio Shared (TypeDoc)**](../README.md)
 
 ***
 
-[Avensio Shared](../README.md) / IListFunctions
+[Avensio Shared (TypeDoc)](../README.md) / IListFunctions
 
 # Interface: IListFunctions\<E\>
 

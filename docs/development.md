@@ -1,3 +1,7 @@
+---
+description: Step-by-step development workflow for contributors, listing prerequisites, pnpm scripts, quality gates, and contribution guidelines.
+---
+
 # Development Workflow
 
 ## Prerequisites

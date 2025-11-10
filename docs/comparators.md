@@ -1,3 +1,7 @@
+---
+description: Reference for createComparator and built-in number/string comparators, with usage patterns and guidance on composing reusable ordering logic.
+---
+
 # Comparator Helpers
 
 All collections rely on comparators that return an `Ordering`. Use `createComparator` for property

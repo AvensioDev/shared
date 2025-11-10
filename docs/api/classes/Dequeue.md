@@ -2,11 +2,11 @@
 description: Double-ended queue exposing push/pop operations on both ends.
 ---
 
-[**Avensio Shared**](../README.md)
+[**Avensio Shared (TypeDoc)**](../README.md)
 
 ***
 
-[Avensio Shared](../README.md) / Dequeue
+[Avensio Shared (TypeDoc)](../README.md) / Dequeue
 
 # Class: Dequeue\<E\>
 

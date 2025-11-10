@@ -1,3 +1,7 @@
+---
+description: Deep dive into List and linked list variants, showcasing slicing helpers, comparator-driven sorting, initialization patterns, and complexity tables.
+---
+
 # Lists
 `List` and its linked variants offer array-like APIs plus iterable helpers.
 

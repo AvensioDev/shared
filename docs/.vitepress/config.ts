@@ -1,5 +1,8 @@
 import { defineConfig } from 'vitepress'
 import { withPwa } from '@vite-pwa/vitepress'
+import path from 'node:path'
+
+const isDevCommand = process.argv.includes('dev')
 
 export default withPwa(defineConfig({
   title: 'Avensio Shared',
@@ -9,29 +12,32 @@ export default withPwa(defineConfig({
   sitemap: {
     hostname: 'https://docs.avensio.dev',
   },
+  vite: {
+    publicDir: path.resolve(__dirname, '../public'),
+  },
   pwa: {
-    mode: 'development',
+    mode: isDevCommand ? 'development' : 'production',
     registerType: 'autoUpdate',
     injectRegister: 'script-defer',
     includeAssets: ['favicon.ico', 'Logo Avensio.png'],
     manifest: {
       name: 'Avensio Shared',
       short_name: 'Shared',
-      theme_color: '#ffffff',
+      theme_color: '#0ea5e9',
     },
     pwaAssets: {
       config: true,
     },
     workbox: {
       globPatterns: ['**/*.{css,js,html,svg,png,ico,txt,woff2}'],
-    },
-    experimental: {
-      includeAllowlist: true,
+      navigateFallback: '/index.html',
+      navigateFallbackAllowlist: [/./],
     },
     devOptions: {
-      enabled: true,
+      enabled: isDevCommand,
       suppressWarnings: true,
-      navigateFallback: '/',
+      navigateFallback: '/index.html',
+      navigateFallbackAllowlist: [/./],
     },
   },
   markdown: {
@@ -43,9 +49,7 @@ export default withPwa(defineConfig({
     }
   },
   head: [
-    ['meta', { name: 'theme-color', content: '#0ea5e9' }],
     ['meta', { name: 'author', content: 'Avensio Dev Team' }],
-    ['link', { rel: 'icon', href: '/favicon.ico' }],
     ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
     ['meta', { property: 'og:title', content: 'Avensio Shared Docs' }],
     ['meta', { property: 'og:description', content: 'High-performance shared utilities and data structures for the Avensio ecosystem.' }]

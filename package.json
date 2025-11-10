@@ -42,6 +42,7 @@
     "docs:build": "pnpm docs:api && vitepress build docs/",
     "postdocs:build": "echo 'docs.avensio.de' > ./docs/.vitepress/dist/CNAME",
     "docs:preview": "vitepress preview docs/",
+    "docs:pwa-assets": "pwa-assets-generator --config pwa-assets.config.ts",
     "clean": "rm -rf node_modules/ && rm -rf dist/"
   },
   "publishConfig": {

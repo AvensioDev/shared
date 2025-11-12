@@ -28,6 +28,7 @@
     "datastructures"
   ],
   "scripts": {
+    "postinstall": "node ./scripts/hooks/commit-msg.mjs",
     "prepack": "pnpm release",
     "release": "pnpm test && pnpm build && pnpm changelog",
     "changelog": "changelogen --release --push --yes",

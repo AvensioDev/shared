@@ -1,8 +1,75 @@
-import { defineConfig } from 'vitepress'
+import { defineConfig, type HeadConfig } from 'vitepress'
 import { withPwa } from '@vite-pwa/vitepress'
 import path from 'node:path'
 
 const isDevCommand = process.argv.includes('dev')
+const siteUrl = 'https://docs.avensio.dev'
+const organizationId = `${siteUrl}#organization`
+const organizationJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  '@id': organizationId,
+  name: 'Avensio',
+  url: siteUrl,
+  logo: `${siteUrl}/favicon.ico`,
+  sameAs: [
+    'https://github.com/Avensio/shared',
+    'https://www.avensio.de',
+    'https://www.dev-journey.de',
+  ],
+}
+
+const webSiteJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'Avensio Shared Docs',
+  url: siteUrl,
+  publisher: {
+    '@id': organizationId,
+  },
+}
+
+const softwareJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: '@avensio/shared',
+  applicationCategory: 'DeveloperApplication',
+  operatingSystem: 'Windows, macOS, Linux, Browser',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD',
+  },
+  url: siteUrl,
+  downloadUrl: 'https://www.npmjs.com/package/@avensio/shared',
+  publisher: {
+    '@id': organizationId,
+  },
+}
+
+const createJsonLdScript = (data: Record<string, unknown>): HeadConfig => ([
+  'script',
+  { type: 'application/ld+json' },
+  JSON.stringify(data),
+])
+
+const buildPageUrl = (relativePath?: string) => {
+  if (!relativePath)
+    return siteUrl
+
+  let normalized = relativePath.replace(/\\/g, '/')
+
+  if (/(?:^|\/)(index|README)\.md$/i.test(normalized))
+    normalized = normalized.replace(/(?:^|\/)(index|README)\.md$/i, '')
+  else
+    normalized = normalized.replace(/\.md$/i, '')
+
+  normalized = normalized
+    .replace(/\/+/g, '/')
+    .replace(/^\/|\/$/g, '')
+
+  return normalized ? `${siteUrl}/${normalized}` : siteUrl
+}
 
 export default withPwa(defineConfig({
   title: 'Avensio Shared',
@@ -53,8 +120,29 @@ export default withPwa(defineConfig({
     ['meta', { name: 'author', content: 'Avensio Dev Team' }],
     ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
     ['meta', { property: 'og:title', content: 'Avensio Shared Docs' }],
-    ['meta', { property: 'og:description', content: 'High-performance shared utilities and data structures for the Avensio ecosystem.' }]
+    ['meta', { property: 'og:description', content: 'High-performance shared utilities and data structures for the Avensio ecosystem.' }],
+    createJsonLdScript(organizationJsonLd),
+    createJsonLdScript(webSiteJsonLd),
+    createJsonLdScript(softwareJsonLd),
   ],
+  transformHead({ page }) {
+    const description = page.frontmatter?.description
+    if (!description)
+      return []
+
+    return [
+      createJsonLdScript({
+        '@context': 'https://schema.org',
+        '@type': 'TechArticle',
+        headline: page.title ?? page.frontmatter?.title ?? 'Avensio Shared Docs',
+        description,
+        author: { '@id': organizationId },
+        publisher: { '@id': organizationId },
+        mainEntityOfPage: buildPageUrl(page.relativePath),
+        image: `${siteUrl}/pwa-512x512.png`,
+      }),
+    ]
+  },
   themeConfig: {
     footer: {
       message: 'Released under the MIT License.',
@@ -97,9 +185,9 @@ export default withPwa(defineConfig({
     ],
     sidebar: [
       {
-        text: 'Getting Started',
+        text: 'Guides',
         items: [
-          { text: 'Overview', link: '/' },
+          { text: 'Quickstart', link: '/' },
           { text: 'Comparator Helpers', link: '/comparators' },
           { text: 'Data Structures', link: '/data-structures' },
           { text: 'Typed API (TypeDoc)', link: '/api/README' },
@@ -128,6 +216,8 @@ export default withPwa(defineConfig({
         items: [
           { text: 'Benchmarks', link: '/benchmarks' },
           { text: 'Development Workflow', link: '/development' },
+          { text: 'Changelog', link: '/CHANGELOG' },
+          { text: 'History', link: '/history' },
         ],
       },
     ],

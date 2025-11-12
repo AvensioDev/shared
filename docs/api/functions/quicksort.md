@@ -1,8 +1,8 @@
-[**Avensio Shared (TypeDoc)**](../README.md)
+[**Typed API (TypeDoc)**](../README.md)
 
 ***
 
-[Avensio Shared (TypeDoc)](../README.md) / quicksort
+[Typed API (TypeDoc)](../README.md) / quicksort
 
 # Function: quicksort()
 

@@ -2,11 +2,11 @@
 description: Lightweight 3D point used by graph and geometry utilities.
 ---
 
-[**Avensio Shared (TypeDoc)**](../README.md)
+[**Typed API (TypeDoc)**](../README.md)
 
 ***
 
-[Avensio Shared (TypeDoc)](../README.md) / Point
+[Typed API (TypeDoc)](../README.md) / Point
 
 # Class: Point
 

@@ -2,11 +2,11 @@
 description: Node-based stack with O(1) push/pop regardless of size.
 ---
 
-[**Avensio Shared (TypeDoc)**](../README.md)
+[**Typed API (TypeDoc)**](../README.md)
 
 ***
 
-[Avensio Shared (TypeDoc)](../README.md) / LinkedStack
+[Typed API (TypeDoc)](../README.md) / LinkedStack
 
 # Class: LinkedStack\<E\>
 

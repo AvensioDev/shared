@@ -1,8 +1,8 @@
-**Avensio Shared (TypeDoc)**
+**Typed API (TypeDoc)**
 
 ***
 
-# Avensio Shared (TypeDoc)
+# Typed API (TypeDoc)
 
 ## Enumerations
 

@@ -2,11 +2,11 @@
 description: Doubly linked node shared by list/queue implementations.
 ---
 
-[**Avensio Shared (TypeDoc)**](../README.md)
+[**Typed API (TypeDoc)**](../README.md)
 
 ***
 
-[Avensio Shared (TypeDoc)](../README.md) / Node
+[Typed API (TypeDoc)](../README.md) / Node
 
 # Type Alias: Node\<E\>
 

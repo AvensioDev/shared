@@ -1,8 +1,8 @@
-[**Avensio Shared (TypeDoc)**](../README.md)
+[**Typed API (TypeDoc)**](../README.md)
 
 ***
 
-[Avensio Shared (TypeDoc)](../README.md) / heapSort
+[Typed API (TypeDoc)](../README.md) / heapSort
 
 # Function: heapSort()
 

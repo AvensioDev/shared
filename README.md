@@ -87,19 +87,21 @@ Every exported member is documented with accurate complexity data, examples, and
 - Execute micro-benchmarks (lists/queues/stacks): `pnpm bench` — results per round are tracked in `test/benchmarks/README.md`
 - Development mode with watch/coverage logging: `pnpm dev`
 
-## Development workflow
-| Command | Description |
-| --- | --- |
-| `pnpm lint` | ESLint with auto-fix over `src/` |
-| `pnpm build` | Builds ESM + IIFE bundles and regenerates types |
-| `pnpm docs` | Launches VitePress (`docs/`) locally |
-| `pnpm clean` | Removes `node_modules/` and `dist/` |
-| `pnpm release` | Runs tests + build + changelog via `changelogen` |
+## Development & release workflow
+| Command         | Description |
+|-----------------| --- |
+| `pnpm lint`     | ESLint with auto-fix over `src/` |
+| `pnpm build`    | Builds ESM + IIFE bundles and regenerates types |
+| `pnpm docs:dev` | Launches VitePress (`docs/`) locally |
+| `pnpm clean`    | Removes `node_modules/` and `dist/` |
+| `pnpm release`  | Runs tests + build + changelog (`changelogen`) before publishing |
 
-See [`docs/development.md`](docs/development.md) for contributor details.
+Docs are deployed via the [mono-repo](https://github.com/Avensio/shared) workflow (`.github/workflows/docs.yml`), while package publishing is handled by the `pnpm release` script plus the corresponding CI job.
+
+See [`docs/development.md`](docs/development.md) and [CONTRIBUTING.md](CONTRIBUTING.md) for contributor details.
 
 ## Links
 - [`docs/`](docs/index.md)
-- [Changelog](./CHANGELOG.md)
+- [Changelog](./docs/CHANGELOG.md)
 - [License](./LICENSE)
 - [`@avensio/graph`](../graph/README.md) for advanced graph features

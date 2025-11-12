@@ -2,11 +2,11 @@
 description: Unbalanced binary search tree that keeps data ordered via a comparator.
 ---
 
-[**Avensio Shared (TypeDoc)**](../README.md)
+[**Typed API (TypeDoc)**](../README.md)
 
 ***
 
-[Avensio Shared (TypeDoc)](../README.md) / BinarySearchTree
+[Typed API (TypeDoc)](../README.md) / BinarySearchTree
 
 # Class: BinarySearchTree\<T\>
 

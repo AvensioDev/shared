@@ -2,11 +2,11 @@
 description: Creates a comparator from a property key or extractor function.
 ---
 
-[**Avensio Shared (TypeDoc)**](../README.md)
+[**Typed API (TypeDoc)**](../README.md)
 
 ***
 
-[Avensio Shared (TypeDoc)](../README.md) / createComparator
+[Typed API (TypeDoc)](../README.md) / createComparator
 
 # Function: createComparator()
 

@@ -2,11 +2,11 @@
 description: Array-backed queue with amortized O(1) operations using a moving head index.
 ---
 
-[**Avensio Shared (TypeDoc)**](../README.md)
+[**Typed API (TypeDoc)**](../README.md)
 
 ***
 
-[Avensio Shared (TypeDoc)](../README.md) / Queue
+[Typed API (TypeDoc)](../README.md) / Queue
 
 # Class: Queue\<E\>
 

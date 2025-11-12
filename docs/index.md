@@ -14,7 +14,15 @@ pnpm add @avensio/shared
 
 ### Import
 ```ts
-import { List, Queue, Stack, createComparator } from '@avensio/shared'
+import { List, Queue, createComparator } from '@avensio/shared'
+
+const todo = new List([{ done: false, title: 'docs' }])
+todo.comparator = createComparator('title')
+todo.sort()
+
+const queue = new Queue<string>(['alpha'])
+queue.enqueue('beta')
+console.log(queue.dequeue())
 ```
 
 ### Browser
@@ -35,7 +43,7 @@ import { List, Queue, Stack, createComparator } from '@avensio/shared'
 - **Sorting**: QuickSort and HeapSort on `ISortable` collections
 - **Math/Utilities**: `Point`, `Ordering`, `createComparator`, helper interfaces
 
-Use the sidebar to explore each family. Comparator usage is covered in [Comparator Helpers](./comparators.md). For the generated API docs, open [docs/api/README.html](./api/README.html).
+Use the sidebar to explore each family. Comparator usage is covered in [Comparator Helpers](./comparators.md). For the generated API docs, open [Typed API (TypeDoc)](./api/README.html).
 
 ## Graphs
 Graph algorithms now live in [`@avensio/graph`](https://avensio.github.io/docs/graph). That package exposes `Graph`, `Vertex`, and `Edge` classes plus serialization hooks and algorithms. Use this shared library for the supporting data structures those graphs rely on.
@@ -46,7 +54,9 @@ Graph algorithms now live in [`@avensio/graph`](https://avensio.github.io/docs/g
 
 ## Release & Docs
 - `pnpm build` to produce ESM/CJS/IIFE bundles
-- `pnpm docs` to run VitePress locally
+- `pnpm docs:dev` to run VitePress locally
 - `pnpm release` to run tests, build artifacts, and generate the changelog (`CHANGELOG.md`)
+
+See [Changelog](./CHANGELOG.md) and [Project History](history.md) for notable milestones.
 
 Happy building!

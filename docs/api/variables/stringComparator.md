@@ -2,11 +2,11 @@
 description: Backward-compatible string comparator alias (ascending).
 ---
 
-[**Avensio Shared (TypeDoc)**](../README.md)
+[**Typed API (TypeDoc)**](../README.md)
 
 ***
 
-[Avensio Shared (TypeDoc)](../README.md) / stringComparator
+[Typed API (TypeDoc)](../README.md) / stringComparator
 
 # Variable: stringComparator
 

@@ -2,11 +2,11 @@
 description: Contract for structures that can be sorted in-place.
 ---
 
-[**Avensio Shared (TypeDoc)**](../README.md)
+[**Typed API (TypeDoc)**](../README.md)
 
 ***
 
-[Avensio Shared (TypeDoc)](../README.md) / ISortable
+[Typed API (TypeDoc)](../README.md) / ISortable
 
 # Interface: ISortable\<V\>
 

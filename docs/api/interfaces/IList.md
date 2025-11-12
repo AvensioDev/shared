@@ -2,11 +2,11 @@
 description: Base contract shared by all collections.
 ---
 
-[**Avensio Shared (TypeDoc)**](../README.md)
+[**Typed API (TypeDoc)**](../README.md)
 
 ***
 
-[Avensio Shared (TypeDoc)](../README.md) / IList
+[Typed API (TypeDoc)](../README.md) / IList
 
 # Interface: IList\<E\>
 

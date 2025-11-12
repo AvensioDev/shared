@@ -2,11 +2,11 @@
 description: Maintains a binary heap that honors the supplied comparator (min- or max-heap).
 ---
 
-[**Avensio Shared (TypeDoc)**](../README.md)
+[**Typed API (TypeDoc)**](../README.md)
 
 ***
 
-[Avensio Shared (TypeDoc)](../README.md) / BinaryHeap
+[Typed API (TypeDoc)](../README.md) / BinaryHeap
 
 # Class: BinaryHeap\<E\>
 

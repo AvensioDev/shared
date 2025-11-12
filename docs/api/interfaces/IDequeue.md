@@ -2,11 +2,11 @@
 description: Hybrid queue/stack contract exposing push/pop on both ends.
 ---
 
-[**Avensio Shared (TypeDoc)**](../README.md)
+[**Typed API (TypeDoc)**](../README.md)
 
 ***
 
-[Avensio Shared (TypeDoc)](../README.md) / IDequeue
+[Typed API (TypeDoc)](../README.md) / IDequeue
 
 # Interface: IDequeue\<E\>
 

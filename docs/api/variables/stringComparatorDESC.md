@@ -2,11 +2,11 @@
 description: Comparator sorting strings descending.
 ---
 
-[**Avensio Shared (TypeDoc)**](../README.md)
+[**Typed API (TypeDoc)**](../README.md)
 
 ***
 
-[Avensio Shared (TypeDoc)](../README.md) / stringComparatorDESC
+[Typed API (TypeDoc)](../README.md) / stringComparatorDESC
 
 # Variable: stringComparatorDESC
 

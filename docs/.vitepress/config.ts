@@ -119,29 +119,34 @@ export default withPwa(defineConfig({
   head: [
     ['meta', { name: 'author', content: 'Avensio Dev Team' }],
     ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
-    ['meta', { property: 'og:title', content: 'Avensio Shared Docs' }],
-    ['meta', { property: 'og:description', content: 'High-performance shared utilities and data structures for the Avensio ecosystem.' }],
     createJsonLdScript(organizationJsonLd),
     createJsonLdScript(webSiteJsonLd),
     createJsonLdScript(softwareJsonLd),
   ],
-  transformHead({ page }) {
-    const description = page.frontmatter?.description
-    if (!description)
-      return []
+  transformHead({ pageData, title, description }) {
+    const page = pageData ?? {}
+    const resolvedDescription = page.frontmatter?.description ?? description
+    const pageTitle = title ?? page.title ?? page.frontmatter?.title ?? 'Avensio Shared Docs'
 
-    return [
-      createJsonLdScript({
+    const headEntries: HeadConfig[] = [
+      ['meta', { property: 'og:title', content: pageTitle }],
+    ]
+
+    if (resolvedDescription) {
+      headEntries.push(['meta', { property: 'og:description', content: resolvedDescription }])
+      headEntries.push(createJsonLdScript({
         '@context': 'https://schema.org',
         '@type': 'TechArticle',
-        headline: page.title ?? page.frontmatter?.title ?? 'Avensio Shared Docs',
-        description,
+        headline: pageTitle,
+        description: resolvedDescription,
         author: { '@id': organizationId },
         publisher: { '@id': organizationId },
         mainEntityOfPage: buildPageUrl(page.relativePath),
         image: `${siteUrl}/pwa-512x512.png`,
-      }),
-    ]
+      }))
+    }
+
+    return headEntries
   },
   themeConfig: {
     footer: {

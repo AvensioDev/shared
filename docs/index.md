@@ -2,7 +2,7 @@
 description: High-level overview of @avensio/shared, covering installation, module highlights, browser usage, related packages, and release workflows.
 ---
 
-# Overview
+# Data Structures Lib
 
 `@avensio/shared` bundles foundational TypeScript data structures (lists, queues, stacks, heaps), sorting utilities, math primitives, and comparator helpers that underpin other Avensio packages. Everything is dependency-free, works in Node.js, Deno, Bun, and browsers, and ships type definitions for first-class DX.
 

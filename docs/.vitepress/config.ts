@@ -190,10 +190,9 @@ export default withPwa(defineConfig({
     ],
     sidebar: [
       {
-        text: 'Guides',
+        text: 'Overview',
         items: [
           { text: 'Quickstart', link: '/' },
-          { text: 'Comparator Helpers', link: '/comparators' },
           { text: 'Data Structures', link: '/data-structures' },
           { text: 'Typed API (TypeDoc)', link: '/api/README' },
         ],
@@ -209,8 +208,9 @@ export default withPwa(defineConfig({
         ],
       },
       {
-        text: 'Algorithms & Math',
+        text: 'Algorithms & Helpers',
         items: [
+          { text: 'Comparator Helpers', link: '/comparators' },
           { text: 'Sorting', link: '/sorting' },
           { text: 'Math & Utilities', link: '/math' },
           { text: 'Helper Utilities', link: '/utilities' },

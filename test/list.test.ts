@@ -1,5 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import {
+  createComparator,
   CyclicDoublyLinkedList,
   Dequeue,
   DoublyLinkedList,
@@ -9,7 +10,7 @@ import {
   LinkedList,
   LinkedQueue,
   LinkedStack,
-  List, numberComparatorASC,
+  List, numberComparatorASC, Ordering,
   PriorityQueue,
   Queue,
   Stack
@@ -2373,6 +2374,21 @@ describe('List coverage', () => {
     const single = new CyclicDoublyLinkedList<number>()
     single.add(42)
     expect(Array.from(single.reverseIterator())).toEqual([42])
+  })
+})
+
+describe('Comparator tests', () => {
+  it('creates custom comparator by key', () => {
+    const comparator = createComparator<{ priority: number }>('priority')
+    const o1 = { priority: 1 }
+    const o2 = { priority: 1 }
+    expect(comparator(o1, o2)).toBe(Ordering.EQ)
+  })
+  it('creates custom comparator by extractor function', () => {
+    const comparator = createComparator<{ priority: number }>(item => item.priority)
+    const o1 = { priority: 1 }
+    const o2 = { priority: 1 }
+    expect(comparator(o1, o2)).toBe(Ordering.EQ)
   })
 })
 

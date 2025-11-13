@@ -131,7 +131,7 @@ export interface IList<E> extends ICollection<E>, IListFunctions<E> {
    * @returns Index or `-1`.
    * @remarks Complexity: O(n)
    */
-  indexOf(element: E, startIndex: number): number
+  indexOf(element: E, startIndex?: number): number
 
   /**
    * Iterate backwards.
@@ -964,8 +964,9 @@ export class LinkedList<E> implements ILinkedList<E> {
   /**
    * {@inheritDoc IList.indexOf}
    */
-  indexOf(element: E): number {
-    for (let i = 0; i < this.size; i++) {
+  indexOf(element: E, startIndex: number = 0): number {
+    const start = Math.max(0, startIndex)
+    for (let i = start; i < this.size; i++) {
       if (this.comparator(element, this.get(i)) === Ordering.EQ) return i
     }
 
@@ -1441,8 +1442,9 @@ export class DoublyLinkedList<E> implements ILinkedList<E> {
   /**
    * {@inheritDoc IList.indexOf}
    */
-  indexOf(element: E): number {
-    for (let i = 0; i < this.size; i++) {
+  indexOf(element: E, startIndex: number = 0): number {
+    const start = Math.max(0, startIndex)
+    for (let i = start; i < this.size; i++) {
       if (this.comparator(element, this.get(i)) === Ordering.EQ) return i
     }
 
@@ -1935,8 +1937,9 @@ export class CyclicDoublyLinkedList<E> implements ILinkedList<E> {
   /**
    * {@inheritDoc IList.indexOf}
    */
-  indexOf(element: E): number {
-    for (let i = 0; i < this.size; i++) {
+  indexOf(element: E, startIndex: number = 0): number {
+    const start = Math.max(0, startIndex)
+    for (let i = start; i < this.size; i++) {
       if (this.comparator(element, this.get(i)) === Ordering.EQ) return i
     }
 

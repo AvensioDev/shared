@@ -190,9 +190,9 @@ export default withPwa(defineConfig({
     ],
     sidebar: [
       {
-        text: 'Overview',
+        text: 'Getting Started',
         items: [
-          { text: 'Quickstart', link: '/' },
+          { text: 'Overview', link: '/' },
           { text: 'Data Structures', link: '/data-structures' },
           { text: 'Typed API (TypeDoc)', link: '/api/README' },
         ],

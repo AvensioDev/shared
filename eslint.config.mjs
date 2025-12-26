@@ -15,9 +15,11 @@ export default defineConfig(
     'vite.config.ts',
     'vite.iife.config.ts',
     'eslint.config.mjs',
-    'docs/.vitepress/cache/**',
+    'docs/**',
     'scripts/hooks/**',
     'benchmarks/**',
+    'pwa-assets.config.ts',
+    'typedoc.config.ts'
   ]),
   {
     files: [

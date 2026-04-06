@@ -270,7 +270,7 @@ export class Queue<E> implements IQueue<E> {
  */
 export class LinkedQueue<E> implements IQueue<E> {
   private _head: Node<E>
-  private tail: Node<E>
+  private _tail: Node<E>
   /**
    * {@inheritDoc ICollection.size}
    */
@@ -296,13 +296,13 @@ export class LinkedQueue<E> implements IQueue<E> {
    */
   enqueue(e: E) {
     if (e === undefined) return
-    const oldTail = this.tail
-    this.tail = {
+    const oldTail = this._tail
+    this._tail = {
       value: e,
       next: undefined
     }
-    if (this._head) oldTail!.next = this.tail
-    else this._head = this.tail
+    if (this._head) oldTail!.next = this._tail
+    else this._head = this._tail
     this.size++
   }
 
@@ -327,15 +327,15 @@ export class LinkedQueue<E> implements IQueue<E> {
    */
   dequeue() {
     const head = this._head
-    if (!this._head) throw new Error('no such element')
-    this._head = head!.next
+    if (!head) throw new Error('no such element')
+    this._head = head.next
     this.size--
-    const value = head!.value
+    const value = head.value
     if (this.isEmpty()) {
-      this.tail = undefined
+      this._tail = undefined
     }
 
-    head!.value = head!.prev = head!.next = undefined! // GC
+    head.value = head.prev = head.next = undefined! // GC
     return value
   }
 
@@ -358,7 +358,7 @@ export class LinkedQueue<E> implements IQueue<E> {
    * {@inheritDoc ICollection.clear}
    */
   clear() {
-    this._head = this.tail = undefined
+    this._head = this._tail = undefined
     this.size = 0
   }
 
@@ -441,8 +441,8 @@ export class LinkedQueue<E> implements IQueue<E> {
     const toRemove = prev?.next
     if (!prev || !toRemove) throw new Error('no such element')
     prev.next = toRemove.next
-    if (toRemove === this.tail) {
-      this.tail = prev
+    if (toRemove === this._tail) {
+      this._tail = prev
     }
     this.size--
     const value = toRemove.value
@@ -610,7 +610,7 @@ export class Dequeue<E> implements IDequeue<E> {
    */
   size = 0
   private _head: Node<E>
-  private tail: Node<E>
+  private _tail: Node<E>
   /**
    * {@inheritDoc ICollection.comparator}
    */
@@ -631,19 +631,14 @@ export class Dequeue<E> implements IDequeue<E> {
     if (e === undefined) return
     if (!this._head) {
       this._head = { value: e }
-    } else if (!this.tail) {
-      this.tail = {
-        value: e,
-        prev: this._head
-      }
-      this._head.next = this.tail
+      this._tail = this._head
     } else {
       const newTail = {
         value: e,
-        prev: this.tail
+        prev: this._tail
       }
-      this.tail.next = newTail
-      this.tail = newTail
+      this._tail!.next = newTail
+      this._tail = newTail
     }
     this.size++
   }
@@ -671,10 +666,15 @@ export class Dequeue<E> implements IDequeue<E> {
     if (this.size === 0) throw new Error('no such element')
     const head = this._head
     this._head = head!.next
-    if (this._head) this._head.prev = undefined
+    if (this._head) {
+      this._head.prev = undefined
+    } else {
+      this._tail = undefined
+    }
     this.size--
-    if (this.isEmpty()) this.tail = undefined
-    return head!.value
+    const value = head!.value
+    head!.value = head!.prev = head!.next = undefined!
+    return value
   }
 
   /**
@@ -684,14 +684,7 @@ export class Dequeue<E> implements IDequeue<E> {
     if (e !== undefined) {
       if (!this._head) {
         this._head = { value: e }
-      } else if (!this.tail) {
-        this.tail = this._head
-        this.tail.next = undefined
-        this._head = {
-          value: e,
-          next: this.tail
-        }
-        this.tail.prev = this._head
+        this._tail = this._head
       } else {
         const newHead = {
           value: e,
@@ -709,28 +702,24 @@ export class Dequeue<E> implements IDequeue<E> {
    */
   pop(): E {
     if (this.size === 0) throw new Error('no such element')
-    let currentTail = this.tail
-    if (!currentTail) {
-      currentTail = this._head
+    const tail = this._tail
+    this._tail = tail!.prev
+    if (this._tail) {
+      this._tail.next = undefined
+    } else {
       this._head = undefined
     }
-    if (this.size === 2) {
-      currentTail = this.tail
-      this.tail = this._head!.next = undefined
-    }
-
-    this.tail = currentTail!.prev
-    if (this.tail) this.tail.next = undefined
     this.size--
-
-    return currentTail!.value
+    const value = tail!.value
+    tail!.value = tail!.prev = tail!.next = undefined!
+    return value
   }
 
   /**
    * {@inheritDoc IStack.top}
    */
   top(): E {
-    if (this.tail) return this.tail.value
+    if (this._tail) return this._tail.value
     if (this._head) return this._head.value
     throw new Error('no such element')
   }
@@ -754,7 +743,7 @@ export class Dequeue<E> implements IDequeue<E> {
    * {@inheritDoc ICollection.clear}
    */
   clear() {
-    this._head = this.tail = undefined
+    this._head = this._tail = undefined
     this.size = 0
   }
 
@@ -795,16 +784,10 @@ export class Dequeue<E> implements IDequeue<E> {
    * {@inheritDoc IReverseIterable.reverseIterator}
    */
   *reverseIterator() {
-    if (!this.tail && !this._head) return
-    if (!this.tail) {
-      yield this._head!.value
-      return
-    }
-    let tail = this.tail
-    yield tail?.value
-    while (tail?.prev != undefined) {
-      tail = tail.prev
+    let tail = this._tail
+    while (tail != undefined) {
       yield tail.value
+      tail = tail.prev
     }
   }
 

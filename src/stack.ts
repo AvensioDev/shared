@@ -229,7 +229,7 @@ export class LinkedStack<E> implements IStack<E> {
     if (e !== undefined) {
       this._top = {
         value: e,
-        prev: this._top
+        next: this._top
       }
       this.size++
     }
@@ -241,7 +241,7 @@ export class LinkedStack<E> implements IStack<E> {
   pop() {
     const node = this._top
     if (node === undefined) throw new Error('no such element')
-    this._top = node.prev
+    this._top = node.next
     this.size--
     const value = node.value
     node.value = node.next = node.prev = undefined! // GC
@@ -295,7 +295,7 @@ export class LinkedStack<E> implements IStack<E> {
     return {
       next: () => {
         const _top = top
-        top = _top?.prev
+        top = _top?.next
         return {
           done: _top === undefined,
           value: _top?.value!
@@ -326,11 +326,11 @@ export class LinkedStack<E> implements IStack<E> {
 
     let prev = this._top
     for (let i = 0; i < index - 1; i++) {
-      prev = prev?.prev
+      prev = prev?.next
     }
-    const toRemove = prev?.prev
+    const toRemove = prev?.next
     if (!prev || !toRemove) throw new Error('no such element')
-    prev.prev = toRemove.prev
+    prev.next = toRemove.next
     this.size--
     const value = toRemove.value
     toRemove.value = toRemove.prev = toRemove.next = undefined!
@@ -355,7 +355,7 @@ export class LinkedStack<E> implements IStack<E> {
           index = i
           break
         }
-        node = node.prev
+        node = node.next
         i++
       }
     }

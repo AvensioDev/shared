@@ -1,5 +1,8 @@
 ---
 description: High-level overview of @avensio/shared, covering installation, module highlights, browser usage, related packages, and release workflows.
+next:
+  text: Data Structures
+  link: /packages/shared/docs/data-structures
 ---
 
 # Shared Lib
@@ -46,7 +49,7 @@ console.log(queue.dequeue())
 Use the sidebar to explore each family. Comparator usage is covered in [Comparator Helpers](./comparators.md). For the generated API docs, open [Typed API (TypeDoc)](./api/README.html).
 
 ## Graphs
-Graph algorithms now live in [`@avensio/graph`](https://avensio.github.io/docs/graph). That package exposes `Graph`, `Vertex`, and `Edge` classes plus serialization hooks and algorithms. Use this shared library for the supporting data structures those graphs rely on.
+Graph algorithms now live in [`@avensio/graph`](/packages/graph/docs/). That package exposes `Graph`, `Vertex`, and `Edge` classes plus serialization hooks and algorithms. Use this shared library for the supporting data structures those graphs rely on.
 
 ## Benchmarks & Tests
 - `pnpm test` → Vitest unit suite with coverage

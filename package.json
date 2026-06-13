@@ -52,10 +52,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Avensio/shared.git"
+    "url": "git+https://github.com/AvensioDev/shared.git"
   },
   "bugs": {
-    "url": "https://github.com/Avensio/shared/issues"
+    "url": "https://github.com/AvensioDev/shared/issues"
   },
   "exports": {
     ".": {

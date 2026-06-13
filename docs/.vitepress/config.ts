@@ -2,8 +2,7 @@ import { defineConfig, type HeadConfig } from 'vitepress'
 import { withPwa } from '@vite-pwa/vitepress'
 import path from 'node:path'
 
-const isDevCommand = process.argv.includes('dev')
-const siteUrl = 'https://docs.avensio.dev'
+const siteUrl = 'https://docs.avensio.de'
 const organizationId = `${siteUrl}#organization`
 const organizationJsonLd = {
   '@context': 'https://schema.org',
@@ -13,9 +12,8 @@ const organizationJsonLd = {
   url: siteUrl,
   logo: `${siteUrl}/favicon.ico`,
   sameAs: [
-    'https://github.com/Avensio/shared',
-    'https://www.avensio.de',
-    'https://www.dev-journey.de',
+    'https://github.com/AvensioDev',
+    'https://www.avensio.de/#organization',
   ],
 }
 
@@ -77,36 +75,10 @@ export default withPwa(defineConfig({
   lastUpdated: true,
   base: '/',
   sitemap: {
-    hostname: 'https://docs.avensio.dev',
+    hostname: siteUrl,
   },
   vite: {
     publicDir: path.resolve(__dirname, '../public'),
-  },
-  pwa: {
-    outDir: path.resolve(__dirname, '../.vitepress/dist'),
-    mode: isDevCommand ? 'development' : 'production',
-    registerType: 'autoUpdate',
-    injectRegister: 'script-defer',
-    includeAssets: ['favicon.ico', 'Logo Avensio.png'],
-    manifest: {
-      name: 'Avensio Shared',
-      short_name: 'Shared',
-      theme_color: '#0ea5e9',
-    },
-    pwaAssets: {
-      config: true,
-    },
-    workbox: {
-      globPatterns: ['**/*.{css,js,html,svg,png,ico,txt,woff2}'],
-      navigateFallback: '/index.html',
-      navigateFallbackAllowlist: [/./],
-    },
-    devOptions: {
-      enabled: isDevCommand,
-      suppressWarnings: true,
-      navigateFallback: '/index.html',
-      navigateFallbackAllowlist: [/./],
-    },
   },
   markdown: {
     lineNumbers: true,
@@ -161,10 +133,10 @@ export default withPwa(defineConfig({
       }
     },
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/Avensio/shared' }
+      { icon: 'github', link: 'https://github.com/AvensioDev/shared' }
     ],
     editLink: {
-      pattern: 'https://github.com/Avensio/shared/edit/main/docs/:path',
+      pattern: 'https://github.com/AvensioDev/shared/edit/main/docs/:path',
       text: 'Edit this page on GitHub'
     },
     lastUpdated: {
@@ -178,15 +150,16 @@ export default withPwa(defineConfig({
       { text: 'Docs', link: '/' },
       { text: 'API', link: '/api/README.md' },
       {
-        text: 'Projects',
+        text: 'Ecosystem',
         items: [
-          { text: 'MonoRepo', link: 'https://github.com/Avensio/avensio/' },
-          { text: '@avensio/shared', link: 'https://github.com/Avensio/shared/' },
-          { text: '@avensio/graph', link: 'https://github.com/Avensio/graph/' },
-          { text: 'dev-journey.de', link: 'https://www.dev-journey.de' },
-          { text: 'avensio.de', link: 'https://www.avensio.de' }
-        ]
-      }
+          { text: '@avensio/nuxt-jsonld', link: 'https://github.com/AvensioDev/nuxt-jsonld' },
+          { text: '@avensio/jsonld-schema', link: 'https://github.com/AvensioDev/jsonld-schema' },
+          { text: '@avensio/graph', link: 'https://github.com/AvensioDev/graph' },
+          { text: '@avensio/event-emitter', link: 'https://github.com/AvensioDev/event-emitter' },
+          { text: '@avensio/async-pool', link: 'https://github.com/AvensioDev/async-pool' },
+          { text: '@avensio/shared', link: 'https://github.com/AvensioDev/shared' },
+        ],
+      },
     ],
     sidebar: [
       {

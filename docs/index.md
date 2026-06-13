@@ -60,6 +60,6 @@ Graph algorithms now live in [`@avensio/graph`](/packages/graph/docs/). That pac
 - `pnpm docs:dev` to run VitePress locally
 - `pnpm release` to run tests, build artifacts, and generate the changelog (`CHANGELOG.md`)
 
-See [Changelog](./CHANGELOG.md) and [Project History](history.md) for notable milestones.
+See [Changelog](CHANGELOG.md) and [Project History](history.md) for notable milestones.
 
 Happy building!

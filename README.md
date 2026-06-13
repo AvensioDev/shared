@@ -96,12 +96,12 @@ Every exported member is documented with accurate complexity data, examples, and
 | `pnpm clean`    | Removes `node_modules/` and `dist/` |
 | `pnpm release`  | Runs tests + build + changelog (`changelogen`) before publishing |
 
-Docs are deployed via the [mono-repo](https://github.com/Avensio/shared) workflow (`.github/workflows/docs.yml`), while package publishing is handled by the `pnpm release` script plus the corresponding CI job.
+Docs are deployed via the [mono-repo](https://github.com/AvensioDev/shared) workflow (`.github/workflows/docs.yml`), while package publishing is handled by the `pnpm release` script plus the corresponding CI job.
 
 See [`docs/development.md`](docs/development.md) and [CONTRIBUTING.md](CONTRIBUTING.md) for contributor details.
 
 ## Links
 - [`docs/`](docs/index.md)
-- [Changelog](./docs/CHANGELOG.md)
+- [Changelog](docs/CHANGELOG.md)
 - [License](./LICENSE)
 - [`@avensio/graph`](../graph/README.md) for advanced graph features

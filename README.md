@@ -1,5 +1,13 @@
 # @avensio/shared
 
+[![npm version](https://img.shields.io/npm/v/%40avensio%2Fshared)](https://www.npmjs.com/package/@avensio/shared)
+[![npm downloads](https://img.shields.io/npm/dm/%40avensio%2Fshared)](https://www.npmjs.com/package/@avensio/shared)
+[![Documentation](https://img.shields.io/badge/docs-docs.avensio.de-0969da)](https://docs.avensio.de/packages/shared/docs/)
+[![GitHub](https://img.shields.io/badge/GitHub-AvensioDev%2Fshared-181717?logo=github)](https://github.com/AvensioDev/shared)
+[![License](https://img.shields.io/npm/l/%40avensio%2Fshared)](./LICENSE)
+
+[Documentation](https://docs.avensio.de/packages/shared/docs/) · [GitHub](https://github.com/AvensioDev/shared)
+
 TypeScript data-structure toolkit with lists, queues, stacks, heaps, sorting helpers, math utilities, and reusable comparator factories. Works in ESM, CommonJS, and browser environments (IIFE bundle) with zero runtime dependencies.
 
 ## Highlights
@@ -73,6 +81,7 @@ For a high-level comparison across structures, see [docs/data-structures.md](doc
 ## Documentation
 Every exported member is documented with accurate complexity data, examples, and cross-links:
 
+- [Documentation website](https://docs.avensio.de/packages/shared/docs/)
 - [Lists](docs/lists.md)
 - [Queues](docs/queues.md)
 - [Stacks](docs/stacks.md)
@@ -101,7 +110,7 @@ Docs are deployed via the [mono-repo](https://github.com/AvensioDev/shared) work
 See [`docs/development.md`](docs/development.md) and [CONTRIBUTING.md](CONTRIBUTING.md) for contributor details.
 
 ## Links
-- [`docs/`](docs/index.md)
+- [Documentation](https://docs.avensio.de/packages/shared/docs/)
 - [Changelog](docs/CHANGELOG.md)
 - [License](./LICENSE)
 - [`@avensio/graph`](../graph/README.md) for advanced graph features

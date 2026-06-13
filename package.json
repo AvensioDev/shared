@@ -57,6 +57,7 @@
   "bugs": {
     "url": "https://github.com/AvensioDev/shared/issues"
   },
+  "homepage": "https://docs.avensio.de/packages/shared/docs/",
   "exports": {
     ".": {
       "types": "./dist/shared.es.d.ts",

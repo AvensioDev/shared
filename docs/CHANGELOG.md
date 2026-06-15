@@ -1,3 +1,8 @@
+---
+title: Changelog @avensio/shared
+description: Chronological record of notable changes, improvements, fixes, and releases.
+---
+
 # Changelog
 
 

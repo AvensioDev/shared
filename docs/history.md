@@ -1,6 +1,6 @@
 ---
-title: Project History
-description: Selected milestones mirrored from notes/history.md.
+title: Historical Background
+description: Historical concepts and ideas that influenced the design of this project.
 ---
 
 # Historical Background Notes

@@ -19,6 +19,7 @@ description: Chronological record of notable changes, improvements, fixes, and r
 - Removed second heapStort function ([0eea92e](https://github.com/AvensioDev/shared/commit/0eea92e))
 - Jsonld objects in docs ([b91b85a](https://github.com/AvensioDev/shared/commit/b91b85a))
 - **docs:** Define logical next-page links for package overviews ([2d4537f](https://github.com/AvensioDev/shared/commit/2d4537f))
+- Ship working CommonJS bundle ([810751c](https://github.com/AvensioDev/shared/commit/810751c))
 
 ### 🧹 Refactors
 
@@ -49,6 +50,7 @@ description: Chronological record of notable changes, improvements, fixes, and r
 - Fix README repository links ([6c993ea](https://github.com/AvensioDev/shared/commit/6c993ea))
 - Update v2.0.0 changelog ([19c1345](https://github.com/AvensioDev/shared/commit/19c1345))
 - Make contribution guide repository-specific ([f8f1ff7](https://github.com/AvensioDev/shared/commit/f8f1ff7))
+- Include contribution guide in v2.0.0 changelog ([6c3bddf](https://github.com/AvensioDev/shared/commit/6c3bddf))
 
 ### Chores
 

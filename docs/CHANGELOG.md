@@ -47,6 +47,8 @@ description: Chronological record of notable changes, improvements, fixes, and r
 - Add CHANGELOG title and description ([f0152f3](https://github.com/AvensioDev/shared/commit/f0152f3))
 - Regenerate changelog for v2.0.0 ([5ae0e65](https://github.com/AvensioDev/shared/commit/5ae0e65))
 - Fix README repository links ([6c993ea](https://github.com/AvensioDev/shared/commit/6c993ea))
+- Update v2.0.0 changelog ([19c1345](https://github.com/AvensioDev/shared/commit/19c1345))
+- Make contribution guide repository-specific ([f8f1ff7](https://github.com/AvensioDev/shared/commit/f8f1ff7))
 
 ### Chores
 

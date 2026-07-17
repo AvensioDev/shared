@@ -45,6 +45,8 @@ description: Chronological record of notable changes, improvements, fixes, and r
 - Adds JSON-LD objects ([8c33e62](https://github.com/AvensioDev/shared/commit/8c33e62))
 - Remove obsolet e-mail ([8326331](https://github.com/AvensioDev/shared/commit/8326331))
 - Add CHANGELOG title and description ([f0152f3](https://github.com/AvensioDev/shared/commit/f0152f3))
+- Regenerate changelog for v2.0.0 ([5ae0e65](https://github.com/AvensioDev/shared/commit/5ae0e65))
+- Fix README repository links ([6c993ea](https://github.com/AvensioDev/shared/commit/6c993ea))
 
 ### Chores
 
@@ -69,4 +71,4 @@ description: Chronological record of notable changes, improvements, fixes, and r
 
 ### ❤️ Contributors
 
-- Armin Kunkel
+- Armin Kunkel ([@Mastercuber](https://github.com/Mastercuber))

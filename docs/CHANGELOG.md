@@ -44,6 +44,7 @@ description: Chronological record of notable changes, improvements, fixes, and r
 - Update vitepress and API docs ([3144247](https://github.com/AvensioDev/shared/commit/3144247))
 - Adds JSON-LD objects ([8c33e62](https://github.com/AvensioDev/shared/commit/8c33e62))
 - Remove obsolet e-mail ([8326331](https://github.com/AvensioDev/shared/commit/8326331))
+- Add CHANGELOG title and description ([f0152f3](https://github.com/AvensioDev/shared/commit/f0152f3))
 
 ### Chores
 
@@ -57,6 +58,8 @@ description: Chronological record of notable changes, improvements, fixes, and r
 - Ignore api docs ([9f9edca](https://github.com/AvensioDev/shared/commit/9f9edca))
 - Removes pwa, renames Avensio to AvensioDev ([d97adeb](https://github.com/AvensioDev/shared/commit/d97adeb))
 - **docs:** Rename, rephrase and remove SW ([658e615](https://github.com/AvensioDev/shared/commit/658e615))
+- **release:** V2.0.0 ([c2f5e75](https://github.com/AvensioDev/shared/commit/c2f5e75))
+- Correct logo + favicon; docs links; removes prefix + footer hint ([b63fc43](https://github.com/AvensioDev/shared/commit/b63fc43))
 
 ### 🧪 Tests
 

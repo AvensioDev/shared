@@ -17,7 +17,7 @@ TypeScript data-structure toolkit with lists, queues, stacks, heaps, sorting hel
 - Sorting utilities (quick sort, heap sort) and math primitives such as `Point`
 - Flexible comparator factory (`createComparator`) and ready-made number/string comparators
 
-> Looking for the graph implementation? It now lives in [`@avensio/graph`](../graph/README.md) with dedicated docs. This package focuses on the shared data-structure primitives that power other Avensio libraries.
+> Looking for the graph implementation? It now lives in [`@avensio/graph`](https://github.com/AvensioDev/graph) with dedicated docs. This package focuses on the shared data-structure primitives that power other Avensio libraries.
 
 ## Installation
 ```bash
@@ -89,7 +89,6 @@ Every exported member is documented with accurate complexity data, examples, and
 - [Trees](docs/trees.md)
 - [Sorting](docs/sorting.md)
 - [Comparator helpers](docs/comparators.md)
-- [TypeDoc API reference](docs/api/README.md)
 
 ## Benchmarks & tests
 - Run the Vitest suite with coverage: `pnpm test`
@@ -105,7 +104,7 @@ Every exported member is documented with accurate complexity data, examples, and
 | `pnpm clean`    | Removes `node_modules/` and `dist/` |
 | `pnpm release`  | Runs tests + build + changelog (`changelogen`) before publishing |
 
-Docs are deployed via the [mono-repo](https://github.com/AvensioDev/shared) workflow (`.github/workflows/docs.yml`), while package publishing is handled by the `pnpm release` script plus the corresponding CI job.
+Package publishing is handled by the [publish workflow](.github/workflows/publish.yml).
 
 See [`docs/development.md`](docs/development.md) and [CONTRIBUTING.md](CONTRIBUTING.md) for contributor details.
 
@@ -113,4 +112,3 @@ See [`docs/development.md`](docs/development.md) and [CONTRIBUTING.md](CONTRIBUT
 - [Documentation](https://docs.avensio.de/packages/shared/docs/)
 - [Changelog](docs/CHANGELOG.md)
 - [License](./LICENSE)
-- [`@avensio/graph`](../graph/README.md) for advanced graph features

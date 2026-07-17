@@ -1,7 +1,7 @@
 {
   "name": "@avensio/shared",
   "version": "2.0.0",
-  "description": "Common Datastructures like Queue, List, Stack",
+  "description": "TypeScript data structures and algorithms for Node.js and browsers: lists, stacks, queues, heaps, binary search trees, comparators, sorting utilities, and points. Ships as typed ESM, CJS, and IIFE bundles.",
   "type": "module",
   "main": "./dist/shared.es.js",
   "module": "./dist/shared.es.js",
@@ -35,7 +35,7 @@
     "dev": "vitest --logHeapUsage --coverage",
     "bench": "vitest bench test/benchmarks/",
     "build": "vite build && vite build -c vite.iife.config.ts",
-    "postbuild": "node ./scripts/update.ts",
+    "postbuild": "node ./scripts/update.ts && node ./scripts/test-package.mjs",
     "lint": "eslint --fix",
     "test": "vitest --coverage test/",
     "docs:dev": "vitepress dev docs/ --open",
@@ -62,7 +62,7 @@
     ".": {
       "types": "./dist/shared.es.d.ts",
       "import": "./dist/shared.es.js",
-      "require": "./dist/shared.cjs.js",
+      "require": "./dist/shared.cjs",
       "default": "./dist/shared.iife.js"
     }
   },

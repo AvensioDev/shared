@@ -21,7 +21,7 @@ export default defineConfig({
       entry: resolve(__dirname, 'src', 'index.ts'),
       name: 'shared',
       formats: ['es', 'cjs'],
-      fileName: (format) => `shared.${format}.js`,
+      fileName: (format) => format === 'cjs' ? 'shared.cjs' : 'shared.es.js',
     },
     rollupOptions: {
       treeshake: {
@@ -30,9 +30,6 @@ export default defineConfig({
         tryCatchDeoptimization: false,
       },
       output: {
-        inlineDynamicImports: false,
-        preserveModules: true,
-        preserveModulesRoot: 'src',
         sourcemap: false,
       },
     },

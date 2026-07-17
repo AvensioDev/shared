@@ -52,7 +52,7 @@ const byLength = createComparator<{ title: string }>(item => item.title.length, 
   console.log(stack.pop()) // second
 </script>
 ```
-The package ships `dist/shared.es.js` (ESM), `dist/shared.cjs.js` (CJS), and `dist/shared.iife.js` (browser) bundles plus `dist/shared.es.d.ts` for type information.
+The package ships `dist/shared.es.js` (ESM), `dist/shared.cjs` (CJS), and `dist/shared.iife.js` (browser) bundles plus `dist/shared.es.d.ts` for type information.
 
 ## Comparator helpers
 ```ts
